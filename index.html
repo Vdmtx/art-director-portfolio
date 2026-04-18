@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- ============================================
-       CSS: HARDWARE VISUAL
+       CSS: HARDWARE VISUAL (Com Ajustes de Legibilidade)
        ============================================ -->
   <style>
     :root {
@@ -115,13 +115,15 @@
       align-items: center;
     }
 
+    /* ATUALIZAÇÃO 1: LOGO BRANDING */
     .logo {
       font-family: var(--font-serif);
-      font-size: 1.5rem;
+      font-size: 1.25rem; /* Ajustado levemente para caber nome completo */
       font-weight: 700;
       text-decoration: none;
       color: var(--color-text);
-      letter-spacing: -0.02em;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     .lang-toggle button {
@@ -254,12 +256,15 @@
       margin-bottom: 8px;
     }
 
+    /* ATUALIZAÇÃO 2: CSS DE LEGIBILIDADE */
     .project-info span {
       font-family: var(--font-sans);
-      font-size: 0.85rem;
-      color: var(--color-text-faded);
+      font-size: 0.85rem; /* Solicitado */
+      color: #333;        /* Solicitado: Mais escuro para contraste */
+      font-weight: 600;   /* Solicitado: Mais negrito */
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.05em;
+      display: block;
     }
 
     /* 5. MODAL (IMERSÃO) */
@@ -326,14 +331,13 @@
       padding-bottom: 100px;
     }
 
-    /* Correção Visual: Sem Giga-Imagens */
     .modal-content img {
       width: 90%;
       max-width: 1100px;
       height: auto;
       margin: 0 auto;
       display: block;
-      margin-bottom: 4px; /* Seamless */
+      margin-bottom: 4px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
@@ -344,8 +348,9 @@
       text-align: center;
     }
 
+    /* ATUALIZAÇÃO 2: CSS DE LEGIBILIDADE FOOTER */
     footer p {
-      color: var(--color-text-faded);
+      color: #444; /* Solicitado */
       font-size: 0.9rem;
     }
 
@@ -364,7 +369,8 @@
   <!-- 1. HEADER -->
   <header>
     <div class="container header-inner">
-      <a href="#" class="logo">VDMTX</a>
+      <!-- ATUALIZAÇÃO 1: LOGO ALTERADO -->
+      <a href="#" class="logo">VICTOR SILVA</a>
       <div class="lang-toggle">
         <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
         <button id="btn-pt" onclick="setLang('pt')">PT</button>
@@ -442,7 +448,7 @@
   </footer>
 
   <!-- ============================================
-       JAVASCRIPT: LÓGICA E IMERSÃO
+       JAVASCRIPT: LÓGICA, IMERSÃO E TRADUÇÃO GLOBAL
        ============================================ -->
   <script>
     /* ===== 1. CONFIGURAÇÃO DE DADOS ===== */
@@ -452,7 +458,6 @@
         title: 'Coisa Mais Linda', 
         cat: 'Retail & Fashion', 
         folder: 'coisamaislinda', 
-        // Lógica de loop antigo mantida para projetos padrão
         count: 8, prefix: 'lamina', ext: 'jpg', 
         bgColor: '#F5F1E9' 
       },
@@ -461,7 +466,6 @@
         title: 'Bombeiro de Aço', 
         cat: 'Institutional / Sports', 
         folder: 'bombeirodeaco', 
-        // Lógica de loop antigo mantida
         count: 13, prefix: '', ext: 'jpg', 
         bgColor: '#111111' 
       },
@@ -470,12 +474,11 @@
         title: 'Corrida do Fogo', 
         cat: 'Event Branding', 
         folder: 'corridadofogo', 
-        // Lógica de loop antigo mantida
         count: 13, prefix: 'lamina', ext: 'jpg', 
         bgColor: '#1A0B05' 
       },
       { 
-        // AJUSTE FINAL: Array fixo para Pro-Tocantins
+        // PRO-Tocantins: Array fixo para garantir sequência e extensões corretas
         id: 'ptc', 
         title: 'Pró-Tocantins', 
         cat: 'Government Identity', 
@@ -496,6 +499,7 @@
     ];
 
     /* ===== 2. SISTEMA DE TRADUÇÃO (i18n) ===== */
+    /* ATUALIZAÇÃO 3: TRADUÇÃO GLOBAL (CATEGORIAS INCLUÍDAS) */
     const i18n = {
       en: {
         hero_title: "Art Director & Visual Strategist",
@@ -537,10 +541,10 @@
         footer_copy: "© 2026 Victor Silva | Direção de Arte & Estratégia Visual. Baseado em Palmas, Brasil. Atendendo Clientes Globais.",
         close_btn: "Fechar",
         categories: {
-          'Retail & Fashion': 'Varejo & Moda',
-          'Institutional / Sports': 'Institucional / Esportes',
-          'Event Branding': 'Branding de Eventos',
-          'Government Identity': 'Identidade Governamental'
+          'Retail & Fashion': 'Varejo & Moda',           /* Traduzido */
+          'Institutional / Sports': 'Institucional / Esportes', /* Traduzido */
+          'Event Branding': 'Branding de Eventos',       /* Traduzido */
+          'Government Identity': 'Identidade Governamental' /* Traduzido */
         }
       }
     };
@@ -566,13 +570,13 @@
     }
 
     /* ===== 3. RENDERIZAÇÃO DO PORTFOLIO ===== */
+    /* ATUALIZAÇÃO 3: USO DE CATEGORIAS TRADUZIDAS */
     function renderPortfolio() {
       const grid = document.getElementById('portfolio-grid');
       grid.innerHTML = '';
 
       projects.forEach(p => {
         let thumbSrc = '';
-        // Se tem array de imagens, pega a primeira. Se não, gera via loop.
         if(p.images) {
             thumbSrc = p.images[0];
         } else {
@@ -580,7 +584,9 @@
             thumbSrc = `img/${p.folder}/${thumbName}`;
         }
         
-        let catText = i18n[currentLang].categories[p.cat] || p.cat;
+        // Pega a tradução da categoria ou mantém o original se não houver tradução
+        let catKey = p.cat; 
+        let catText = i18n[currentLang].categories[catKey] || catKey;
 
         const card = document.createElement('div');
         card.className = 'project-card';
@@ -612,16 +618,14 @@
       
       // Definição de contraste
       const isDark = ['#111111', '#1A0B05'].includes(project.bgColor);
-      const textColor = isDark ? '#FFFFFF' : '#000000'; // Preto para fundo branco (Pró-Tocantins)
+      const textColor = isDark ? '#FFFFFF' : '#000000';
       
       modal.style.color = textColor;
       document.body.classList.add('modal-active');
 
       modalContent.innerHTML = '';
       
-      // LÓGICA DE CARREGAMENTO HÍBRIDA:
       if (project.images) {
-          // 1. Modo Array Fixo (Pró-Tocantins)
           project.images.forEach(src => {
             const img = document.createElement('img');
             img.src = src;
@@ -629,7 +633,6 @@
             modalContent.appendChild(img);
           });
       } else {
-          // 2. Modo Loop Automático (Demais projetos)
           for (let i = 1; i <= project.count; i++) {
             const img = document.createElement('img');
             let fileName = project.prefix ? `${project.prefix}${i}.${project.ext}` : `${i}.${project.ext}`;
@@ -653,7 +656,6 @@
     });
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Padrão inicial em Inglês conforme briefing original
       const userLang = navigator.language.startsWith('pt') ? 'pt' : 'en';
       setLang(userLang);
       renderPortfolio();
