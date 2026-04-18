@@ -1,0 +1,36 @@
+[
+  {
+    "id": "coisa-mais-linda",
+    "title": "Coisa Mais Linda",
+    "category": "Visual Identity & Retail Strategy",
+    "description": "Premium fashion branding and architectural facade projection.",
+    "bgColor": "#F5F1E9",
+    "images": [
+      "img/cml-01.webp",
+      "img/cml-02.webp",
+      "img/cml-03.webp",
+      "img/cml-04.webp"
+    ]
+  },
+  {
+    "id": "bombeiro-de-aco",
+    "title": "Bombeiro de Aço",
+    "category": "Institutional Branding & Medal Design",
+    "description": "Identity system for elite firefighter competition and merit awards.",
+    "bgColor": "#1a1a1a",
+    "images": [
+      "img/bda-01.webp",
+      "img/bda-02.webp"
+    ]
+  },
+  {
+    "id": "fundacao-pro-tocantins",
+    "title": "Fundação Pró-Tocantins",
+    "category": "Government Identity Systems",
+    "description": "Complete rebranding and visual protocol for state foundation.",
+    "bgColor": "#ffffff",
+    "images": [
+      "img/fpt-01.webp"
+    ]
+  }
+]
