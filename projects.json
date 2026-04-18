@@ -1,27 +1,10 @@
 [
   {
-    "id": "coisamaislinda",
-    "title": "Coisa Mais Linda",
-    "category": "Visual Identity & Retail Strategy",
-    "description": "Premium fashion branding and architectural facade projection.",
-    "bgColor": "#F5F1E9",
-    "images": [
-      "img/coisamaislinda/lamina1.jpg",
-      "img/coisamaislinda/lamina2.jpg",
-      "img/coisamaislinda/lamina3.jpg",
-      "img/coisamaislinda/lamina4.jpg",
-      "img/coisamaislinda/lamina5.jpg",
-      "img/coisamaislinda/lamina6.jpg",
-      "img/coisamaislinda/lamina7.jpg",
-      "img/coisamaislinda/lamina8.jpg"
-    ]
-  },
-  {
-    "id": "bombeirodeaco",
+    "id": "bombeiro-de-aco",
     "title": "Bombeiro de Aço",
     "category": "Institutional Branding & Medal Design",
     "description": "Identity system for elite firefighter competition and merit awards.",
-    "bgColor": "#1A1A1A",
+    "bgColor": "#1a1a1a",
     "images": [
       "img/bombeirodeaco/1.jpg",
       "img/bombeirodeaco/2.jpg",
@@ -39,7 +22,24 @@
     ]
   },
   {
-    "id": "corridadofogo",
+    "id": "coisa-mais-linda",
+    "title": "Coisa Mais Linda",
+    "category": "Visual Identity & Retail Strategy",
+    "description": "Premium fashion branding and architectural facade projection.",
+    "bgColor": "#F5F1E9",
+    "images": [
+      "img/coisamaislinda/lamina1.jpg",
+      "img/coisamaislinda/lamina2.jpg",
+      "img/coisamaislinda/lamina3.jpg",
+      "img/coisamaislinda/lamina4.jpg",
+      "img/coisamaislinda/lamina5.jpg",
+      "img/coisamaislinda/lamina6.jpg",
+      "img/coisamaislinda/lamina7.jpg",
+      "img/coisamaislinda/lamina8.jpg"
+    ]
+  },
+  {
+    "id": "corrida-do-fogo",
     "title": "Corrida do Fogo",
     "category": "Event Branding & Tactical Wayfinding",
     "description": "Visual system for high-intensity tactical competition.",
@@ -66,16 +66,15 @@
     "title": "Fundação Pró-Tocantins",
     "category": "Government Identity Systems",
     "description": "Complete rebranding and visual protocol for state foundation.",
-    "bgColor": "#FFFFFF",
+    "bgColor": "#ffffff",
     "images": [
       "img/protocantins/lamina1.jpg",
-      "img/protocantins/lamina2.jpg",
       "img/protocantins/lamina3.png",
       "img/protocantins/lamina4.png",
       "img/protocantins/lamina5.png",
       "img/protocantins/lamina6.jpg",
       "img/protocantins/lamina7.png",
-      "img/protocantins/lamina8.png",
+      "img/protocantins/lamina8.jpg",
       "img/protocantins/lamina9.png",
       "img/protocantins/lamina10.png"
     ]
