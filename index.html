@@ -1,16 +1,262 @@
-<!-- Header / Lang Toggle -->
-<button class="lang-btn active" data-lang-target="en">EN</button>
-<span class="lang-separator">|</span>
-<button class="lang-btn" data-lang-target="pt">PT</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VDMTX | Art Director & Visual Strategist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --color-bg: #F9F9F9; --color-text: #1A1A1A; --color-text-light: #4A4A4A; --color-accent: #2C3E50; --font-serif: 'Cormorant Garamond', serif; --font-sans: 'Inter', sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+    body.modal-open { overflow: hidden; }
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: 600; }
+    .hero-title { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 24px; }
+    .hero-subtitle { font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--color-text-light); margin-bottom: 32px; }
+    section { padding: 120px 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .site-header { padding: 24px 0; position: sticky; top: 0; background: rgba(249,249,249,0.95); backdrop-filter: blur(8px); z-index: 100; border-bottom: 1px solid #E0E0E0; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; color: var(--color-accent); text-decoration: none; }
+    .lang-btn { background: none; border: none; cursor: pointer; padding: 4px 8px; font-weight: 500; }
+    .lang-btn.active { color: var(--color-accent); }
+    .btn { padding: 14px 32px; text-decoration: none; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; border: 1px solid var(--color-accent); display: inline-flex; cursor: pointer; transition: all 0.2s; }
+    .btn-primary { background: var(--color-accent); color: #fff; }
+    .btn-secondary { background: transparent; color: var(--color-accent); }
+    .btn-secondary:hover { background: var(--color-accent); color: #fff; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 48px; }
+    .project-card { cursor: pointer; }
+    .project-thumbnail { aspect-ratio: 16/9; background: #fff; overflow: hidden; border: 1px solid #E0E0E0; margin-bottom: 16px; }
+    .project-thumbnail img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-caption-top { font-weight: 600; font-size: 1.1rem; margin-bottom: 4px; }
+    .project-caption-bottom { font-size: 0.8rem; color: var(--color-text-light); text-transform: uppercase; letter-spacing: 0.08em; }
+    .case-modal { position: fixed; inset: 0; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s; overflow-y: auto; }
+    .case-modal.active { opacity: 1; pointer-events: all; }
+    .case-close { position: fixed; top: 24px; right: 32px; z-index: 10002; background: rgba(255,255,255,0.95); border: 1px solid #E0E0E0; padding: 12px 24px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; }
+    .case-stack { max-width: 1200px; margin: 0 auto; padding: 80px 24px 120px; }
+    .slide-image { width: 100%; display: block; margin: 0; aspect-ratio: 16/9; object-fit: cover; }
+    .case-header { padding: 60px 20px 40px; text-align: center; border-bottom: 1px solid #E0E0E0; margin-bottom: 40px; }
+    .case-header h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 12px; }
+    .case-header .category { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-light); margin-bottom: 16px; }
+    .site-footer { padding: 80px 0; border-top: 1px solid #E0E0E0; }
+    body.lang-pt [data-en] { display: none; }
+    body.lang-en [data-pt] { display: none; }
+  </style>
+</head>
+<body class="lang-en">
 
-<!-- Hero -->
-<h1 class="hero-title translate" data-en="Art Director & Visual Strategist" data-pt="Diretor de Arte & Estrategista Visual">Art Director & Visual Strategist</h1>
-<h2 class="hero-subtitle translate" data-en="27 years of experience in high-stakes institutional branding and visual identity engineering." data-pt="27 anos de experiência em branding institucional de alto risco e engenharia de identidade visual.">27 years of experience in high-stakes institutional branding and visual identity engineering.</h2>
-<p class="hero-copy translate" data-en="Custom Solutions for Complex Organizations. Institutional rigor, strategic longevity, and visual precision." data-pt="Soluções sob medida para organizações complexas. Rigor institucional, longevidade estratégica e precisão visual.">Custom Solutions for Complex Organizations. Institutional rigor, strategic longevity, and visual precision.</p>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo">VDMTX</a>
+      <div>
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('pt')">PT</button>
+      </div>
+    </div>
+  </header>
 
-<!-- CTAs -->
-<a href="mailto:contato@vdmtx.com" class="btn btn-primary translate" data-en="Request Consultation" data-pt="Solicitar Consultoria">Request Consultation</a>
-<a href="https://www.linkedin.com/in/victor-silva-3264713b9" target="_blank" class="btn btn-secondary translate" data-en="LinkedIn Profile" data-pt="Perfil LinkedIn">LinkedIn Profile</a>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">
+          <span data-en>Art Director & Visual Strategist</span>
+          <span data-pt>Diretor de Arte & Estrategista Visual</span>
+        </h1>
+        <h2 class="hero-subtitle">
+          <span data-en>27 years of experience in high-stakes institutional branding and visual identity engineering.</span>
+          <span data-pt>27 anos de experiência em branding institucional de alto risco e engenharia de identidade visual.</span>
+        </h2>
+        <p>
+          <span data-en>Custom Solutions for Complex Organizations. Institutional rigor, strategic longevity, and visual precision.</span>
+          <span data-pt>Soluções sob medida para organizações complexas. Rigor institucional, longevidade estratégica e precisão visual.</span>
+        </p>
+        <div style="display:flex; gap:16px; margin-top:32px; flex-wrap:wrap;">
+          <a href="mailto:contato@vdmtx.com" class="btn btn-primary">
+            <span data-en>Request Consultation</span>
+            <span data-pt>Solicitar Consultoria</span>
+          </a>
+          <a href="https://www.linkedin.com/in/victor-silva-3264713b9" target="_blank" class="btn btn-secondary">
+            <span data-en>LinkedIn Profile</span>
+            <span data-pt>Perfil LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
-<!-- Footer -->
-<p class="footer-copy translate" data-en="© 2026 Victor Silva | Art Direction & Visual Strategy. Based in Palmas, Brazil. Serving Global Clients." data-pt="© 2026 Victor Silva | Direção de Arte & Estratégia Visual. Baseado em Palmas, Brasil. Atendendo Clientes Globais.">© 2026 Victor Silva | Art Direction & Visual Strategy. Based in Palmas, Brazil. Serving Global Clients.</p>
+    <section class="featured-projects">
+      <div class="container">
+        <h2 class="section-title">
+          <span data-en>Featured Projects</span>
+          <span data-pt>Projetos em Destaque</span>
+        </h2>
+        <p style="color:var(--color-text-light); margin-bottom:48px;">
+          <span data-en>Selected institutional work. Click to view full case study.</span>
+          <span data-pt>Trabalhos institucionais selecionados. Clique para visualizar o case completo.</span>
+        </p>
+        <div class="projects-grid" id="projects-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p style="color:var(--color-text-light); font-size:0.9rem;">
+        <span data-en>© 2026 Victor Silva | Art Direction & Visual Strategy. Based in Palmas, Brazil. Serving Global Clients.</span>
+        <span data-pt>© 2026 Victor Silva | Direção de Arte & Estratégia Visual. Baseado em Palmas, Brasil. Atendendo Clientes Globais.</span>
+      </p>
+    </div>
+  </footer>
+
+  <div id="case-modal" class="case-modal">
+    <button class="case-close" onclick="closeModal()">
+      <span data-en>CLOSE</span>
+      <span data-pt>FECHAR</span>
+    </button>
+    <div class="case-stack" id="case-stack"></div>
+  </div>
+
+  <script>
+    // DADOS DOS PROJETOS (EMBEDDED - SEM JSON EXTERNO)
+    const projectsData = [
+      {
+        id: "coisa-mais-linda",
+        title: "Coisa Mais Linda",
+        category: "Visual Identity & Retail Strategy",
+        description: "Premium fashion branding and architectural facade projection.",
+        bgColor: "#F5F1E9",
+        images: [
+          "img/coisamaislinda/lamina1.jpg",
+          "img/coisamaislinda/lamina2.jpg",
+          "img/coisamaislinda/lamina3.jpg",
+          "img/coisamaislinda/lamina4.jpg",
+          "img/coisamaislinda/lamina5.jpg",
+          "img/coisamaislinda/lamina6.jpg",
+          "img/coisamaislinda/lamina7.jpg",
+          "img/coisamaislinda/lamina8.jpg"
+        ]
+      },
+      {
+        id: "bombeiro-de-aco",
+        title: "Bombeiro de Aço",
+        category: "Institutional Branding & Medal Design",
+        description: "Identity system for elite firefighter competition and merit awards.",
+        bgColor: "#1a1a1a",
+        images: [
+          "img/bombeirodeaco/1.jpg",
+          "img/bombeirodeaco/2.jpg",
+          "img/bombeirodeaco/3.jpg",
+          "img/bombeirodeaco/4.jpg",
+          "img/bombeirodeaco/5.jpg",
+          "img/bombeirodeaco/6.jpg",
+          "img/bombeirodeaco/7.jpg",
+          "img/bombeirodeaco/8.jpg",
+          "img/bombeirodeaco/9.jpg",
+          "img/bombeirodeaco/10.jpg",
+          "img/bombeirodeaco/11.jpg",
+          "img/bombeirodeaco/12.jpg",
+          "img/bombeirodeaco/13.png"
+        ]
+      },
+      {
+        id: "corrida-do-fogo",
+        title: "Corrida do Fogo",
+        category: "Event Branding & Tactical Wayfinding",
+        description: "Visual system for high-intensity tactical competition.",
+        bgColor: "#0F172A",
+        images: [
+          "img/corridadofogo/lamina1.jpg",
+          "img/corridadofogo/lamina1-5.jpg",
+          "img/corridadofogo/lamina2.jpg",
+          "img/corridadofogo/lamina3.jpg",
+          "img/corridadofogo/lamina4.jpg",
+          "img/corridadofogo/lamina5.jpg",
+          "img/corridadofogo/lamina6.jpg",
+          "img/corridadofogo/lamina7.jpg",
+          "img/corridadofogo/lamina8.jpg",
+          "img/corridadofogo/lamina9.jpg",
+          "img/corridadofogo/lamina10.jpg",
+          "img/corridadofogo/lamina11.jpg",
+          "img/corridadofogo/lamina12.jpg",
+          "img/corridadofogo/lamina13.jpg"
+        ]
+      },
+      {
+        id: "protocantins",
+        title: "Fundação Pró-Tocantins",
+        category: "Government Identity Systems",
+        description: "Complete rebranding and visual protocol for state foundation.",
+        bgColor: "#ffffff",
+        images: [
+          "img/protocantins/lamina1.jpg",
+          "img/protocantins/lamina3.png",
+          "img/protocantins/lamina4.png",
+          "img/protocantins/lamina5.png",
+          "img/protocantins/lamina6.jpg",
+          "img/protocantins/lamina7.png",
+          "img/protocantins/lamina8.jpg",
+          "img/protocantins/lamina9.png",
+          "img/protocantins/lamina10.png"
+        ]
+      }
+    ];
+
+    // IDIOMA
+    function setLang(lang) {
+      document.body.className = 'lang-' + lang;
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('.lang-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', (lang === 'en' && i === 0) || (lang === 'pt' && i === 1));
+      });
+    }
+    setLang(localStorage.getItem('lang') || 'en');
+
+    // RENDERIZAR PROJETOS
+    const grid = document.getElementById('projects-grid');
+    grid.innerHTML = projectsData.map(p => `
+      <div class="project-card" onclick="openModal('${p.id}')">
+        <div class="project-thumbnail">
+          <img src="${p.images[0]}" alt="${p.title}" loading="lazy">
+        </div>
+        <div class="project-caption-top">${p.title}</div>
+        <div class="project-caption-bottom">${p.category}</div>
+      </div>
+    `).join('');
+
+    // MODAL
+    const modal = document.getElementById('case-modal');
+    const stack = document.getElementById('case-stack');
+
+    function openModal(id) {
+      const p = projectsData.find(x => x.id === id);
+      if (!p) return;
+      
+      const isDark = p.bgColor.toLowerCase() === '#1a1a1a' || p.bgColor.toLowerCase() === '#0f172a';
+      const textColor = isDark ? '#fff' : '#1a1a1a';
+      
+      stack.innerHTML = `
+        <div class="case-header" style="border-bottom-color:${isDark?'rgba(255,255,255,0.2)':'#e0e0e0'}">
+          <h2 style="color:${textColor}">${p.title}</h2>
+          <div class="category" style="color:${isDark?'rgba(255,255,255,0.7)':'#4a4a4a'}">${p.category}</div>
+          <p style="color:${isDark?'rgba(255,255,255,0.8)':'#4a4a4a'}">${p.description}</p>
+        </div>
+        ${p.images.map(src => `<img class="slide-image" src="${src}" style="background:${p.bgColor}">`).join('')}
+      `;
+      
+      modal.style.background = p.bgColor;
+      document.querySelector('.case-close').style.background = isDark ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.95)';
+      document.querySelector('.case-close').style.color = textColor;
+      modal.classList.add('active');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.classList.remove('modal-open');
+    }
+
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>
