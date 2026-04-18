@@ -27,19 +27,16 @@
        ============================================ -->
   <style>
     :root {
-      /* Cores escuras para máxima legibilidade */
       --color-bg: #FAFAFA;
-      --color-text: #333333;       /* Cinza quase preto (antes #1A1A1A) */
-      --color-text-light: #444444; /* Cinza médio (antes #4A4A4A) */
+      --color-text: #333333;       
+      --color-text-light: #444444; 
       --color-text-faded: #666666;
-      --color-accent: #2C3E50;     /* Azul Petróleo Sóbrio */
+      --color-accent: #2C3E50;     
       
-      /* Fontes */
       --font-serif: 'Cormorant Garamond', serif;
       --font-sans: 'Inter', sans-serif;
 
-      /* Espaçamento */
-      --spacing-section: 140px;    /* Mais respiro que o padrão */
+      --spacing-section: 140px;    
       --container-width: 1400px;
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -57,14 +54,12 @@
 
     body.modal-active { overflow: hidden; }
 
-    /* Tipografia */
     h1, h2, h3 {
       font-family: var(--font-serif);
       color: var(--color-text);
       line-height: 1.1;
     }
 
-    /* Utilitários */
     .container {
       max-width: var(--container-width);
       margin: 0 auto;
@@ -103,9 +98,7 @@
       color: var(--color-text);
     }
 
-    /* ==========================================
-       1. HEADER
-       ========================================== */
+    /* 1. HEADER */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -146,9 +139,7 @@
       color: var(--color-text);
     }
 
-    /* ==========================================
-       2. HERO SECTION
-       ========================================== */
+    /* 2. HERO SECTION */
     .hero {
       padding: 220px 0 140px;
     }
@@ -156,7 +147,7 @@
     .hero h1 {
       font-size: clamp(3rem, 6vw, 5.5rem);
       font-weight: 600;
-      margin-bottom: 70px; /* Requisito do Prompt */
+      margin-bottom: 70px; 
       max-width: 90%;
     }
 
@@ -174,9 +165,7 @@
       flex-wrap: wrap;
     }
 
-    /* ==========================================
-       3. SERVICES SECTION
-       ========================================== */
+    /* 3. SERVICES SECTION */
     .services {
       padding: var(--spacing-section) 0;
       border-top: 1px solid rgba(0,0,0,0.08);
@@ -223,9 +212,7 @@
       line-height: 1.7;
     }
 
-    /* ==========================================
-       4. PORTFOLIO SECTION
-       ========================================== */
+    /* 4. PORTFOLIO SECTION */
     .portfolio {
       padding: var(--spacing-section) 0;
     }
@@ -239,7 +226,6 @@
 
     .project-card {
       cursor: pointer;
-      group: project;
     }
 
     .project-thumb {
@@ -276,9 +262,7 @@
       letter-spacing: 0.1em;
     }
 
-    /* ==========================================
-       5. MODAL (IMERSÃO)
-       ========================================== */
+    /* 5. MODAL (IMERSÃO) */
     #modal {
       position: fixed;
       inset: 0;
@@ -349,13 +333,11 @@
       height: auto;
       margin: 0 auto;
       display: block;
-      margin-bottom: 4px; /* Quase zero para efeito seamless */
+      margin-bottom: 4px; /* Seamless */
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
-    /* ==========================================
-       6. FOOTER
-       ========================================== */
+    /* 6. FOOTER */
     footer {
       padding: 80px 0;
       border-top: 1px solid rgba(0,0,0,0.08);
@@ -464,16 +446,14 @@
        ============================================ -->
   <script>
     /* ===== 1. CONFIGURAÇÃO DE DADOS ===== */
-    // Estrutura exata conforme solicitado para mapeamento dinâmico
     const projects = [
       { 
         id: 'cml', 
         title: 'Coisa Mais Linda', 
         cat: 'Retail & Fashion', 
         folder: 'coisamaislinda', 
-        count: 8, 
-        prefix: 'lamina', 
-        ext: 'jpg', 
+        // Lógica de loop antigo mantida para projetos padrão
+        count: 8, prefix: 'lamina', ext: 'jpg', 
         bgColor: '#F5F1E9' 
       },
       { 
@@ -481,9 +461,8 @@
         title: 'Bombeiro de Aço', 
         cat: 'Institutional / Sports', 
         folder: 'bombeirodeaco', 
-        count: 13, 
-        prefix: '', 
-        ext: 'jpg', 
+        // Lógica de loop antigo mantida
+        count: 13, prefix: '', ext: 'jpg', 
         bgColor: '#111111' 
       },
       { 
@@ -491,20 +470,28 @@
         title: 'Corrida do Fogo', 
         cat: 'Event Branding', 
         folder: 'corridadofogo', 
-        count: 13, 
-        prefix: 'lamina', 
-        ext: 'jpg', 
+        // Lógica de loop antigo mantida
+        count: 13, prefix: 'lamina', ext: 'jpg', 
         bgColor: '#1A0B05' 
       },
       { 
+        // AJUSTE FINAL: Array fixo para Pro-Tocantins
         id: 'ptc', 
         title: 'Pró-Tocantins', 
         cat: 'Government Identity', 
         folder: 'protocantins', 
-        count: 10, 
-        prefix: 'lamina', 
-        ext: 'jpg', 
-        bgColor: '#FFFFFF' 
+        bgColor: '#FFFFFF',
+        images: [
+          'img/protocantins/lamina1.jpg',
+          'img/protocantins/lamina3.png',
+          'img/protocantins/lamina4.png',
+          'img/protocantins/lamina5.png',
+          'img/protocantins/lamina6.jpg',
+          'img/protocantins/lamina7.png',
+          'img/protocantins/lamina8.jpg',
+          'img/protocantins/lamina9.png',
+          'img/protocantins/lamina10.png'
+        ]
       }
     ];
 
@@ -558,23 +545,17 @@
       }
     };
 
-    let currentLang = 'pt'; // Padrão inicial
+    let currentLang = 'en'; 
 
     function updateTexts() {
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (i18n[currentLang][key]) {
-          el.textContent = i18n[currentLang][key];
-        }
+        if (i18n[currentLang][key]) el.textContent = i18n[currentLang][key];
       });
       
-      // Atualiza botão de fechar se modal estiver aberto
       document.getElementById('close-btn').textContent = i18n[currentLang].close_btn;
-      
-      // Atualiza categorias no grid
       renderPortfolio();
       
-      // Botões de toggle
       document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
       document.getElementById('btn-pt').classList.toggle('active', currentLang === 'pt');
     }
@@ -590,12 +571,15 @@
       grid.innerHTML = '';
 
       projects.forEach(p => {
-        // Gera a URL da primeira imagem para o thumbnail
-        // Ajuste para "bda" que tem prefixo vazio: "1.jpg" vs "lamina1.jpg"
-        let thumbName = p.prefix ? `${p.prefix}1.${p.ext}` : `1.${p.ext}`;
-        let thumbSrc = `img/${p.folder}/${thumbName}`;
+        let thumbSrc = '';
+        // Se tem array de imagens, pega a primeira. Se não, gera via loop.
+        if(p.images) {
+            thumbSrc = p.images[0];
+        } else {
+            let thumbName = p.prefix ? `${p.prefix}1.${p.ext}` : `1.${p.ext}`;
+            thumbSrc = `img/${p.folder}/${thumbName}`;
+        }
         
-        // Tradução da categoria
         let catText = i18n[currentLang].categories[p.cat] || p.cat;
 
         const card = document.createElement('div');
@@ -622,42 +606,39 @@
     const closeBtn = document.getElementById('close-btn');
 
     function openModal(project) {
-      // 1. Define título e cor de fundo
       modalTitle.textContent = project.title;
       modal.style.backgroundColor = project.bgColor;
-      modalBg.style.backgroundColor = project.bgColor; // Fallback
+      modalBg.style.backgroundColor = project.bgColor;
       
-      // 2. Define cores de texto baseadas na luminosidade do fundo
-      // Cores escuras: #111111, #1A0B05
+      // Definição de contraste
       const isDark = ['#111111', '#1A0B05'].includes(project.bgColor);
-      const textColor = isDark ? '#FFFFFF' : '#333333';
+      const textColor = isDark ? '#FFFFFF' : '#000000'; // Preto para fundo branco (Pró-Tocantins)
       
       modal.style.color = textColor;
-      document.body.style.backgroundColor = project.bgColor; // Truque para evitar flash branco no scroll
       document.body.classList.add('modal-active');
 
-      // 3. Limpa e injeta imagens
       modalContent.innerHTML = '';
       
-      for (let i = 1; i <= project.count; i++) {
-        const img = document.createElement('img');
-        // Lógica de nomeação de arquivo
-        let fileName = project.prefix ? `${project.prefix}${i}.${project.ext}` : `${i}.${project.ext}`;
-        
-        // Correção específica para Bombeiro de Aço (ítem 13 é png, o array pede jpg, mas no repo real pode variar. 
-        // O prompt pede estritamente jpg, então seguimos o prompt, mas deixo preparado para fallback se necessário).
-        if(project.id === 'bda' && i === 13 && project.ext === 'jpg') {
-             // Se quiser forçar o png real do repo: fileName = '13.png'; 
-             // Mantendo conforme prompt estrito:
-        }
-
-        img.src = `img/${project.folder}/${fileName}`;
-        img.loading = "lazy";
-        img.onerror = function() { this.style.display='none'; }; // Esconde se falhar
-        modalContent.appendChild(img);
+      // LÓGICA DE CARREGAMENTO HÍBRIDA:
+      if (project.images) {
+          // 1. Modo Array Fixo (Pró-Tocantins)
+          project.images.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.loading = "lazy";
+            modalContent.appendChild(img);
+          });
+      } else {
+          // 2. Modo Loop Automático (Demais projetos)
+          for (let i = 1; i <= project.count; i++) {
+            const img = document.createElement('img');
+            let fileName = project.prefix ? `${project.prefix}${i}.${project.ext}` : `${i}.${project.ext}`;
+            img.src = `img/${project.folder}/${fileName}`;
+            img.loading = "lazy";
+            modalContent.appendChild(img);
+          }
       }
 
-      // 4. Mostra o modal
       modal.classList.add('active');
       modal.scrollTop = 0;
     }
@@ -665,19 +646,14 @@
     function closeModal() {
       modal.classList.remove('active');
       document.body.classList.remove('modal-active');
-      document.body.style.backgroundColor = ''; // Reseta cor do body
     }
 
-    // Evento para fechar com ESC
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
-        closeModal();
-      }
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     });
 
-    // Inicialização
     window.addEventListener('DOMContentLoaded', () => {
-      // Detectar idioma do navegador ou padrão
+      // Padrão inicial em Inglês conforme briefing original
       const userLang = navigator.language.startsWith('pt') ? 'pt' : 'en';
       setLang(userLang);
       renderPortfolio();
