@@ -1,421 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ============================================
-       META TAGS E CONFIGURAÇÕES BÁSICAS
-       ============================================ -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VDMTX | Art Director & Visual Strategist</title>
-  <meta name="description" content="27 years of experience in institutional branding, visual identity engineering, and architectural signage.">
-  
-  <!-- ============================================
-       FONTES DO GOOGLE (Cormorant Garamond + Inter)
-       ============================================ -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  
-  <!-- ============================================
-       CSS - ESTILOS DO SITE
-       ============================================ -->
-  <style>
-    /* ===== VARIÁVEIS DE CORES E TIPOGRAFIA ===== */
-    :root {
-      --color-bg: #F9F9F9;           /* Cor de fundo do site */
-      --color-text: #1A1A1A;         /* Cor do texto principal */
-      --color-text-light: #4A4A4A;   /* Cor do texto secundário */
-      --color-accent: #2C3E50;       /* Cor de destaque (botões) */
-      --font-serif: 'Cormorant Garamond', serif;  /* Fonte para títulos */
-      --font-sans: 'Inter', sans-serif;           /* Fonte para texto */
-      --spacing-section: 120px;      /* Espaçamento entre seções */
-      --transition-fast: 0.2s ease;  /* Velocidade de transição */
-    }
-
-    /* ===== RESET BÁSICO ===== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victor Silva | Art Director & Visual Strategist</title>
     
-    body {
-      font-family: var(--font-sans);
-      background: var(--color-bg);
-      color: var(--color-text);
-      line-height: 1.6;
-      font-weight: 300;
-      -webkit-font-smoothing: antialiased;
-    }
-    body.modal-open { overflow: hidden; }  /* Trava scroll quando modal está aberto */
+    <meta name="description" content="Art Director with 27 years of experience. Specializing in Institutional Branding and Visual Identity Engineering.">
+    <meta property="og:title" content="Victor Silva | Art Director Portfolio">
+    <meta property="og:description" content="Senior Visual Strategy and Institutional Design Systems.">
+    <meta property="og:image" content="img/coisamaislinda/lamina1.jpg">
+    <meta property="og:url" content="https://vdmtx.github.io/art-director-portfolio/">
 
-    /* ===== TIPOGRAFIA ===== */
-    h1, h2, h3, h4 {
-      font-family: var(--font-serif);
-      font-weight: 600;
-      line-height: 1.2;
-      color: var(--color-text);
-    }
-    .hero-title { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 24px; }
-    .hero-subtitle {
-      font-family: var(--font-sans);
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
-      font-weight: 400;
-      color: var(--color-text-light);
-      margin-bottom: 32px;
-      max-width: 700px;
-    }
-
-    /* ===== LAYOUT E CONTAINER ===== */
-    section { padding: var(--spacing-section) 0; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-
-    /* ===== HEADER / MENU SUPERIOR ===== */
-    .site-header {
-      padding: 24px 0;
-      position: sticky;
-      top: 0;
-      background: rgba(249, 249, 249, 0.95);
-      backdrop-filter: blur(8px);
-      z-index: 100;
-      border-bottom: 1px solid #E0E0E0;
-    }
-    .header-inner { display: flex; justify-content: space-between; align-items: center; }
-    .logo {
-      font-family: var(--font-serif);
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--color-accent);
-      text-decoration: none;
-    }
-    .lang-toggle { display: flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; }
-    .lang-btn {
-      background: none; border: none; color: var(--color-text-light);
-      cursor: pointer; padding: 4px 8px; transition: color var(--transition-fast);
-    }
-    .lang-btn.active, .lang-btn:hover { color: var(--color-accent); }
-
-    /* ===== HERO SECTION (TOPO) ===== */
-    .hero { padding: 160px 0 var(--spacing-section); }
-    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 40px; }
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
-    /* Botões */
-    .btn {
-      padding: 14px 32px; text-decoration: none; font-family: var(--font-sans);
-      font-size: 0.9rem; font-weight: 500; border: 1px solid var(--color-accent);
-      transition: all var(--transition-fast); display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
-    }
-    .btn-primary { background: var(--color-accent); color: #fff; }
-    .btn-primary:hover { opacity: 0.95; transform: translateY(-1px); }
-    .btn-secondary { background: transparent; color: var(--color-accent); }
-    .btn-secondary:hover { background: var(--color-accent); color: #fff; }
+    <style>
+        :root {
+            --bg: #F9F9F9;
+            --text: #1A1A1A;
+            --accent: #2C3E50;
+            --space-section: 140px;
+        }
 
-    /* ===== GRID DE PROJETOS ===== */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 48px;
-      margin-top: 48px;
-    }
-    .project-card { display: block; text-decoration: none; color: inherit; cursor: pointer; }
-    .project-thumbnail {
-      aspect-ratio: 16/9; background: #fff; overflow: hidden;
-      border: 1px solid #E0E0E0; margin-bottom: 16px;
-    }
-    .project-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; }
-    .project-card:hover .project-thumbnail img { transform: scale(1.04); }
-    .project-caption-top { font-family: var(--font-sans); font-weight: 600; font-size: 1.1rem; margin-bottom: 4px; }
-    .project-caption-bottom { font-family: var(--font-sans); font-size: 0.8rem; color: var(--color-text-light); text-transform: uppercase; letter-spacing: 0.08em; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: 700; }
 
-    /* ===== RODAPÉ ===== */
-    .site-footer { padding: var(--spacing-section) 0 60px; border-top: 1px solid #E0E0E0; margin-top: 40px; }
-    .footer-copy { font-size: 0.9rem; color: var(--color-text-light); }
+        /* Navigation */
+        header { padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; background: #fff; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 1.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+        .lang-toggle { font-size: 0.8rem; font-weight: 700; }
+        .lang-toggle button { background: none; border: none; cursor: pointer; padding: 5px; opacity: 0.4; transition: 0.3s; }
+        .lang-toggle button.active { opacity: 1; text-decoration: underline; }
 
-    /* ===== MODAL (VISUALIZADOR DE CASES) ===== */
-    .case-modal {
-      position: fixed; inset: 0; z-index: 9999; background: #fff;
-      opacity: 0; pointer-events: none; transition: opacity 0.4s ease-in-out;
-      overflow-y: auto; display: flex; flex-direction: column;
-    }
-    .case-modal.active { opacity: 1; pointer-events: all; }
-    
-    /* Botão fechar modal */
-    .case-close {
-      position: fixed; top: 24px; right: 32px; z-index: 10002;
-      background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px);
-      border: 1px solid rgba(0,0,0,0.1); padding: 12px 24px;
-      font-family: var(--font-sans); font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
-      transition: all var(--transition-fast);
-    }
-    .case-close:hover { background: #000; color: #fff; }
+        /* Hero */
+        .hero { padding: var(--space-section) 5%; max-width: 1400px; margin: 0 auto; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1; margin-bottom: 30px; letter-spacing: -0.02em; }
+        .hero p { font-size: clamp(1.1rem, 3vw, 1.5rem); max-width: 850px; color: #444; margin-bottom: 50px; font-weight: 300; }
+        .cta-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .btn { padding: 18px 30px; text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem; border: 1px solid var(--accent); transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-secondary { color: var(--accent); }
+        .btn:hover { background: var(--text); color: #fff; transform: translateY(-2px); }
 
-    .case-stack { max-width: 1200px; width: 100%; margin: 0 auto; padding: 80px 24px 120px; display: flex; flex-direction: column; }
-    .case-header { padding: 0 0 40px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.1); margin-bottom: 40px; }
-    .case-header h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 12px; }
-    .case-header .category { font-family: var(--font-sans); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-bottom: 16px; }
-    .case-header p { font-size: 1rem; max-width: 650px; margin: 0 auto; opacity: 0.8; }
+        /* Services Grid */
+        .services { padding: var(--space-section) 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; background: #fff; }
+        .service-card { padding: 60px; border: 1px solid #eee; display: flex; flex-direction: column; gap: 20px; }
+        .service-card h3 { font-size: 2.2rem; line-height: 1.1; }
+        .service-card p { font-size: 1rem; color: #555; }
 
-    /* Imagens das lâminas (1440x1080 - sem corte) */
-    .slide-image {
-      width: 100%; height: auto; display: block; margin: 0;
-      object-fit: contain;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
+        /* Portfolio Section */
+        .portfolio { padding: var(--space-section) 5%; max-width: 1600px; margin: 0 auto; }
+        .portfolio h2 { font-size: 3.5rem; margin-bottom: 60px; }
+        .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .project-card { cursor: pointer; group; position: relative; }
+        .project-img-container { width: 100%; height: 650px; overflow: hidden; background: #eee; margin-bottom: 25px; }
+        .project-img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1); }
+        .project-card:hover .project-img { transform: scale(1.05); filter: brightness(0.8); }
+        .project-info h4 { font-size: 1.8rem; margin-bottom: 5px; }
+        .project-info span { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #888; }
 
-    /* ===== CONTROLE DE IDIOMA (EN/PT) ===== */
-    [data-lang-en], [data-lang-pt] { transition: opacity var(--transition-fast); }
-    body.lang-pt [data-lang-en] { display: none !important; }
-    body.lang-en [data-lang-pt] { display: none !important; }
+        /* Modal Fullscreen */
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 10000; overflow-y: auto; }
+        #modal-content { width: 100%; display: flex; flex-direction: column; align-items: center; background: #fff; }
+        #modal-content img { width: 100%; max-width: 100%; display: block; height: auto; }
+        .close-modal { position: fixed; top: 30px; right: 40px; font-weight: 700; cursor: pointer; background: #fff; padding: 12px 25px; border: 1px solid #000; z-index: 10001; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
 
-    /* ===== RESPONSIVIDADE (MOBILE) ===== */
-    @media (max-width: 768px) {
-      .hero { padding: 120px 0 var(--spacing-section); }
-      :root { --spacing-section: 80px; }
-      .case-close { top: 16px; right: 16px; padding: 10px 18px; }
-      .projects-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+        /* Footer */
+        footer { padding: 100px 5%; border-top: 1px solid #eee; text-align: center; background: #fff; }
+        .footer-copy { font-size: 0.75rem; letter-spacing: 0.1em; color: #999; text-transform: uppercase; }
+
+        @media (max-width: 900px) {
+            .project-grid { grid-template-columns: 1fr; }
+            .project-img-container { height: 450px; }
+            .hero h1 { font-size: 3.5rem; }
+            .service-card { padding: 40px; }
+        }
+    </style>
 </head>
-<body class="lang-en">
+<body>
 
-  <!-- ============================================
-       HEADER / MENU SUPERIOR
-       ============================================ -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="#" class="logo">VDMTX</a>
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang-target="en" onclick="setLang('en')">EN</button>
-        <span style="color:#E0E0E0">|</span>
-        <button class="lang-btn" data-lang-target="pt" onclick="setLang('pt')">PT</button>
-      </div>
+<header>
+    <a href="#" class="logo serif">Victor Silva</a>
+    <div class="lang-toggle">
+        <button onclick="changeLang('en')" id="btn-en" class="active">EN</button>
+        <button onclick="changeLang('pt')" id="btn-pt">PT</button>
     </div>
-  </header>
+</header>
 
-  <!-- ============================================
-       CONTEÚDO PRINCIPAL
-       ============================================ -->
-  <main>
-    <!-- HERO SECTION (TOPO DA PÁGINA) -->
-    <section class="hero">
-      <div class="container">
-        <h1 class="hero-title">Art Director & Visual Strategist</h1>
-        
-        <h2 class="hero-subtitle" 
-            data-lang-en="27 years of experience in high-stakes institutional branding and visual identity engineering."
-            data-lang-pt="27 anos de experiência em branding institucional de alto risco e engenharia de identidade visual.">
-            27 years of experience in high-stakes institutional branding and visual identity engineering.
-        </h2>
-        
-        <p style="max-width:600px; color:var(--color-text-light);"
-           data-lang-en="Custom Solutions for Complex Organizations. Institutional rigor, strategic longevity, and visual precision."
-           data-lang-pt="Soluções sob medida para organizações complexas. Rigor institucional, longevidade estratégica e precisão visual.">
-           Custom Solutions for Complex Organizations. Institutional rigor, strategic longevity, and visual precision.
-        </p>
-        
-        <!-- BOTÕES DE CONTATO (EMAIL E LINKEDIN) -->
-        <div class="hero-cta">
-          <a href="mailto:leidyvdmtx@gmail.com" class="btn btn-primary">
-            <span data-lang-en>Request Consultation</span>
-            <span data-lang-pt>Solicitar Consultoria</span>
-          </a>
-          <a href="https://www.linkedin.com/in/victor-silva-3264713b9" target="_blank" rel="noopener" class="btn btn-secondary">
-            <span data-lang-en>LinkedIn Profile</span>
-            <span data-lang-pt>Perfil LinkedIn</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEÇÃO DE PROJETOS (GRID) -->
-    <section class="featured-projects">
-      <div class="container">
-        <h2 class="section-title" style="font-size:clamp(1.75rem, 3vw, 2.5rem); margin-bottom:16px;">
-          <span data-lang-en="Featured Projects"></span>
-          <span data-lang-pt="Projetos em Destaque"></span>
-        </h2>
-        <p style="color:var(--color-text-light); margin-bottom:48px;"
-           data-lang-en="Selected institutional work. Click to view full case study."
-           data-lang-pt="Trabalhos institucionais selecionados. Clique para visualizar o case completo.">
-           Selected institutional work. Click to view full case study.
-        </p>
-        
-        <!-- GRID ONDE OS PROJETOS SÃO INSERIDOS VIA JAVASCRIPT -->
-        <div class="projects-grid" id="projects-grid">
-          <p style="color:var(--color-text-light);">Loading projects...</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ============================================
-       RODAPÉ
-       ============================================ -->
-  <footer class="site-footer">
-    <div class="container">
-      <p class="footer-copy">
-        <span data-lang-en="© 2026 Victor Silva | Art Direction & Visual Strategy. Based in Palmas, Brazil. Serving Global Clients."></span>
-        <span data-lang-pt="© 2026 Victor Silva | Direção de Arte & Estratégia Visual. Baseado em Palmas, Brasil. Atendendo Clientes Globais."></span>
-      </p>
+<section class="hero">
+    <h1 id="hero-title">Art Director & Visual Strategist</h1>
+    <p id="hero-desc">27 years of expertise in high-fidelity institutional branding, government design systems, and visual identity engineering.</p>
+    <div class="cta-group">
+        <a href="mailto:leidyvdmtx@gmail.com" class="btn btn-primary" id="btn-consult">Request Consultation</a>
+        <a href="https://www.linkedin.com/in/victor-silva-3244713b9/" class="btn btn-secondary">LinkedIn</a>
+        <a href="https://wa.me/5563981064401" class="btn btn-secondary">Direct (WA)</a>
     </div>
-  </footer>
+</section>
 
-  <!-- ============================================
-       MODAL (VISUALIZADOR DE CASES)
-       ============================================ -->
-  <div id="case-modal" class="case-modal" aria-hidden="true">
-    <button class="case-close" id="case-close" aria-label="Close case">
-      <span data-lang-en>CLOSE</span>
-      <span data-lang-pt>FECHAR</span>
-    </button>
-    <div class="case-stack" id="case-stack"></div>
-  </div>
+<section class="services">
+    <div class="service-card">
+        <h3 id="s1-t">Visual Identity Engineering</h3>
+        <p id="s1-d">Brand construction focused on longevity and technical rigor. Building perennial assets for institutions that demand authority.</p>
+    </div>
+    <div class="service-card">
+        <h3 id="s2-t">Institutional Design Systems</h3>
+        <p id="s2-d">Visual management for government agencies and corporations. Comprehensive guidelines and multi-platform consistency.</p>
+    </div>
+    <div class="service-card">
+        <h3 id="s3-t">Architectural Wayfinding</h3>
+        <p id="s3-d">Integrating graphic design into physical spaces. High-fidelity signage systems and fleet identity engineering.</p>
+    </div>
+</section>
 
-  <!-- ============================================
-       JAVASCRIPT - LÓGICA DO SITE
-       ============================================ -->
-  <script>
-    /* ===== 1. CONTROLE DE IDIOMA (EN/PT) ===== */
-    function setLang(lang) {
-      document.body.className = `lang-${lang}`;
-      localStorage.setItem('vdmtx-lang', lang);
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.langTarget === lang);
-      });
-    }
-    const savedLang = localStorage.getItem('vdmtx-lang') || 'en';
-    setLang(savedLang);
+<section class="portfolio">
+    <h2 class="serif" id="port-t">Selected Cases</h2>
+    <div class="project-grid" id="grid"></div>
+</section>
 
-    /* ===== 2. DADOS DOS PROJETOS =====
-       ALTERE AQUI:
-       - id: identificador único do projeto
-       - title: título do projeto
-       - category: categoria (ex: Branding, Wayfinding)
-       - description: descrição curta
-       - bgColor: cor de fundo do modal (ex: #F5F1E9, #E6E6E6, #0C0C0C)
-       - images: array com caminhos das imagens (ex: "img/pasta/lamina1.jpg")
-    */
-    const projectsData = [
-      {
-        "id": "coisa-mais-linda",
-        "title": "Coisa Mais Linda",
-        "category": "Visual Identity & Retail Strategy",
-        "description": "Premium fashion branding and architectural facade projection.",
-        "bgColor": "#F5F1E9",  /* Cor de fundo bege claro */
-        "images": [
-          "img/coisamaislinda/lamina1.jpg", "img/coisamaislinda/lamina2.jpg",
-          "img/coisamaislinda/lamina3.jpg", "img/coisamaislinda/lamina4.jpg",
-          "img/coisamaislinda/lamina5.jpg", "img/coisamaislinda/lamina6.jpg",
-          "img/coisamaislinda/lamina7.jpg", "img/coisamaislinda/lamina8.jpg"
-        ]
-      },
-      {
-        "id": "bombeiro-de-aco",
-        "title": "Bombeiro de Aço",
-        "category": "Institutional Branding & Medal Design",
-        "description": "Identity system for elite firefighter competition and merit awards.",
-        "bgColor": "#E6E6E6",  /* Cor de fundo cinza claro - ALTERADO */
-        "images": [
-          "img/bombeirodeaco/1.jpg", "img/bombeirodeaco/2.jpg", "img/bombeirodeaco/3.jpg",
-          "img/bombeirodeaco/4.jpg", "img/bombeirodeaco/5.jpg", "img/bombeirodeaco/6.jpg",
-          "img/bombeirodeaco/7.jpg", "img/bombeirodeaco/8.jpg", "img/bombeirodeaco/9.jpg",
-          "img/bombeirodeaco/10.jpg", "img/bombeirodeaco/11.jpg", "img/bombeirodeaco/12.jpg",
-          "img/bombeirodeaco/13.png"
-        ]
-      },
-      {
-        "id": "corrida-do-fogo",
-        "title": "Corrida do Fogo",
-        "category": "Event Branding & Tactical Wayfinding",
-        "description": "Visual system for high-intensity tactical competition.",
-        "bgColor": "#0C0C0C",  /* Cor de fundo quase preto - ALTERADO */
-        "images": [
-          "img/corridadofogo/lamina1.jpg", "img/corridadofogo/lamina1-5.jpg",
-          "img/corridadofogo/lamina2.jpg", "img/corridadofogo/lamina3.jpg",
-          "img/corridadofogo/lamina4.jpg", "img/corridadofogo/lamina5.jpg",
-          "img/corridadofogo/lamina6.jpg", "img/corridadofogo/lamina7.jpg",
-          "img/corridadofogo/lamina8.jpg", "img/corridadofogo/lamina9.jpg",
-          "img/corridadofogo/lamina10.jpg", "img/corridadofogo/lamina11.jpg",
-          "img/corridadofogo/lamina12.jpg", "img/corridadofogo/lamina13.jpg"
-        ]
-      },
-      {
-        "id": "protocantins",
-        "title": "Fundação Pró-Tocantins",
-        "category": "Government Identity Systems",
-        "description": "Complete rebranding and visual protocol for state foundation.",
-        "bgColor": "#ffffff",  /* Cor de fundo branco */
-        "images": [
-          "img/protocantins/lamina1.jpg", "img/protocantins/lamina3.png",
-          "img/protocantins/lamina4.png", "img/protocantins/lamina5.png",
-          "img/protocantins/lamina6.jpg", "img/protocantins/lamina7.png",
-          "img/protocantins/lamina8.jpg", "img/protocantins/lamina9.png",
-          "img/protocantins/lamina10.png"
-        ]
-      }
+<div id="modal">
+    <div class="close-modal" onclick="closeModal()" id="btn-close">Close</div>
+    <div id="modal-content"></div>
+</div>
+
+<footer>
+    <p class="footer-copy" id="footer-text">© 2026 Victor Silva | Senior Art Direction. Based in Palmas, Brazil. Serving Global Clients.</p>
+</footer>
+
+<script>
+    const i18n = {
+        en: {
+            "hero-title": "Art Director & Visual Strategist",
+            "hero-desc": "27 years of expertise in high-fidelity institutional branding, government design systems, and visual identity engineering.",
+            "btn-consult": "Request Consultation",
+            "s1-t": "Visual Identity Engineering",
+            "s1-d": "Brand construction focused on longevity and technical rigor. Building perennial assets for institutions that demand authority.",
+            "s2-t": "Institutional Design Systems",
+            "s2-d": "Visual management for government agencies and corporations. Comprehensive guidelines and multi-platform consistency.",
+            "s3-t": "Architectural Wayfinding",
+            "s3-d": "Integrating graphic design into physical spaces. High-fidelity signage systems and fleet identity engineering.",
+            "port-t": "Selected Cases",
+            "btn-close": "Close",
+            "footer-text": "© 2026 Victor Silva | Senior Art Direction. Based in Palmas, Brazil. Serving Global Clients."
+        },
+        pt: {
+            "hero-title": "Diretor de Arte & Estrategista Visual",
+            "hero-desc": "27 anos de especialização em branding institucional de alta fidelidade, sistemas governamentais e engenharia de identidade.",
+            "btn-consult": "Solicitar Consultoria",
+            "s1-t": "Engenharia de Identidade Visual",
+            "s1-d": "Construção de marcas focada em longevidade e rigor técnico. Ativos perenes para instituições que exigem autoridade.",
+            "s2-t": "Sistemas de Design Institucional",
+            "s2-d": "Gestão visual para órgãos governamentais e corporações. Manuais completos e consistência multi-plataforma.",
+            "s3-t": "Sinalização Arquitetônica",
+            "s3-d": "Integração do design gráfico ao espaço físico. Sistemas de sinalização e engenharia de frotas.",
+            "port-t": "Casos Selecionados",
+            "btn-close": "Fechar",
+            "footer-text": "© 2026 Victor Silva | Direção de Arte Sênior. Baseado em Palmas, Brasil. Atendendo Clientes Globais."
+        }
+    };
+
+    const projects = [
+        { id: 'cml', title: 'Coisa Mais Linda', cat: 'Retail & Fashion', folder: 'coisamaislinda', count: 8, prefix: 'lamina', ext: 'jpg' },
+        { id: 'bda', title: 'Bombeiro de Aço', cat: 'Institutional / Sports', folder: 'bombeirodeaco', count: 13, prefix: '', ext: 'jpg' },
+        { id: 'cdf', title: 'Corrida do Fogo', cat: 'Event Branding', folder: 'corridadofogo', count: 13, prefix: 'lamina', ext: 'jpg' },
+        { id: 'ptc', title: 'Pró-Tocantins', cat: 'Government Identity', folder: 'protocantins', count: 10, prefix: 'lamina', ext: 'jpg' }
     ];
 
-    /* ===== 3. RENDERIZAR GRID DE PROJETOS ===== */
-    const grid = document.getElementById('projects-grid');
-    grid.innerHTML = projectsData.map(project => `
-      <div class="project-card" onclick="openModal('${project.id}')">
-        <div class="project-thumbnail">
-          <img src="${project.images[0]}" alt="${project.title}" loading="lazy">
-        </div>
-        <div class="project-caption-top">${project.title}</div>
-        <div class="project-caption-bottom">${project.category}</div>
-      </div>
-    `).join('');
-
-    /* ===== 4. ABRIR MODAL COM CASE ===== */
-    const modal = document.getElementById('case-modal');
-    const stack = document.getElementById('case-stack');
-    const closeBtn = document.getElementById('case-close');
-
-    function openModal(id) {
-      const project = projectsData.find(p => p.id === id);
-      if (!project) return;
-
-      /* Detecta se o fundo é escuro para ajustar cor do texto */
-      const isDark = ['#1a1a1a', '#0f172a', '#0c0c0c', '#000000'].includes(project.bgColor.toLowerCase());
-      const textColor = isDark ? '#FFFFFF' : '#1A1A1A';
-      const borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)';
-      const closeBtnBg = isDark ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.95)';
-      const closeBtnColor = isDark ? '#FFFFFF' : '#1A1A1A';
-
-      /* Monta HTML do modal */
-      let html = `
-        <div class="case-header" style="border-bottom-color:${borderColor}; color:${textColor}">
-          <h2 style="color:${textColor}">${project.title}</h2>
-          <div class="category" style="color:${isDark?'rgba(255,255,255,0.7)':'#4A4A4A'}">${project.category}</div>
-          <p style="color:${isDark?'rgba(255,255,255,0.8)':'#4A4A4A'}">${project.description}</p>
-        </div>
-      `;
-
-      /* Adiciona todas as imagens do projeto */
-      project.images.forEach(src => {
-        html += `<img class="slide-image" src="${src}" alt="${project.title} slide" loading="lazy">`;
-      });
-
-      stack.innerHTML = html;
-      modal.style.backgroundColor = project.bgColor;
-      closeBtn.style.background = closeBtnBg;
-      closeBtn.style.color = closeBtnColor;
-      
-      modal.classList.add('active');
-      document.body.classList.add('modal-open');
-      modal.scrollTop = 0;  /* Reseta scroll para o topo */
+    function changeLang(lang) {
+        Object.keys(i18n[lang]).forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.innerText = i18n[lang][id];
+        });
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+        // Update Project Categories
+        renderGrid(lang);
     }
 
-    /* ===== 5. FECHAR MODAL ===== */
+    function renderGrid(lang = 'en') {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = '';
+        projects.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            const coverImg = p.id === 'bda' ? '1.jpg' : 'lamina1.jpg';
+            card.innerHTML = `
+                <div class="project-img-container">
+                    <img src="img/${p.folder}/${coverImg}" class="project-img" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <span>${p.cat}</span>
+                    <h4>${p.title}</h4>
+                </div>
+            `;
+            card.onclick = () => openModal(p);
+            grid.appendChild(card);
+        });
+    }
+
+    function openModal(p) {
+        const modal = document.getElementById('modal');
+        const container = document.getElementById('modal-content');
+        container.innerHTML = '';
+        
+        for(let i=1; i<=p.count; i++) {
+            const img = document.createElement('img');
+            let fileName = p.prefix ? `${p.prefix}${i}` : `${i}`;
+            let extension = p.ext;
+
+            // Tratamento específico de extensões conforme o seu GitHub Real
+            if(p.id === 'bda' && i === 13) extension = 'png';
+            if(p.id === 'ptc' && [3,4,5,7,8,9,10].includes(i)) extension = 'png';
+            if(p.id === 'cdf' && i === 5) fileName = 'lamina1-5'; // Caso específico da corrida do fogo
+
+            img.src = `img/${p.folder}/${fileName}.${extension}`;
+            container.appendChild(img);
+        }
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
     function closeModal() {
-      modal.classList.remove('active');
-      document.body.classList.remove('modal-open');
+        document.getElementById('modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
 
-    /* Event listeners para fechar modal */
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-  </script>
+    // Initialize
+    renderGrid();
+</script>
+
 </body>
 </html>
