@@ -146,7 +146,7 @@
     }
     
     .project-thumbnail {
-      aspect-ratio: 16/9; /* Cards remain 16:9 */
+      aspect-ratio: 16/9;
       background: #fff;
       overflow: hidden;
       border: 1px solid #E0E0E0;
@@ -194,7 +194,7 @@
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: #fff; /* Default fallback */
+      background: #fff;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease-in-out;
@@ -257,14 +257,14 @@
       opacity: 0.8;
     }
 
-    /* FIX FOR 1440x1080 IMAGES: No forced aspect ratio, full width, auto height */
+    /* CORREÇÃO FINAL: LÂMINAS 1440x1080 */
     .slide-image {
       width: 100%;
       height: auto;
       display: block;
       margin: 0;
-      object-fit: contain; /* Garante que a imagem inteira apareça */
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Sutil destaque entre lâminas */
+      object-fit: contain; /* Garante que a imagem inteira apareça sem corte */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
 
     /* LANGUAGE UTILS */
@@ -382,8 +382,7 @@
     const savedLang = localStorage.getItem('vdmtx-lang') || 'en';
     setLang(savedLang);
 
-    // 2. PROJECT DATA (Hardcoded from your JSON to avoid 404 errors)
-    // Note: Keys are cleaned of trailing spaces found in the raw JSON
+    // 2. PROJECT DATA (Paths corrected based on actual repository files)
     const projectsData = [
       {
         "id": "coisa-mais-linda",
@@ -392,10 +391,14 @@
         "description": "Premium fashion branding and architectural facade projection.",
         "bgColor": "#F5F1E9",
         "images": [
-          "img/cml-01.webp",
-          "img/cml-02.webp",
-          "img/cml-03.webp",
-          "img/cml-04.webp"
+          "img/coisamaislinda/lamina1.jpg",
+          "img/coisamaislinda/lamina2.jpg",
+          "img/coisamaislinda/lamina3.jpg",
+          "img/coisamaislinda/lamina4.jpg",
+          "img/coisamaislinda/lamina5.jpg",
+          "img/coisamaislinda/lamina6.jpg",
+          "img/coisamaislinda/lamina7.jpg",
+          "img/coisamaislinda/lamina8.jpg"
         ]
       },
       {
@@ -405,18 +408,60 @@
         "description": "Identity system for elite firefighter competition and merit awards.",
         "bgColor": "#1a1a1a",
         "images": [
-          "img/bda-01.webp",
-          "img/bda-02.webp"
+          "img/bombeirodeaco/1.jpg",
+          "img/bombeirodeaco/2.jpg",
+          "img/bombeirodeaco/3.jpg",
+          "img/bombeirodeaco/4.jpg",
+          "img/bombeirodeaco/5.jpg",
+          "img/bombeirodeaco/6.jpg",
+          "img/bombeirodeaco/7.jpg",
+          "img/bombeirodeaco/8.jpg",
+          "img/bombeirodeaco/9.jpg",
+          "img/bombeirodeaco/10.jpg",
+          "img/bombeirodeaco/11.jpg",
+          "img/bombeirodeaco/12.jpg",
+          "img/bombeirodeaco/13.png"
         ]
       },
       {
-        "id": "fundacao-pro-tocantins",
+        "id": "corrida-do-fogo",
+        "title": "Corrida do Fogo",
+        "category": "Event Branding & Tactical Wayfinding",
+        "description": "Visual system for high-intensity tactical competition.",
+        "bgColor": "#0F172A",
+        "images": [
+          "img/corridadofogo/lamina1.jpg",
+          "img/corridadofogo/lamina1-5.jpg",
+          "img/corridadofogo/lamina2.jpg",
+          "img/corridadofogo/lamina3.jpg",
+          "img/corridadofogo/lamina4.jpg",
+          "img/corridadofogo/lamina5.jpg",
+          "img/corridadofogo/lamina6.jpg",
+          "img/corridadofogo/lamina7.jpg",
+          "img/corridadofogo/lamina8.jpg",
+          "img/corridadofogo/lamina9.jpg",
+          "img/corridadofogo/lamina10.jpg",
+          "img/corridadofogo/lamina11.jpg",
+          "img/corridadofogo/lamina12.jpg",
+          "img/corridadofogo/lamina13.jpg"
+        ]
+      },
+      {
+        "id": "protocantins",
         "title": "Fundação Pró-Tocantins",
         "category": "Government Identity Systems",
         "description": "Complete rebranding and visual protocol for state foundation.",
         "bgColor": "#ffffff",
         "images": [
-          "img/fpt-01.webp"
+          "img/protocantins/lamina1.jpg",
+          "img/protocantins/lamina3.png",
+          "img/protocantins/lamina4.png",
+          "img/protocantins/lamina5.png",
+          "img/protocantins/lamina6.jpg",
+          "img/protocantins/lamina7.png",
+          "img/protocantins/lamina8.jpg",
+          "img/protocantins/lamina9.png",
+          "img/protocantins/lamina10.png"
         ]
       }
     ];
