@@ -1,36 +1,83 @@
 [
   {
-    "id": "coisa-mais-linda",
+    "id": "coisamaislinda",
     "title": "Coisa Mais Linda",
     "category": "Visual Identity & Retail Strategy",
     "description": "Premium fashion branding and architectural facade projection.",
     "bgColor": "#F5F1E9",
     "images": [
-      "img/cml-01.webp",
-      "img/cml-02.webp",
-      "img/cml-03.webp",
-      "img/cml-04.webp"
+      "img/coisamaislinda/lamina1.jpg",
+      "img/coisamaislinda/lamina2.jpg",
+      "img/coisamaislinda/lamina3.jpg",
+      "img/coisamaislinda/lamina4.jpg",
+      "img/coisamaislinda/lamina5.jpg",
+      "img/coisamaislinda/lamina6.jpg",
+      "img/coisamaislinda/lamina7.jpg",
+      "img/coisamaislinda/lamina8.jpg"
     ]
   },
   {
-    "id": "bombeiro-de-aco",
+    "id": "bombeirodeaco",
     "title": "Bombeiro de Aço",
     "category": "Institutional Branding & Medal Design",
     "description": "Identity system for elite firefighter competition and merit awards.",
-    "bgColor": "#1a1a1a",
+    "bgColor": "#1A1A1A",
     "images": [
-      "img/bda-01.webp",
-      "img/bda-02.webp"
+      "img/bombeirodeaco/1.jpg",
+      "img/bombeirodeaco/2.jpg",
+      "img/bombeirodeaco/3.jpg",
+      "img/bombeirodeaco/4.jpg",
+      "img/bombeirodeaco/5.jpg",
+      "img/bombeirodeaco/6.jpg",
+      "img/bombeirodeaco/7.jpg",
+      "img/bombeirodeaco/8.jpg",
+      "img/bombeirodeaco/9.jpg",
+      "img/bombeirodeaco/10.jpg",
+      "img/bombeirodeaco/11.jpg",
+      "img/bombeirodeaco/12.jpg",
+      "img/bombeirodeaco/13.png"
     ]
   },
   {
-    "id": "fundacao-pro-tocantins",
+    "id": "corridadofogo",
+    "title": "Corrida do Fogo",
+    "category": "Event Branding & Tactical Wayfinding",
+    "description": "Visual system for high-intensity tactical competition.",
+    "bgColor": "#0F172A",
+    "images": [
+      "img/corridadofogo/lamina1.jpg",
+      "img/corridadofogo/lamina1-5.jpg",
+      "img/corridadofogo/lamina2.jpg",
+      "img/corridadofogo/lamina3.jpg",
+      "img/corridadofogo/lamina4.jpg",
+      "img/corridadofogo/lamina5.jpg",
+      "img/corridadofogo/lamina6.jpg",
+      "img/corridadofogo/lamina7.jpg",
+      "img/corridadofogo/lamina8.jpg",
+      "img/corridadofogo/lamina9.jpg",
+      "img/corridadofogo/lamina10.jpg",
+      "img/corridadofogo/lamina11.jpg",
+      "img/corridadofogo/lamina12.jpg",
+      "img/corridadofogo/lamina13.jpg"
+    ]
+  },
+  {
+    "id": "protocantins",
     "title": "Fundação Pró-Tocantins",
     "category": "Government Identity Systems",
     "description": "Complete rebranding and visual protocol for state foundation.",
-    "bgColor": "#ffffff",
+    "bgColor": "#FFFFFF",
     "images": [
-      "img/fpt-01.webp"
+      "img/protocantins/lamina1.jpg",
+      "img/protocantins/lamina2.jpg",
+      "img/protocantins/lamina3.png",
+      "img/protocantins/lamina4.png",
+      "img/protocantins/lamina5.png",
+      "img/protocantins/lamina6.jpg",
+      "img/protocantins/lamina7.png",
+      "img/protocantins/lamina8.png",
+      "img/protocantins/lamina9.png",
+      "img/protocantins/lamina10.png"
     ]
   }
 ]
