@@ -1,454 +1,169 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VDMTX — Art Director & Visual Strategist</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --color-bg: #fafafa;
-            --color-text: #1a1a1a;
-            --color-text-light: #666666;
-            --color-text-muted: #999999;
-            --color-border: #e5e5e5;
-            --color-accent: #2d3748;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--color-bg);
-            color: var(--color-text);
-            font-weight: 300;
-            line-height: 1.6;
-        }
-        
-        header {
-            padding: 40px 60px 30px;
-            border-bottom: 1px solid var(--color-border);
-        }
-        
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            color: var(--color-text);
-            text-decoration: none;
-        }
-                .lang-switch {
-            display: flex;
-            gap: 20px;
-            font-size: 11px;
-            letter-spacing: 0.1em;
-            color: var(--color-text-light);
-        }
-        
-        .lang-switch a {
-            color: var(--color-text-light);
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        .lang-switch a:hover,
-        .lang-switch a.active {
-            color: var(--color-text);
-            font-weight: 500;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .btn {
-            padding: 14px 28px;
-            font-size: 11px;
-            letter-spacing: 0.1em;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid var(--color-text);
-            display: inline-block;
-            background: transparent;
-        }
-        
-        .btn-primary {
-            background: var(--color-accent);
-            color: #fff;
-            border-color: var(--color-accent);
-        }
-        
-        .btn-primary:hover { background: var(--color-text); }
-        
-        .btn-secondary {
-            color: var(--color-text);
-        }
-                .btn-secondary:hover {
-            background: var(--color-text);
-            color: #fff;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 30px 0;
-            flex-wrap: wrap;
-        }
-        
-        nav a {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 13px;
-            font-weight: 400;
-            color: var(--color-text-light);
-            text-decoration: none;
-            letter-spacing: 0.05em;
-            transition: color 0.3s;
-        }
-        
-        nav a:hover { color: var(--color-text); }
-        
-        main {
-            padding: 80px 60px;
-        }
-        
-        .intro {
-            max-width: 800px;
-            margin-bottom: 100px;
-        }
-        
-        .intro h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 48px;
-            font-weight: 300;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-        
-        .intro p {
-            font-size: 15px;
-            color: var(--color-text-light);
-            line-height: 1.8;
-        }
-        
-        section {
-            margin-bottom: 100px;        }
-        
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--color-text-muted);
-            margin-bottom: 50px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--color-border);
-        }
-        
-        .competencies-list {
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-        }
-        
-        .competency {
-            padding-bottom: 50px;
-            border-bottom: 1px solid var(--color-border);
-        }
-        
-        .competency:last-child { border-bottom: none; }
-        
-        .competency h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 26px;
-            font-weight: 400;
-            margin-bottom: 15px;
-        }
-        
-        .competency p {
-            font-size: 14px;
-            color: var(--color-text-light);
-            line-height: 1.8;
-            max-width: 700px;
-        }
-        
-        .cases-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-        
-        .case-card {
-            cursor: pointer;
-            transition: transform 0.4s ease;        }
-        
-        .case-card:hover { transform: translateY(-8px); }
-        
-        .case-image {
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: var(--color-border);
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        
-        .case-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .case-category {
-            font-size: 10px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--color-text-muted);
-            margin-bottom: 8px;
-        }
-        
-        .case-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
-            font-weight: 400;
-        }
-        
-        footer {
-            padding: 60px;
-            border-top: 1px solid var(--color-border);
-            text-align: center;
-        }
-        
-        footer p {
-            font-size: 12px;
-            color: var(--color-text-muted);
-            letter-spacing: 0.1em;
-        }
-        
-        .loading {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 16px;
-            color: var(--color-text-muted);
-            font-style: italic;
-        }        
-        @media (max-width: 1024px) {
-            .cases-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        
-        @media (max-width: 768px) {
-            header, main { padding-left: 30px; padding-right: 30px; }
-            .intro h1 { font-size: 36px; }
-            .cases-grid { grid-template-columns: 1fr; }
-            nav { gap: 20px; }
-            .header-top { flex-direction: column; gap: 20px; align-items: flex-start; }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="header-top">
-            <a href="/" class="logo">VDMTX</a>
-            <div class="lang-switch">
-                <a data-lang="pt" class="active">PT</a>
-                <a data-lang="en">EN</a>
-                <a data-lang="jp">JP</a>
-                <a data-lang="zh">ZH</a>
-            </div>
-        </div>
-        
-        <div class="cta-buttons">
-            <a href="mailto:contact@vdmtx.com" class="btn btn-primary" data-i18n="consultBtn">Solicitar Consultoria</a>
-            <a href="#" class="btn btn-secondary" data-i18n="linkedinBtn">Perfil Linkedin</a>
-        </div>
-        
-        <nav id="navCases"></nav>
-    </header>
-    
-    <main>
-        <div class="intro">
-            <h1 data-i18n="introTitle">Art Director & Visual Strategist</h1>
-            <p data-i18n="introText">27 years of experience in high-stakes institutional branding and visual identity engineering.</p>
-        </div>
-        
-        <section id="competencies">
-            <div class="section-title" data-i18n="competenciesTitle">Core Competencies</div>
-            <div class="competencies-list" id="competenciesList">
-                <div class="loading">Loading...</div>
-            </div>
-        </section>
-        
-        <section id="cases">
-            <div class="section-title" data-i18n="casesTitle">Selected Case Studies</div>
-            <div class="cases-grid" id="casesGrid">                <div class="loading">Loading...</div>
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-        <p data-i18n="footer">© 2024 VDMTX — All Rights Reserved</p>
-    </footer>
+<footer>
+    <p>
+        <span data-i18n="footer">© 2024 VDMTX — All Rights Reserved</span>
+        <span id="admin-trigger" style="opacity:0.02;cursor:default;font-size:10px;margin-left:6px;user-select:none;display:inline-block;width:8px;height:8px;">•</span>
+    </p>
+</footer>
 
-    <script>
-        // Sistema de Tradução
-        const translations = {
-            pt: {
-                consultBtn: 'Solicitar Consultoria',
-                linkedinBtn: 'Perfil Linkedin',
-                introTitle: 'Diretor de Arte & Estrategista Visual',
-                introText: '27 anos de experiência em branding institucional de alto impacto e engenharia de identidade visual.',
-                competenciesTitle: 'Competências Principais',
-                casesTitle: 'Cases Selecionados',
-                footer: '© 2024 VDMTX — Todos os Direitos Reservados'
-            },
-            en: {
-                consultBtn: 'Request Consultation',
-                linkedinBtn: 'LinkedIn Profile',
-                introTitle: 'Art Director & Visual Strategist',
-                introText: '27 years of experience in high-stakes institutional branding and visual identity engineering.',
-                competenciesTitle: 'Core Competencies',
-                casesTitle: 'Selected Case Studies',
-                footer: '© 2024 VDMTX — All Rights Reserved'
-            },
-            jp: {
-                consultBtn: 'コンサルティングを依頼',
-                linkedinBtn: 'LinkedInプロフィール',
-                introTitle: 'アートディレクター & ビジュアルストラテジスト',
-                introText: 'ハイスケールのインスティテューショナル・ブランディングとビジュアルアイデンティティ・エンジニアリングにおいて27年の経験。',
-                competenciesTitle: '主要な専門分野',
-                casesTitle: '厳選されたケーススタディ',
-                footer: '© 2024 VDMTX — All Rights Reserved'
-            },
-            zh: {
-                consultBtn: '请求咨询',
-                linkedinBtn: '领英档案',
-                introTitle: '艺术总监与视觉策略师',
-                introText: '拥有27年高端机构品牌塑造和视觉识别系统设计经验。',
-                competenciesTitle: '核心能力',
-                casesTitle: '精选案例研究',
-                footer: '© 2024 VDMTX — All Rights Reserved'
+<script>
+    // Sistema de Tradução
+    const translations = {
+        pt: {
+            consultBtn: 'Solicitar Consultoria',
+            linkedinBtn: 'Perfil Linkedin',
+            introTitle: 'Diretor de Arte & Estrategista Visual',
+            introText: '27 anos de experiência em branding institucional de alto impacto e engenharia de identidade visual.',
+            competenciesTitle: 'Competências Principais',
+            casesTitle: 'Cases Selecionados',
+            footer: '© 2024 VDMTX — Todos os Direitos Reservados'
+        },
+        en: {
+            consultBtn: 'Request Consultation',
+            linkedinBtn: 'LinkedIn Profile',
+            introTitle: 'Art Director & Visual Strategist',
+            introText: '27 years of experience in high-stakes institutional branding and visual identity engineering.',
+            competenciesTitle: 'Core Competencies',
+            casesTitle: 'Selected Case Studies',
+            footer: '© 2024 VDMTX — All Rights Reserved'
+        },
+        jp: {
+            consultBtn: 'コンサルティングを依頼',
+            linkedinBtn: 'LinkedInプロフィール',
+            introTitle: 'アートディレクター & ビジュアルストラテジスト',
+            introText: 'ハイスケールのインスティテューショナル・ブランディングとビジュアルアイデンティティ・エンジニアリングにおいて27年の経験。',
+            competenciesTitle: '主要な専門分野',
+            casesTitle: '厳選されたケーススタディ',
+            footer: '© 2024 VDMTX — All Rights Reserved'
+        },
+        zh: {
+            consultBtn: '请求咨询',
+            linkedinBtn: '领英档案',
+            introTitle: '艺术总监与视觉策略师',
+            introText: '拥有27年高端机构品牌塑造和视觉识别系统设计经验。',
+            competenciesTitle: '核心能力',
+            casesTitle: '精选案例研究',
+            footer: '© 2024 VDMTX — All Rights Reserved'
+        }
+    };
+
+    let currentLang = localStorage.getItem('lang') || 'pt';
+
+    function setLanguage(lang) {
+        if (!translations[lang]) lang = 'pt';
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+        
+        const t = translations[lang];
+        
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key]) {
+                el.textContent = t[key];
             }
-        };
-        let currentLang = localStorage.getItem('lang') || 'pt';
-
-        function setLanguage(lang) {
-            if (!translations[lang]) lang = 'pt';
-            currentLang = lang;
-            localStorage.setItem('lang', lang);
-            
-            const t = translations[lang];
-            
-            // Atualizar todos os elementos com data-i18n
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (t[key]) {
-                    el.textContent = t[key];
-                }
-            });
-            
-            // Atualizar estado ativo dos botões
-            document.querySelectorAll('.lang-switch a').forEach(a => {
-                if (a.dataset.lang === lang) {
-                    a.classList.add('active');
-                } else {
-                    a.classList.remove('active');
-                }
-            });
-            
-            // Atualizar atributo lang do HTML
-            document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
-        }
-
-        // Carregar dados
-        async function loadData() {
-            try {
-                const response = await fetch('config.json');
-                const data = await response.json();
-                
-                renderCompetencies(data.competencies);
-                renderCases(data.cases);
-                renderNav(data.cases);
-                setLanguage(currentLang);
-            } catch (error) {
-                console.error('Erro:', error);
-                document.getElementById('competenciesList').innerHTML = '<p style="color:#999">Erro ao carregar</p>';
-                document.getElementById('casesGrid').innerHTML = '<p style="color:#999">Erro ao carregar</p>';
-            }
-        }
-
-        function renderCompetencies(competencies) {
-            const container = document.getElementById('competenciesList');
-            container.innerHTML = competencies.map(comp => `                <div class="competency">
-                    <h3>${comp.title}</h3>
-                    <p>${comp.description}</p>
-                </div>
-            `).join('');
-        }
-
-        function renderNav(cases) {
-            const nav = document.getElementById('navCases');
-            nav.innerHTML = cases.map(c => `<a href="#${c.slug}">${c.title}</a>`).join('');
-        }
-
-        async function renderCases(cases) {
-            const container = document.getElementById('casesGrid');
-            
-            const casesWithImages = await Promise.all(cases.map(async c => {
-                let img = null;
-                try {
-                    const res = await fetch(`https://api.github.com/repos/vdmtx/art-director-portfolio/contents/${c.folder}`);
-                    if (res.ok) {
-                        const files = await res.json();
-                        const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|gif|webp)$/i));
-                        if (images.length > 0) img = images[0].download_url;
-                    }
-                } catch(e) {}
-                return {...c, img};
-            }));
-            
-            container.innerHTML = casesWithImages.map(c => `
-                <div class="case-card" onclick="openCase('${c.slug}')">
-                    <div class="case-image">
-                        ${c.img ? `<img src="${c.img}" alt="${c.title}">` : ''}
-                    </div>
-                    <div class="case-category">${c.category}</div>
-                    <div class="case-title">${c.title}</div>
-                </div>
-            `).join('');
-        }
-
-        function openCase(slug) {
-            window.location.href = `case.html?slug=${slug}`;
-        }
-
-        // Event listeners para troca de idioma
+        });
+        
         document.querySelectorAll('.lang-switch a').forEach(a => {
-            a.addEventListener('click', (e) => {
-                e.preventDefault();
-                setLanguage(a.dataset.lang);
-            });
+            a.classList.toggle('active', a.dataset.lang === lang);
         });
-        // Acesso admin - Ctrl+Shift+A
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-                window.location.href = 'admin.html';
-            }
-        });
+        
+        document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+    }
 
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', loadData);
-    </script>
-</body>
-</html>
+    async function loadData() {
+        try {
+            const response = await fetch('config.json');
+            const data = await response.json();
+            renderCompetencies(data.competencies);
+            renderCases(data.cases);
+            renderNav(data.cases);
+            setLanguage(currentLang);
+        } catch (error) {
+            console.error('Erro:', error);
+        }
+    }
+
+    function renderCompetencies(competencies) {
+        document.getElementById('competenciesList').innerHTML = competencies.map(comp => `
+            <div class="competency">
+                <h3>${comp.title}</h3>
+                <p>${comp.description}</p>
+            </div>
+        `).join('');
+    }
+
+    function renderNav(cases) {
+        document.getElementById('navCases').innerHTML = cases.map(c => `<a href="#${c.slug}">${c.title}</a>`).join('');
+    }
+
+    async function renderCases(cases) {
+        const casesWithImages = await Promise.all(cases.map(async c => {
+            let img = null;
+            try {
+                const res = await fetch(`https://api.github.com/repos/vdmtx/art-director-portfolio/contents/${c.folder}`);
+                if (res.ok) {
+                    const files = await res.json();
+                    const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|gif|webp)$/i));
+                    if (images.length > 0) img = images[0].download_url;
+                }
+            } catch(e) {}
+            return {...c, img};
+        }));
+        
+        document.getElementById('casesGrid').innerHTML = casesWithImages.map(c => `
+            <div class="case-card" onclick="openCase('${c.slug}')">
+                <div class="case-image">
+                    ${c.img ? `<img src="${c.img}" alt="${c.title}">` : ''}
+                </div>
+                <div class="case-category">${c.category}</div>
+                <div class="case-title">${c.title}</div>
+            </div>
+        `).join('');
+    }
+
+    function openCase(slug) {
+        window.location.href = `case.html?slug=${slug}`;
+    }
+
+    // ========== ACESSO ADMIN ==========
+    
+    // 1. Clique no ponto invisível do footer
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'admin-trigger') {
+            window.location.href = 'admin.html';
+        }
+    });
+
+    // 2. Atalho de teclado: Ctrl + Shift + A
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+            e.preventDefault();
+            window.location.href = 'admin.html';
+        }
+    });
+
+    // 3. Sequência secreta: digite "vdmtx"
+    let secretCode = [];
+    document.addEventListener('keypress', (e) => {
+        secretCode.push(e.key.toLowerCase());
+        if (secretCode.length > 5) secretCode.shift();
+        if (secretCode.join('') === 'vdmtx') {
+            window.location.href = 'admin.html';
+            secretCode = [];
+        }
+    });
+
+    // 4. Duplo clique no logo
+    document.querySelector('.logo').addEventListener('dblclick', () => {
+        window.location.href = 'admin.html';
+    });
+
+    // Listeners de idioma
+    document.querySelectorAll('.lang-switch a').forEach(a => {
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            setLanguage(a.dataset.lang);
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', loadData);
+</script>
