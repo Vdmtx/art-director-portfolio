@@ -1,243 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin — VDMTX</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            padding: 40px 20px;
-        }
-        .container { max-width: 1000px; margin: 0 auto; }
-        h1 { color: #fff; margin-bottom: 30px; font-size: 28px; }
+<!-- Tab Imagens -->
+<div id="imagesTab" class="tab-content">
+    <div class="section">
+        <h2>Gerenciar Imagens</h2>
+        <div id="imagesAlert"></div>
         
-        .tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #333;
-        }
-        .tab {
-            padding: 12px 24px;
-            background: none;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            font-size: 14px;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -1px;
-        }
-        .tab.active {
-            color: #00d4ff;
-            border-bottom-color: #00d4ff;
-        }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        <label>Selecionar Case</label>
+        <select id="caseSelect">
+            <option value="">Selecione um case...</option>
+        </select>
         
-        .section {
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        h2 { color: #fff; margin-bottom: 20px; font-size: 20px; }
+        <!-- Upload -->
+        <div class="upload-area" id="uploadArea">
+            <p style="color:#888;font-size:14px;">Clique ou arraste imagens aqui</p>
+            <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
+        </div>
         
-        label { display: block; margin-bottom: 8px; color: #aaa; font-size: 14px; }
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 14px;
-            font-family: inherit;
-        }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #00d4ff;
-        }
-        textarea { resize: vertical; min-height: 100px; }
+        <div class="image-preview" id="imagePreview"></div>
+        <button class="btn-primary" id="uploadBtn" style="display:none;" onclick="uploadImages()">Enviar Imagens</button>
         
-        button {
-            padding: 12px 24px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .btn-primary { background: #00d4ff; color: #000; }
-        .btn-primary:hover { background: #00b8e6; }
-        .btn-secondary { background: #333; color: #fff; }
-        .btn-secondary:hover { background: #444; }
-        .btn-danger { background: #ff4444; color: #fff; }
-        .btn-danger:hover { background: #ff3333; }
-        
-        .item {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 4px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .item-info h3 { color: #fff; font-size: 16px; margin-bottom: 5px; }
-        .item-info p { color: #888; font-size: 13px; }
-        .item-actions { display: flex; gap: 10px; }
-        
-        .alert {
-            padding: 12px 20px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .alert-success { background: #1a3a1a; color: #4ade80; border: 1px solid #2d5a2d; }
-        .alert-error { background: #3a1a1a; color: #f87171; border: 1px solid #5a2d2d; }
-        
-        .login-form { max-width: 500px; margin: 100px auto; }
-        .hidden { display: none; }
-        
-        .upload-area {
-            border: 2px dashed #333;
-            border-radius: 8px;
-            padding: 60px 40px;
-            text-align: center;
-            margin: 30px 0;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .upload-area:hover { border-color: #00d4ff; background: #1a1a2a; }
-        
-        .image-preview {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
-        }
-        .image-item {
-            position: relative;
-            aspect-ratio: 1;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .image-item img { width: 100%; height: 100%; object-fit: cover; }
-        .image-item button {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(255,0,0,0.8);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 0;
-        }
-    </style>
-</head>
-<body>
-    <!-- Login -->
-    <div id="loginSection" class="container">
-        <div class="login-form">
-            <h1>Admin Login</h1>
-            <div id="loginAlert"></div>
-            <label>GitHub Username</label>
-            <input type="text" id="githubUsername" placeholder="vdmtx">
-            <label>GitHub Token</label>
-            <input type="password" id="githubToken" placeholder="ghp_...">
-            <button class="btn-primary" onclick="login()">Acessar Painel</button>
-            <p style="margin-top:20px;font-size:13px;color:#666;">
-                Crie um token em: <a href="https://github.com/settings/tokens" target="_blank" style="color:#00d4ff;">GitHub Settings</a>
-            </p>
+        <!-- Galeria de imagens existentes com ordem -->
+        <div id="currentImages" style="margin-top:40px;">
+            <h3 style="color:#fff;margin-bottom:15px;">Imagens do Case</h3>
+            <p style="color:#666;font-size:13px;margin-bottom:20px;">Arraste as miniaturas para reordenar. A ordem define como aparecem no portfólio.</p>
+            <div id="galleryGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:15px;"></div>
+            <button class="btn-primary" id="saveOrderBtn" style="display:none;margin-top:20px;" onclick="saveImageOrder()">Salvar Ordem</button>
         </div>
     </div>
-
-    <!-- Admin Panel -->
-    <div id="adminPanel" class="container hidden">
-        <h1>Painel Administrativo</h1>
-        
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('competencies', this)">Competências</button>
-            <button class="tab" onclick="switchTab('cases', this)">Cases</button>
-            <button class="tab" onclick="switchTab('images', this)">Imagens</button>
-        </div>
-
-        <!-- Tab Competências -->
-        <div id="competenciesTab" class="tab-content active">
-            <div class="section">
-                <h2>Gerenciar Competências</h2>
-                <div id="competenciesAlert"></div>
-                <label>Título</label>
-                <input type="text" id="compTitle" placeholder="Ex: Visual Identity Engineering">
-                <label>Descrição</label>
-                <textarea id="compDescription" placeholder="Descrição da competência..."></textarea>
-                <button class="btn-primary" onclick="addCompetency()">Adicionar Competência</button>
-                <div id="competenciesList" style="margin-top:30px;"></div>
-            </div>
-        </div>
-
-        <!-- Tab Cases -->
-        <div id="casesTab" class="tab-content">
-            <div class="section">
-                <h2>Gerenciar Cases</h2>
-                <div id="casesAlert"></div>
-                <label>Título</label>
-                <input type="text" id="caseTitle" placeholder="Ex: Coisa Mais Linda">
-                <label>Categoria</label>
-                <input type="text" id="caseCategory" placeholder="Ex: Visual Identity & Retail Strategy">
-                <label>Slug (URL amigável)</label>
-                <input type="text" id="caseSlug" placeholder="Ex: coisamaislinda">
-                <button class="btn-primary" onclick="addCase()">Adicionar Case</button>
-                <div id="casesList" style="margin-top:30px;"></div>
-            </div>
-        </div>
-
-        <!-- Tab Imagens -->
-        <div id="imagesTab" class="tab-content">
-            <div class="section">
-                <h2>Gerenciar Imagens</h2>
-                <div id="imagesAlert"></div>
-                <label>Selecionar Case</label>
-                <select id="caseSelect">
-                    <option value="">Selecione um case...</option>
-                </select>
-                
-                <div class="upload-area" id="uploadArea">
-                    <p style="color:#888;font-size:14px;">Clique ou arraste imagens aqui</p>
-                    <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
-                </div>
-                
-                <div class="image-preview" id="imagePreview"></div>
-                <button class="btn-primary" id="uploadBtn" style="display:none;" onclick="uploadImages()">Enviar Imagens</button>
-                
-                <div id="currentImages" style="margin-top:40px;"></div>
-            </div>
-        </div>
-    </div>
-
-    <script src="admin.js"></script>
-    <script>
-        // Sistema de Tabs
-        function switchTab(tabName, btn) {
-            // Remover active de todas as tabs
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            
-            // Adicionar active na tab clicada
-            btn.classList.add('active');
-            document.getElementById(tabName + 'Tab').classList.add('active');
-        }
-    </script>
-</body>
-</html>
+</div>
