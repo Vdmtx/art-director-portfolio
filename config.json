@@ -1,0 +1,42 @@
+{
+  "competencies": [
+    {
+      "title": "Visual Identity Engineering",
+      "description": "Brand design focused on longevity, scalability, and technical rigor. Building perennial visual assets for institutions that demand authority."
+    },
+    {
+      "title": "Institutional Design Systems",
+      "description": "Visual identity management for government agencies and large corporations. Creation of manuals, guidelines, and design systems for multi-platform application."
+    },
+    {
+      "title": "Architectural Signage & Wayfinding",
+      "description": "Facade projections (ACM), high-fidelity physical signage, fleet branding, and environmental design. Integration of graphic design into architectural space."
+    }
+  ],
+  "cases": [
+    {
+      "slug": "coisamaislinda",
+      "title": "Coisa Mais Linda",
+      "category": "Retail & Fashion",
+      "folder": "img/coisamaislinda"
+    },
+    {
+      "slug": "bombeirodeaco",
+      "title": "Bombeiro de Aço",
+      "category": "Institutional / Sports",
+      "folder": "img/bombeirodeaco"
+    },
+    {
+      "slug": "corridadofogo",
+      "title": "Corrida do Fogo",
+      "category": "Event Branding",
+      "folder": "img/corridadofogo"
+    },
+    {
+      "slug": "protocantins",
+      "title": "Pró-Tocantins",
+      "category": "Government Identity",
+      "folder": "img/protocantins"
+    }
+  ]
+}
