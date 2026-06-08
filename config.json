@@ -30,7 +30,22 @@
       "slug": "corridadofogo",
       "title": "Corrida do Fogo",
       "category": "Event Branding & Tactical Wayfinding",
-      "folder": "img/corridadofogo"
+      "folder": "img/corridadofogo",
+      "imageOrder": [
+        "lamina1-5.jpg",
+        "lamina1.jpg",
+        "lamina11.jpg",
+        "lamina12.jpg",
+        "lamina13.jpg",
+        "lamina3.jpg",
+        "lamina4.jpg",
+        "lamina5.jpg",
+        "lamina6.jpg",
+        "lamina7.jpg",
+        "lamina8.jpg",
+        "lamina9.jpg",
+        "lamina10.jpg"
+      ]
     },
     {
       "slug": "protocantins",
