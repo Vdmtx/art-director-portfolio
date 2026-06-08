@@ -1,132 +1,73 @@
-// ==========================================
-// 1. LÓGICA DE IDIOMA (HARD-FIX)
-// ==========================================
-let currentLang = localStorage.getItem('vdmtx-lang') || 'en';
-
-function applyLanguage(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.body.className = document.body.className.replace(/lang-\w+/, `lang-${lang}`);
-  localStorage.setItem('vdmtx-lang', lang);
-
-  // Percorre e substitui textContent
-  document.querySelectorAll('.translate').forEach(el => {
-    const newText = el.getAttribute(`data-${lang}`);
-    if (newText !== null) el.textContent = newText;
-  });
-
-  // Atualiza estado dos botões
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    const isActive = btn.dataset.langTarget === lang;
-    btn.classList.toggle('active', isActive);
-  });
+// Load data from config.json
+async function loadData() {
+    try {
+        const response = await fetch('config.json');
+        const data = await response.json();
+        
+        renderCompetencies(data.competencies);
+        renderCases(data.cases);
+    } catch (error) {
+        console.error('Error loading data:', error);
+        document.getElementById('competenciesList').innerHTML = '<p>Error loading content</p>';
+        document.getElementById('casesList').innerHTML = '<p>Error loading content</p>';
+    }
 }
 
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => applyLanguage(btn.dataset.langTarget));
-});
+function renderCompetencies(competencies) {
+    const container = document.getElementById('competenciesList');
+    container.innerHTML = '';
 
-// Inicializa idioma
-applyLanguage(currentLang);
-
-// ==========================================
-// 2. CARREGAMENTO DINÂMICO + MODAL
-// ==========================================
-const projectsGrid = document.getElementById('projects-grid');
-const modal = document.getElementById('case-modal');
-const modalStack = document.getElementById('case-stack');
-const closeModalBtn = document.getElementById('case-close');
-const progressBar = document.getElementById('case-progress');
-let projectsData = [];
-
-async function loadProjects() {
-  try {
-    const res = await fetch('projects.json');
-    projectsData = await res.json();
-    renderGrid();
-  } catch (err) {
-    projectsGrid.innerHTML = '<p class="translate" data-en="Failed to load projects." data-pt="Falha ao carregar projetos." style="grid-column:1/-1;text-align:center;">Failed to load projects.</p>';
-  }
+    competencies.forEach(comp => {
+        const div = document.createElement('div');
+        div.className = 'competency';
+        div.innerHTML = `
+            <h3>${comp.title}</h3>
+            <p>${comp.description}</p>
+        `;
+        container.appendChild(div);
+    });
 }
 
-function renderGrid() {
-  projectsGrid.innerHTML = projectsData.map(p => `
-    <div class="project-card" data-id="${p.id}">
-      <div class="project-thumbnail">
-        <img src="${p.images[0]}" alt="${p.title}" loading="lazy">
-      </div>
-      <div class="project-caption-top translate" data-en="${p.title}" data-pt="${p.title}">${p.title}</div>
-      <div class="project-caption-bottom translate" data-en="${p.category}" data-pt="${p.category}">${p.category}</div>
-    </div>
-  `).join('');
+async function renderCases(cases) {
+    const container = document.getElementById('casesList');
+    container.innerHTML = '';
 
-  document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('click', () => openModal(card.dataset.id));
-  });
+    for (const caseItem of cases) {
+        const card = document.createElement('div');
+        card.className = 'case-card';
+        card.onclick = () => openCase(caseItem);
+
+        // Try to get first image from folder
+        let imageUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="250"%3E%3Crect fill="%231a1a1a" width="400" height="250"/%3E%3Ctext fill="%23666" font-family="sans-serif" font-size="18" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
+        
+        try {
+            const response = await fetch(`https://api.github.com/repos/vdmtx/${caseItem.folder}`);
+            if (response.ok) {
+                const files = await response.json();
+                const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|gif|webp)$/i));
+                if (images.length > 0) {
+                    imageUrl = images[0].download_url;
+                }
+            }
+        } catch (e) {
+            console.log('No images found for', caseItem.slug);
+        }
+
+        card.innerHTML = `
+            <img src="${imageUrl}" alt="${caseItem.title}" class="case-image" onerror="this.style.display='none'">
+            <div class="case-info">
+                <div class="case-category">${caseItem.category}</div>
+                <div class="case-title">${caseItem.title}</div>
+            </div>
+        `;
+        container.appendChild(card);
+    }
 }
 
-function openModal(id) {
-  const project = projectsData.find(p => p.id === id);
-  if (!project) return;
-
-  // Imersão visual
-  modal.style.backgroundColor = project.bgColor;
-  const isDark = ['#1A1A1A', '#0F172A', '#000000'].includes(project.bgColor.toUpperCase());
-  const textColor = isDark ? '#FFFFFF' : '#1A1A1A';
-  const borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)';
-
-  closeModalBtn.style.background = isDark ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.95)';
-  closeModalBtn.style.color = textColor;
-  closeModalBtn.style.borderColor = borderColor;
-  closeModalBtn.setAttribute('data-en', 'CLOSE');
-  closeModalBtn.setAttribute('data-pt', 'FECHAR');
-  closeModalBtn.textContent = currentLang === 'en' ? 'CLOSE' : 'FECHAR';
-  closeModalBtn.classList.add('translate');
-
-  // Injeção do conteúdo com atributos de tradução
-  let html = `
-    <div class="case-header" style="border-bottom-color:${borderColor}">
-      <h2 style="color:${textColor}">${project.title}</h2>
-      <div class="category translate" data-en="${project.category}" data-pt="${project.category}" style="color:${isDark?'rgba(255,255,255,0.7)':'#4A4A4A'}">${project.category}</div>
-      <p class="translate" data-en="${project.description}" data-pt="${project.description}" style="color:${isDark?'rgba(255,255,255,0.8)':'#4A4A4A'}">${project.description}</p>
-    </div>
-  `;
-
-  project.images.forEach((src, i) => {
-    html += `<img class="slide-image" src="${src}" alt="${project.title} - Slide ${i+1}" loading="lazy" style="background:${project.bgColor}">`;
-  });
-
-  modalStack.innerHTML = html;
-  
-  // Reaplica tradução no conteúdo injetado
-  applyLanguage(currentLang);
-
-  // Controle de estado
-  modal.classList.add('active');
-  modal.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('modal-open');
-  history.pushState({ modal: true }, '');
-  modal.scrollTop = 0;
-  progressBar.style.width = '0%';
+function openCase(caseItem) {
+    // Create case detail page dynamically or redirect
+    window.location.href = `case.html?slug=${caseItem.slug}`;
 }
 
-function closeModal() {
-  modal.classList.remove('active');
-  modal.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('modal-open');
-  modal.style.backgroundColor = '';
-  if (history.state?.modal) history.back();
-}
-
-// Event Listeners
-closeModalBtn.addEventListener('click', closeModal);
-modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-window.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-window.addEventListener('popstate', () => { if (modal.classList.contains('active')) closeModal(); });
-modal.addEventListener('scroll', () => {
-  const h = modal.scrollHeight - modal.clientHeight;
-  progressBar.style.width = h > 0 ? `${(modal.scrollTop / h) * 100}%` : '0%';
-});
-
-// Inicializa
-loadProjects();
+// Load on page load
+document.addEventListener('DOMContentLoaded', loadData);
