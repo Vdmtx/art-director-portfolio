@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        .back-link {
+            display: inline-block;
+            color: #00d4ff;
+            text-decoration: none;
+            margin-bottom: 40px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .category {
+            color: #00d4ff;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.02);
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Voltar ao portfólio</a>
+        <h1 id="caseTitle">Loading...</h1>
+        <div class="category" id="caseCategory"></div>
+        <div class="gallery" id="gallery">
+            <div class="loading">Carregando imagens...</div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get('slug');
+
+        async function loadCase() {
+            try {
+                const response = await fetch('config.json');
+                const data = await response.json();
+                const caseItem = data.cases.find(c => c.slug === slug);
+
+                if (!caseItem) {
+                    document.getElementById('caseTitle').textContent = 'Case not found';
+                    return;
+                }
+
+                document.getElementById('caseTitle').textContent = caseItem.title;
+                document.getElementById('caseCategory').textContent = caseItem.category;
+
+                // Load images
+                const gallery = document.getElementById('gallery');
+                gallery.innerHTML = '';
+
+                try {
+                    const response = await fetch(`https://api.github.com/repos/vdmtx/${caseItem.folder}`);
+                    if (response.ok) {
+                        const files = await response.json();
+                        const images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|gif|webp)$/i));
+
+                        if (images.length === 0) {
+                            gallery.innerHTML = '<p style="color: #666;">Nenhuma imagem disponível</p>';
+                        } else {
+                            images.forEach(img => {
+                                const image = document.createElement('img');
+                                image.src = img.download_url;
+                                image.alt = img.name;
+                                gallery.appendChild(image);
+                            });
+                        }
+                    }
+                } catch (e) {
+                    gallery.innerHTML = '<p style="color: #666;">Erro ao carregar imagens</p>';
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('caseTitle').textContent = 'Error loading case';
+            }
+        }
+
+        loadCase();
+    </script>
+</body>
+</html>
