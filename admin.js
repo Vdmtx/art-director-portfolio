@@ -9,6 +9,7 @@ let config = {
 let currentData = { competencies: [], cases: [] };
 let selectedCase = null;
 let filesToUpload = [];
+let imageOrder = [];
 
 async function login() {
     const username = document.getElementById('githubUsername').value.trim();
@@ -30,9 +31,7 @@ async function login() {
             }
         });
 
-        if (!testRes.ok) {
-            throw new Error('Token inválido (' + testRes.status + ')');
-        }
+        if (!testRes.ok) throw new Error('Token inválido (' + testRes.status + ')');
 
         const user = await testRes.json();
         console.log('Token válido para:', user.login);
@@ -50,15 +49,9 @@ async function login() {
     } catch (error) {
         console.error('Erro no login:', error);
         let msg = 'Erro: ' + error.message;
-
-        if (error.message.includes('401')) {
-            msg = 'Token inválido. Verifique se está correto e tem permissão "repo".';
-        } else if (error.message.includes('403')) {
-            msg = 'Acesso negado. Token precisa de permissão "repo".';
-        } else if (error.message.includes('404')) {
-            msg = 'Repositório não encontrado.';
-        }
-
+        if (error.message.includes('401')) msg = 'Token inválido. Verifique se está correto e tem permissão "repo".';
+        else if (error.message.includes('403')) msg = 'Acesso negado. Token precisa de permissão "repo".';
+        else if (error.message.includes('404')) msg = 'Repositório não encontrado.';
         showAlert('loginAlert', msg, 'error');
     }
 }
@@ -154,7 +147,7 @@ async function loadCompetencies() {
             '<h3>' + comp.title + '</h3>' +
             '<p>' + comp.description + '</p>' +
             '</div>' +
-            '<button class="danger" onclick="deleteCompetency(' + i + ')">Remover</button>' +
+            '<button class="btn-danger" onclick="deleteCompetency(' + i + ')">Remover</button>' +
             '</div>';
     }).join('');
 }
@@ -207,8 +200,8 @@ async function loadCases() {
             '<p>' + c.category + ' — ' + c.folder + '</p>' +
             '</div>' +
             '<div>' +
-            '<button class="secondary" onclick="viewCaseImages(' + i + ')">Imagens</button>' +
-            '<button class="danger" onclick="deleteCase(' + i + ')">Remover</button>' +
+            '<button class="btn-secondary" onclick="viewCaseImages(' + i + ')">Imagens</button>' +
+            '<button class="btn-danger" onclick="deleteCase(' + i + ')">Remover</button>' +
             '</div>' +
             '</div>';
     }).join('');
@@ -284,10 +277,14 @@ function updateCaseSelect() {
     };
 }
 
+// Funções de Imagens com ordenação
 async function loadCaseImages() {
     if (!selectedCase) return;
-    const container = document.getElementById('currentImages');
-    container.innerHTML = '<h3 style="font-family:Cormorant Garamond,serif;font-size:18px;font-weight:400;margin:30px 0 20px;">Imagens Atuais</h3>';
+    
+    const grid = document.getElementById('galleryGrid');
+    const saveBtn = document.getElementById('saveOrderBtn');
+    grid.innerHTML = '<p style="color:#888;grid-column:1/-1;">Carregando...</p>';
+    saveBtn.style.display = 'none';
 
     try {
         const url = 'https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/' + selectedCase.folder;
@@ -299,7 +296,7 @@ async function loadCaseImages() {
         });
 
         if (!res.ok) {
-            container.innerHTML += '<p style="color:#999;font-size:13px;">Nenhuma imagem encontrada</p>';
+            grid.innerHTML = '<p style="color:#888;grid-column:1/-1;">Nenhuma imagem encontrada</p>';
             return;
         }
 
@@ -309,18 +306,113 @@ async function loadCaseImages() {
         });
 
         if (images.length === 0) {
-            container.innerHTML += '<p style="color:#999;font-size:13px;">Nenhuma imagem encontrada</p>';
+            grid.innerHTML = '<p style="color:#888;grid-column:1/-1;">Nenhuma imagem encontrada</p>';
             return;
         }
 
-        container.innerHTML += images.map(function(img) {
-            return '<div class="item">' +
-                '<div class="item-info"><h3>' + img.name + '</h3></div>' +
-                '<button class="danger" onclick="deleteImage(\'' + img.path + '\',\'' + img.sha + '\')">Remover</button>' +
-                '</div>';
-        }).join('');
+        const savedOrder = getImageOrderFromConfig();
+        images.sort(function(a, b) {
+            const orderA = savedOrder.indexOf(a.name);
+            const orderB = savedOrder.indexOf(b.name);
+            if (orderA === -1 && orderB === -1) return a.name.localeCompare(b.name);
+            if (orderA === -1) return 1;
+            if (orderB === -1) return -1;
+            return orderA - orderB;
+        });
+
+        imageOrder = images.map(function(img) { return img.name; });
+        renderGallery(images);
     } catch (e) {
-        container.innerHTML += '<p style="color:#999;font-size:13px;">Erro ao carregar imagens</p>';
+        grid.innerHTML = '<p style="color:#888;grid-column:1/-1;">Erro ao carregar</p>';
+    }
+}
+
+function getImageOrderFromConfig() {
+    if (!currentData.cases) return [];
+    const caseData = currentData.cases.find(function(c) { return c.slug === selectedCase.slug; });
+    if (caseData && caseData.imageOrder) return caseData.imageOrder;
+    return [];
+}
+
+function renderGallery(images) {
+    const grid = document.getElementById('galleryGrid');
+    const saveBtn = document.getElementById('saveOrderBtn');
+    
+    grid.innerHTML = images.map(function(img, index) {
+        return '<div class="gallery-item" draggable="true" data-name="' + img.name + '" data-index="' + index + '">' +
+            '<div class="gallery-number">' + (index + 1) + '</div>' +
+            '<img src="' + img.download_url + '" alt="' + img.name + '" style="width:100%;height:150px;object-fit:cover;border-radius:4px;">' +
+            '<div class="gallery-info">' +
+            '<p style="color:#fff;font-size:12px;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + img.name + '</p>' +
+            '<button class="btn-danger" style="padding:6px 12px;font-size:11px;margin-top:8px;" onclick="deleteImage(\'' + img.path + '\',\'' + img.sha + '\')">Remover</button>' +
+            '</div>' +
+            '</div>';
+    }).join('');
+
+    saveBtn.style.display = 'block';
+    setupDragAndDrop();
+}
+
+function setupDragAndDrop() {
+    const items = document.querySelectorAll('.gallery-item');
+    let draggedItem = null;
+
+    items.forEach(function(item) {
+        item.addEventListener('dragstart', function(e) {
+            draggedItem = this;
+            this.style.opacity = '0.4';
+            e.dataTransfer.effectAllowed = 'move';
+        });
+
+        item.addEventListener('dragend', function() {
+            this.style.opacity = '1';
+            draggedItem = null;
+            document.querySelectorAll('.gallery-item').forEach(function(i) {
+                i.style.border = '';
+            });
+        });
+
+        item.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            this.style.border = '2px solid #00d4ff';
+        });
+
+        item.addEventListener('dragleave', function() {
+            this.style.border = '';
+        });
+
+        item.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.border = '';
+            
+            if (draggedItem === this) return;
+
+            const fromIndex = parseInt(draggedItem.dataset.index);
+            const toIndex = parseInt(this.dataset.index);
+
+            const moved = imageOrder.splice(fromIndex, 1)[0];
+            imageOrder.splice(toIndex, 0, moved);
+
+            loadCaseImages();
+        });
+    });
+}
+
+async function saveImageOrder() {
+    try {
+        const caseIndex = currentData.cases.findIndex(function(c) { return c.slug === selectedCase.slug; });
+        if (caseIndex === -1) {
+            showAlert('imagesAlert', 'Case não encontrado', 'error');
+            return;
+        }
+        
+        currentData.cases[caseIndex].imageOrder = imageOrder;
+        await saveConfig();
+        
+        showAlert('imagesAlert', '✅ Ordem salva com sucesso!', 'success');
+    } catch (error) {
+        showAlert('imagesAlert', '❌ Erro ao salvar: ' + error.message, 'error');
     }
 }
 
@@ -356,16 +448,16 @@ document.getElementById('uploadArea').addEventListener('click', function() {
 
 document.getElementById('uploadArea').addEventListener('dragover', function(e) {
     e.preventDefault();
-    this.style.borderColor = '#1a1a1a';
+    this.style.borderColor = '#00d4ff';
 });
 
 document.getElementById('uploadArea').addEventListener('dragleave', function() {
-    this.style.borderColor = 'var(--color-border)';
+    this.style.borderColor = '#333';
 });
 
 document.getElementById('uploadArea').addEventListener('drop', function(e) {
     e.preventDefault();
-    this.style.borderColor = 'var(--color-border)';
+    this.style.borderColor = '#333';
     handleFiles(e.dataTransfer.files);
 });
 
