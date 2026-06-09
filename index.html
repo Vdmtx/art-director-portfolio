@@ -323,11 +323,23 @@
                 competenciesTitle: 'Competências Principais',
                 casesTitle: 'Cases Selecionados',
                 footer: '© 2024 VDMTX — Todos os Direitos Reservados',
-                // Categorias traduzidas
+                // Categorias
                 catVisualIdentity: 'Identidade Visual & Estratégia de Varejo',
                 catInstitutional: 'Branding Institucional & Design de Medalhas',
                 catEvent: 'Branding de Eventos & Wayfinding Tático',
-                catGovernment: 'Identidade Governamental'
+                catGovernment: 'Identidade Governamental',
+                // Cases - títulos
+                caseCoisaMaisLinda: 'Coisa Mais Linda',
+                caseBombeiroDeAco: 'Bombeiro de Aço',
+                caseCorridaDoFogo: 'Corrida do Fogo',
+                caseProTocantins: 'Pró-Tocantins',
+                // Competências
+                compVisualIdentity: 'Visual Identity Engineering',
+                compVisualIdentityDesc: 'Brand design focused on longevity, scalability, and technical rigor. Building perennial visual assets for institutions that demand authority.',
+                compInstitutional: 'Institutional Design Systems',
+                compInstitutionalDesc: 'Visual identity management for government agencies and large corporations. Creation of manuals, guidelines, and design systems for multi-platform application.',
+                compArchitectural: 'Architectural Signage & Wayfinding',
+                compArchitecturalDesc: 'Facade projections (ACM), high-fidelity physical signage, fleet branding, and environmental design. Integration of graphic design into architectural space.'
             },
             en: {
                 consultBtn: 'Request Consultation',
@@ -340,7 +352,17 @@
                 catVisualIdentity: 'Visual Identity & Retail Strategy',
                 catInstitutional: 'Institutional Branding & Medal Design',
                 catEvent: 'Event Branding & Tactical Wayfinding',
-                catGovernment: 'Government Identity'
+                catGovernment: 'Government Identity',
+                caseCoisaMaisLinda: 'Coisa Mais Linda',
+                caseBombeiroDeAco: 'Bombeiro de Aço',
+                caseCorridaDoFogo: 'Corrida do Fogo',
+                caseProTocantins: 'Pró-Tocantins',
+                compVisualIdentity: 'Visual Identity Engineering',
+                compVisualIdentityDesc: 'Brand design focused on longevity, scalability, and technical rigor. Building perennial visual assets for institutions that demand authority.',
+                compInstitutional: 'Institutional Design Systems',
+                compInstitutionalDesc: 'Visual identity management for government agencies and large corporations. Creation of manuals, guidelines, and design systems for multi-platform application.',
+                compArchitectural: 'Architectural Signage & Wayfinding',
+                compArchitecturalDesc: 'Facade projections (ACM), high-fidelity physical signage, fleet branding, and environmental design. Integration of graphic design into architectural space.'
             },
             jp: {
                 consultBtn: 'コンサルティングを依頼',
@@ -353,7 +375,17 @@
                 catVisualIdentity: 'ビジュアルアイデンティティ＆小売戦略',
                 catInstitutional: '機関ブランディング＆メダルデザイン',
                 catEvent: 'イベントブランディング＆タクティカルウェイファインディング',
-                catGovernment: '政府アイデンティティ'
+                catGovernment: '政府アイデンティティ',
+                caseCoisaMaisLinda: 'コイサ・マイス・リンダ',
+                caseBombeiroDeAco: 'ボンベイロ・デ・アソ',
+                caseCorridaDoFogo: 'コヒーダ・ド・フォゴ',
+                caseProTocantins: 'プロ・トカンチンス',
+                compVisualIdentity: 'ビジュアルアイデンティティ・エンジニアリング',
+                compVisualIdentityDesc: '長寿性、拡張性、技術的厳密性に焦点を当てたブランドデザイン。権威を求める機関のための永続的なビジュアル資産を構築。',
+                compInstitutional: 'インスティテューショナル・デザインシステム',
+                compInstitutionalDesc: '政府機関および大企業のためのビジュアルアイデンティティ管理。マニュアル、ガイドライン、マルチプラットフォーム適用のためのデザインシステムの作成。',
+                compArchitectural: 'アーキテクチュラル・サイネージ＆ウェイファインディング',
+                compArchitecturalDesc: 'ファサード投影（ACM）、高忠実度物理サイネージ、フリートブランディング、環境デザイン。グラフィックデザインを建築空間に統合。'
             },
             zh: {
                 consultBtn: '请求咨询',
@@ -366,16 +398,18 @@
                 catVisualIdentity: '视觉识别与零售策略',
                 catInstitutional: '机构品牌与奖章设计',
                 catEvent: '活动品牌与战术导视系统',
-                catGovernment: '政府形象识别'
+                catGovernment: '政府形象识别',
+                caseCoisaMaisLinda: 'Coisa Mais Linda',
+                caseBombeiroDeAco: 'Bombeiro de Aço',
+                caseCorridaDoFogo: 'Corrida do Fogo',
+                caseProTocantins: 'Pró-Tocantins',
+                compVisualIdentity: '视觉识别工程',
+                compVisualIdentityDesc: '专注于持久性、可扩展性和技术严谨性的品牌设计。为要求权威性的机构打造持久的视觉资产。',
+                compInstitutional: '机构设计系统',
+                compInstitutionalDesc: '为政府机构和大型公司管理视觉识别。创建手册、指南和多平台应用的设计系统。',
+                compArchitectural: '建筑标识与导视系统',
+                compArchitecturalDesc: '立面投影（ACM）、高保真物理标识、车队品牌和环境设计。将平面设计融入建筑空间。'
             }
-        };
-
-        // Mapeamento de slugs para categorias
-        const categoryMap = {
-            'coisamaislinda': 'catVisualIdentity',
-            'bombeirodeaco': 'catInstitutional',
-            'corridadofogo': 'catEvent',
-            'protocantins': 'catGovernment'
         };
 
         let currentLang = localStorage.getItem('lang') || 'pt';
@@ -403,6 +437,17 @@
                 }
             });
             
+            // Atualiza títulos dos cases
+            document.querySelectorAll('.case-title').forEach(el => {
+                const caseKey = el.dataset.case;
+                if (caseKey && t[caseKey]) {
+                    el.textContent = t[caseKey];
+                }
+            });
+            
+            // Atualiza competências
+            updateCompetencies(t);
+            
             // Atualiza estado ativo
             document.querySelectorAll('.lang-switch a').forEach(a => {
                 a.classList.toggle('active', a.dataset.lang === lang);
@@ -411,27 +456,36 @@
             document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
         }
 
+        function updateCompetencies(t) {
+            const container = document.getElementById('competenciesList');
+            container.innerHTML = `
+                <div class="competency">
+                    <h3>${t.compVisualIdentity}</h3>
+                    <p>${t.compVisualIdentityDesc}</p>
+                </div>
+                <div class="competency">
+                    <h3>${t.compInstitutional}</h3>
+                    <p>${t.compInstitutionalDesc}</p>
+                </div>
+                <div class="competency">
+                    <h3>${t.compArchitectural}</h3>
+                    <p>${t.compArchitecturalDesc}</p>
+                </div>
+            `;
+        }
+
         async function loadData() {
             try {
                 const response = await fetch('config.json');
                 const data = await response.json();
                 
-                renderCompetencies(data.competencies);
+                updateCompetencies(translations[currentLang]);
                 await renderCases(data.cases);
                 renderNav(data.cases);
                 setLanguage(currentLang);
             } catch (error) {
                 console.error('Erro:', error);
             }
-        }
-
-        function renderCompetencies(competencies) {
-            document.getElementById('competenciesList').innerHTML = competencies.map(comp => `
-                <div class="competency">
-                    <h3>${comp.title}</h3>
-                    <p>${comp.description}</p>
-                </div>
-            `).join('');
         }
 
         function renderNav(cases) {
@@ -475,10 +529,27 @@
                     console.log('Erro ao carregar imagens do case', c.slug, e);
                 }
                 
-                // Pega a chave da categoria baseada no slug
-                const catKey = categoryMap[c.slug] || 'catVisualIdentity';
+                // Mapeia slug para chave de tradução
+                const caseKeyMap = {
+                    'coisamaislinda': 'caseCoisaMaisLinda',
+                    'bombeirodeaco': 'caseBombeiroDeAco',
+                    'corridadofogo': 'caseCorridaDoFogo',
+                    'protocantins': 'caseProTocantins'
+                };
                 
-                return {...c, coverImage, categoryKey: catKey};
+                const catKeyMap = {
+                    'coisamaislinda': 'catVisualIdentity',
+                    'bombeirodeaco': 'catInstitutional',
+                    'corridadofogo': 'catEvent',
+                    'protocantins': 'catGovernment'
+                };
+                
+                return {
+                    ...c, 
+                    coverImage, 
+                    caseKey: caseKeyMap[c.slug] || 'caseCoisaMaisLinda',
+                    categoryKey: catKeyMap[c.slug] || 'catVisualIdentity'
+                };
             }));
             
             container.innerHTML = casesWithImages.map(c => `
@@ -487,7 +558,7 @@
                         ${c.coverImage ? `<img src="${c.coverImage}" alt="${c.title}">` : ''}
                     </div>
                     <div class="case-category" data-category="${c.categoryKey}">${translations[currentLang][c.categoryKey] || c.category}</div>
-                    <div class="case-title">${c.title}</div>
+                    <div class="case-title" data-case="${c.caseKey}">${translations[currentLang][c.caseKey] || c.title}</div>
                 </div>
             `).join('');
         }
