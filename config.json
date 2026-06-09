@@ -47,11 +47,8 @@
       "category": "Event Branding & Tactical Wayfinding",
       "folder": "img/corridadofogo",
       "imageOrder": [
-        "lamina1-5.jpg",
         "lamina1.jpg",
-        "lamina11.jpg",
-        "lamina12.jpg",
-        "lamina13.jpg",
+        "lamina1-5.jpg",
         "lamina3.jpg",
         "lamina4.jpg",
         "lamina5.jpg",
@@ -59,7 +56,10 @@
         "lamina7.jpg",
         "lamina8.jpg",
         "lamina9.jpg",
-        "lamina10.jpg"
+        "lamina10.jpg",
+        "lamina11.jpg",
+        "lamina12.jpg",
+        "lamina13.jpg"
       ]
     },
     {
