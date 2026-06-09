@@ -80,45 +80,36 @@
             font-weight: 400;
         }
         
-        .gallery { padding: 0; }
-        
-        .gallery-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
+        /* GALERIA - imagens empilhadas uma abaixo da outra */
+        .gallery {
+            width: 100%;
             max-width: 1400px;
             margin: 0 auto;
         }
         
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            background: var(--color-border);
+        .gallery-grid {
+            display: flex;
+            flex-direction: column;
             width: 100%;
         }
         
+        .gallery-item {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+            display: block;
+        }
+        
         .gallery-item img {
-            width: 1400px;
-            max-width: 100%;
+            width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;
+            margin: 0;
+            padding: 0;
+            border: none;
+            vertical-align: top;
         }
-        
-        .gallery-item figcaption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 30px;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            color: #fff;
-            font-size: 13px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .gallery-item:hover figcaption { opacity: 1; }
         
         .loading {
             text-align: center;
@@ -262,11 +253,9 @@
                     images.sort(function(a, b) { return a.name.localeCompare(b.name); });
                 }
                 
-                grid.innerHTML = images.map(function(img, index) {
-                    return '<figure class="gallery-item">' +
-                        '<img src="' + img.download_url + '" alt="' + img.name + '" loading="lazy">' +
-                        '<figcaption>' + img.name.replace(/\.[^/.]+$/, '') + '</figcaption>' +
-                        '</figure>';
+                // Renderizar imagens uma abaixo da outra, sem espaços
+                grid.innerHTML = images.map(function(img) {
+                    return '<div class="gallery-item"><img src="' + img.download_url + '" alt="' + img.name + '" loading="lazy"></div>';
                 }).join('');
                 
             } catch (error) {
