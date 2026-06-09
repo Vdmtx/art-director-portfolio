@@ -204,11 +204,19 @@
         
         .case-card:hover { transform: translateY(-10px); }
         
+        /* Ajuste de margens para ordem: Título → Imagem → Categoria */
+        .case-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 400;
+            margin-bottom: 25px; /* Espaço entre título e imagem */
+        }
+        
         .case-image {
             width: 100%;
             aspect-ratio: 4/3;
             background: var(--color-border);
-            margin-bottom: 25px;
+            margin-bottom: 20px; /* Espaço entre imagem e categoria */
             overflow: hidden;
         }
         
@@ -223,13 +231,6 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--color-text-muted);
-            margin-bottom: 12px;
-        }
-        
-        .case-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 26px;
-            font-weight: 400;
         }
         
         footer {
@@ -323,17 +324,14 @@
                 competenciesTitle: 'Competências Principais',
                 casesTitle: 'Cases Selecionados',
                 footer: '© 2024 VDMTX — Todos os Direitos Reservados',
-                // Categorias
                 catVisualIdentity: 'Identidade Visual & Estratégia de Varejo',
                 catInstitutional: 'Branding Institucional & Design de Medalhas',
                 catEvent: 'Branding de Eventos & Wayfinding Tático',
                 catGovernment: 'Identidade Governamental',
-                // Cases - títulos
                 caseCoisaMaisLinda: 'Coisa Mais Linda',
                 caseBombeiroDeAco: 'Bombeiro de Aço',
                 caseCorridaDoFogo: 'Corrida do Fogo',
                 caseProTocantins: 'Pró-Tocantins',
-                // Competências
                 compVisualIdentity: 'Visual Identity Engineering',
                 compVisualIdentityDesc: 'Brand design focused on longevity, scalability, and technical rigor. Building perennial visual assets for institutions that demand authority.',
                 compInstitutional: 'Institutional Design Systems',
@@ -421,7 +419,6 @@
             
             const t = translations[lang];
             
-            // Traduz elementos com data-i18n
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (t[key]) {
@@ -429,7 +426,6 @@
                 }
             });
             
-            // Atualiza categorias dos cases
             document.querySelectorAll('.case-category').forEach(el => {
                 const catKey = el.dataset.category;
                 if (catKey && t[catKey]) {
@@ -437,7 +433,6 @@
                 }
             });
             
-            // Atualiza títulos dos cases
             document.querySelectorAll('.case-title').forEach(el => {
                 const caseKey = el.dataset.case;
                 if (caseKey && t[caseKey]) {
@@ -445,10 +440,8 @@
                 }
             });
             
-            // Atualiza competências
             updateCompetencies(t);
             
-            // Atualiza estado ativo
             document.querySelectorAll('.lang-switch a').forEach(a => {
                 a.classList.toggle('active', a.dataset.lang === lang);
             });
@@ -529,7 +522,6 @@
                     console.log('Erro ao carregar imagens do case', c.slug, e);
                 }
                 
-                // Mapeia slug para chave de tradução
                 const caseKeyMap = {
                     'coisamaislinda': 'caseCoisaMaisLinda',
                     'bombeirodeaco': 'caseBombeiroDeAco',
@@ -552,13 +544,14 @@
                 };
             }));
             
+            // ORDEM: TÍTULO → IMAGEM → CATEGORIA
             container.innerHTML = casesWithImages.map(c => `
                 <div class="case-card" onclick="openCase('${c.slug}')">
+                    <div class="case-title" data-case="${c.caseKey}">${translations[currentLang][c.caseKey] || c.title}</div>
                     <div class="case-image">
                         ${c.coverImage ? `<img src="${c.coverImage}" alt="${c.title}">` : ''}
                     </div>
                     <div class="case-category" data-category="${c.categoryKey}">${translations[currentLang][c.categoryKey] || c.category}</div>
-                    <div class="case-title" data-case="${c.caseKey}">${translations[currentLang][c.caseKey] || c.title}</div>
                 </div>
             `).join('');
         }
@@ -567,7 +560,6 @@
             window.location.href = `case.html?slug=${slug}`;
         }
 
-        // Acesso admin
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
                 e.preventDefault();
