@@ -1,299 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- ============================================ -->
-    <!-- CONFIGURAÇÕES BÁSICAS DA PÁGINA              -->
-    <!-- ============================================ -->
-    <meta charset="UTF-8">  <!-- Permite acentos e caracteres especiais (ç, ã, é, etc.) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Site responsivo para celular -->
-    <title>VDMTX — Art Director & Visual Strategist</title>  <!-- Título que aparece na aba do navegador -->
-    
-    <!-- Carrega as fontes do Google Fonts -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VDMTX — Art Director & Visual Strategist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <!-- ============================================ -->
-    <!-- ESTILOS VISUAIS (CSS) - APARÊNCIA DO SITE    -->
-    <!-- ============================================ -->
     <style>
-        /* Reset básico: remove margens padrão de todos os elementos */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        /* Cores padrão do site (variáveis CSS) */
         :root {
-            --color-bg: #fafafa;              /* Cor de fundo clara */
-            --color-text: #1a1a1a;            /* Cor do texto principal (quase preto) */
-            --color-text-light: #666666;      /* Cor do texto secundário (cinza) */
-            --color-text-muted: #999999;      /* Cor do texto suave (cinza claro) */
-            --color-border: #e5e5e5;          /* Cor das bordas e linhas */
-            --color-accent: #2d3748;          /* Cor de destaque (azul escuro) */
+            --color-bg: #fafafa;
+            --color-text: #1a1a1a;
+            --color-text-light: #666666;
+            --color-text-muted: #999999;
+            --color-border: #e5e5e5;
+            --color-accent: #2d3748;
         }
-        
-        /* Estilo geral do corpo da página */
         body {
-            font-family: 'Inter', sans-serif;  /* Fonte principal do site */
-            background: var(--color-bg);       /* Fundo claro */
-            color: var(--color-text);          /* Texto escuro */
-            font-weight: 300;                  /* Peso da fonte (fino) */
-            line-height: 1.6;                  /* Altura da linha (espaçamento) */
-        }
-        
-        /* Cabeçalho do site */
-        header {
-            padding: 60px 80px 40px;
-            border-bottom: 1px solid var(--color-border);
-        }
-        
-        /* Parte superior do cabeçalho (logo e idiomas) */
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-        
-        /* Logo VDMTX */
-        .logo {
-            font-family: 'Cormorant Garamond', serif;  /* Fonte serifada elegante */
-            font-size: 32px;
-            font-weight: 400;
-            letter-spacing: 0.15em;  /* Espaçamento entre letras */
+            font-family: 'Inter', sans-serif;
+            background: var(--color-bg);
             color: var(--color-text);
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        /* Seletor de idiomas (PT/EN/JP/ZH) */
-        .lang-switch {
-            display: flex;
-            gap: 25px;
-            font-size: 14px;
-            letter-spacing: 0.1em;
-            color: var(--color-text-light);
-        }
-        
-        .lang-switch a {
-            color: var(--color-text-light);
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        .lang-switch a:hover,
-        .lang-switch a.active {
-            color: var(--color-text);
-            font-weight: 500;
-        }
-        
-        /* Botões de ação (WhatsApp e LinkedIn) */
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 50px;
-        }
-        
-        .btn {
-            padding: 18px 36px;
-            font-size: 13px;
-            letter-spacing: 0.1em;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid var(--color-text);
-            display: inline-block;
-            background: transparent;
-        }
-        
-        .btn-primary {
-            background: var(--color-accent);
-            color: #fff;
-            border-color: var(--color-accent);
-        }
-        
-        .btn-primary:hover { background: var(--color-text); }
-        
-        .btn-secondary {
-            color: var(--color-text);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--color-text);
-            color: #fff;
-        }
-        
-        /* Menu de navegação dos cases */
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            padding: 40px 0;
-            flex-wrap: wrap;
-        }
-        
-        nav a {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--color-text-light);
-            text-decoration: none;
-            letter-spacing: 0.05em;
-            transition: color 0.3s;
-        }
-        
-        nav a:hover { color: var(--color-text); }
-        
-        /* Conteúdo principal */
-        main {
-            padding: 100px 80px;
-        }
-        
-        /* Seção de introdução */
-        .intro {
-            max-width: 900px;
-            margin-bottom: 120px;
-        }
-        
-        .intro h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 64px;
             font-weight: 300;
-            line-height: 1.1;
-            margin-bottom: 30px;
+            line-height: 1.6;
         }
-        
-        .intro p {
-            font-size: 18px;
-            color: var(--color-text-light);
-            line-height: 1.8;
-        }
-        
-        /* Seções gerais */
-        section {
-            margin-bottom: 120px;
-        }
-        
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--color-text-muted);
-            margin-bottom: 60px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid var(--color-border);
-        }
-        
-        /* Lista de competências */
-        .competencies-list {
-            display: flex;
-            flex-direction: column;
-            gap: 60px;
-        }
-        
-        .competency {
-            padding-bottom: 60px;
-            border-bottom: 1px solid var(--color-border);
-        }
-        
-        .competency:last-child { border-bottom: none; }
-        
-        .competency h3 {
+        header { padding: 60px 80px 40px; border-bottom: 1px solid var(--color-border); }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .logo {
             font-family: 'Cormorant Garamond', serif;
             font-size: 32px;
             font-weight: 400;
-            margin-bottom: 20px;
-        }
-        
-        .competency p {
-            font-size: 16px;
-            color: var(--color-text-light);
-            line-height: 1.8;
-            max-width: 800px;
-        }
-        
-        /* Grid de cases */
-        .cases-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 50px;
-        }
-        
-        .case-card {
-            cursor: pointer;
-            transition: transform 0.4s ease;
-        }
-        
-        .case-card:hover { transform: translateY(-10px); }
-        
-        .case-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 26px;
-            font-weight: 400;
-            margin-bottom: 25px;
-        }
-        
-        .case-image {
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: var(--color-border);
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        
-        .case-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .case-category {
-            font-size: 12px;
             letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--color-text-muted);
+            color: var(--color-text);
+            text-decoration: none;
+            cursor: pointer;
         }
-        
-        /* Rodapé */
-        footer {
-            padding: 80px;
-            border-top: 1px solid var(--color-border);
-            text-align: center;
-        }
-        
-        footer p {
-            font-size: 14px;
-            color: var(--color-text-muted);
-            letter-spacing: 0.1em;
-        }
-        
-        /* Mensagem de carregamento */
-        .loading {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
-            color: var(--color-text-muted);
-            font-style: italic;
-        }
-        
-        /* Responsividade para tablets e celulares */
-        @media (max-width: 1024px) {
-            .cases-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        
-        @media (max-width: 768px) {
-            header, main { padding-left: 40px; padding-right: 40px; }
-            .intro h1 { font-size: 48px; }
-            .cases-grid { grid-template-columns: 1fr; }
-            nav { gap: 30px; }
-            .header-top { flex-direction: column; gap: 30px; align-items: flex-start; }
-        }
+        .lang-switch { display: flex; gap: 25px; font-size: 14px; letter-spacing: 0.1em; color: var(--color-text-light); }
+        .lang-switch a { color: var(--color-text-light); text-decoration: none; transition: all 0.3s; cursor: pointer; }
+        .lang-switch a:hover, .lang-switch a.active { color: var(--color-text); font-weight: 500; }
+        .cta-buttons { display: flex; gap: 20px; margin-bottom: 50px; }
+        .btn { padding: 18px 36px; font-size: 13px; letter-spacing: 0.1em; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: 1px solid var(--color-text); display: inline-block; background: transparent; }
+        .btn-primary { background: var(--color-accent); color: #fff; border-color: var(--color-accent); }
+        .btn-primary:hover { background: var(--color-text); }
+        .btn-secondary { color: var(--color-text); }
+        .btn-secondary:hover { background: var(--color-text); color: #fff; }
+        nav { display: flex; justify-content: center; gap: 50px; padding: 40px 0; flex-wrap: wrap; }
+        nav a { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 400; color: var(--color-text-light); text-decoration: none; letter-spacing: 0.05em; transition: color 0.3s; }
+        nav a:hover { color: var(--color-text); }
+        main { padding: 100px 80px; }
+        .intro { max-width: 900px; margin-bottom: 120px; }
+        .intro h1 { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 300; line-height: 1.1; margin-bottom: 30px; }
+        .intro p { font-size: 18px; color: var(--color-text-light); line-height: 1.8; }
+        section { margin-bottom: 120px; }
+        .section-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 60px; padding-bottom: 25px; border-bottom: 1px solid var(--color-border); }
+        .competencies-list { display: flex; flex-direction: column; gap: 60px; }
+        .competency { padding-bottom: 60px; border-bottom: 1px solid var(--color-border); }
+        .competency:last-child { border-bottom: none; }
+        .competency h3 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; margin-bottom: 20px; }
+        .competency p { font-size: 16px; color: var(--color-text-light); line-height: 1.8; max-width: 800px; }
+        .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; }
+        .case-card { cursor: pointer; transition: transform 0.4s ease; }
+        .case-card:hover { transform: translateY(-10px); }
+        .case-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; margin-bottom: 25px; }
+        .case-image { width: 100%; aspect-ratio: 4/3; background: var(--color-border); margin-bottom: 20px; overflow: hidden; }
+        .case-image img { width: 100%; height: 100%; object-fit: cover; }
+        .case-category { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text-muted); }
+        footer { padding: 80px; border-top: 1px solid var(--color-border); text-align: center; }
+        footer p { font-size: 14px; color: var(--color-text-muted); letter-spacing: 0.1em; }
+        .loading { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--color-text-muted); font-style: italic; }
+        @media (max-width: 1024px) { .cases-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { header, main { padding-left: 40px; padding-right: 40px; } .intro h1 { font-size: 48px; } .cases-grid { grid-template-columns: 1fr; } nav { gap: 30px; } .header-top { flex-direction: column; gap: 30px; align-items: flex-start; } }
     </style>
 </head>
 <body>
-    <!-- ============================================ -->
-    <!-- CABEÇALHO DO SITE                            -->
-    <!-- ============================================ -->
     <header>
         <div class="header-top">
             <span class="logo">VDMTX</span>
@@ -304,29 +83,19 @@
                 <a data-lang="zh">ZH</a>
             </div>
         </div>
-        
         <div class="cta-buttons">
-            <!-- Botão WhatsApp -->
             <a href="https://api.whatsapp.com/send?phone=5563981034401&text=%0AI+would+like+a+quote+%28gostaria+de+um+or%C3%A7amento%29" class="btn btn-primary" data-i18n="consultBtn" target="_blank">Solicitar Consultoria</a>
-            <!-- Botão LinkedIn -->
             <a href="https://www.linkedin.com/in/victor-silva-3264713b9" class="btn btn-secondary" data-i18n="linkedinBtn" target="_blank">Perfil Linkedin</a>
         </div>
-        
-        <!-- Menu de navegação dos cases (preenchido via JavaScript) -->
         <nav id="navCases"></nav>
     </header>
     
-    <!-- ============================================ -->
-    <!-- CONTEÚDO PRINCIPAL                           -->
-    <!-- ============================================ -->
     <main>
-        <!-- Seção de introdução -->
         <div class="intro">
             <h1 data-i18n="introTitle">Art Director & Visual Strategist</h1>
             <p data-i18n="introText">27 years of experience in high-stakes institutional branding and visual identity engineering.</p>
         </div>
         
-        <!-- Seção de competências -->
         <section id="competencies">
             <div class="section-title" data-i18n="competenciesTitle">Core Competencies</div>
             <div class="competencies-list" id="competenciesList">
@@ -334,7 +103,6 @@
             </div>
         </section>
         
-        <!-- Seção de cases -->
         <section id="cases">
             <div class="section-title" data-i18n="casesTitle">Selected Case Studies</div>
             <div class="cases-grid" id="casesGrid">
@@ -343,24 +111,14 @@
         </section>
     </main>
     
-    <!-- ============================================ -->
-    <!-- RODAPÉ                                       -->
-    <!-- ============================================ -->
     <footer>
         <p>
             <span data-i18n="footer">© 2024 VDMTX — All Rights Reserved</span>
-            <!-- Ponto quase invisível para acesso admin -->
             <span id="admin-trigger" style="opacity:0.02;cursor:default;font-size:12px;margin-left:8px;user-select:none;display:inline-block;width:10px;height:10px;" title="•">•</span>
         </p>
     </footer>
 
-    <!-- ============================================ -->
-    <!-- LÓGICA DO SITE (JavaScript)                  -->
-    <!-- ============================================ -->
     <script>
-        // ==========================================
-        // TRADUÇÕES - Todos os textos em 4 idiomas
-        // ==========================================
         const translations = {
             pt: {
                 consultBtn: 'Solicitar Consultoria',
@@ -456,12 +214,8 @@
             }
         };
 
-        // Idioma atual (padrão: português)
         let currentLang = localStorage.getItem('lang') || 'pt';
 
-        // ==========================================
-        // FUNÇÃO: Muda o idioma do site
-        // ==========================================
         function setLanguage(lang) {
             if (!translations[lang]) lang = 'pt';
             currentLang = lang;
@@ -469,7 +223,7 @@
             
             const t = translations[lang];
             
-            // Traduz todos os elementos com data-i18n
+            // Atualiza TODOS os elementos com data-i18n
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (t[key]) {
@@ -477,26 +231,20 @@
                 }
             });
             
-            // Atualiza categorias dos cases
-            document.querySelectorAll('.case-category').forEach(el => {
-                const catKey = el.dataset.category;
-                if (catKey && t[catKey]) {
-                    el.textContent = t[catKey];
-                }
-            });
-            
-            // Atualiza títulos dos cases
-            document.querySelectorAll('.case-title').forEach(el => {
-                const caseKey = el.dataset.case;
-                if (caseKey && t[caseKey]) {
-                    el.textContent = t[caseKey];
-                }
-            });
-            
             // Atualiza competências
-            updateCompetencies(t);
+            renderCompetenciesFromTranslations(t);
             
-            // Atualiza estado ativo dos botões de idioma
+            // Atualiza navegação
+            fetch('config.json')
+                .then(res => res.json())
+                .then(data => renderNav(data.cases));
+            
+            // Atualiza cases
+            fetch('config.json')
+                .then(res => res.json())
+                .then(data => renderCases(data.cases));
+            
+            // Atualiza botões de idioma
             document.querySelectorAll('.lang-switch a').forEach(a => {
                 a.classList.toggle('active', a.dataset.lang === lang);
             });
@@ -504,10 +252,7 @@
             document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
         }
 
-        // ==========================================
-        // FUNÇÃO: Renderiza as competências
-        // ==========================================
-        function updateCompetencies(t) {
+        function renderCompetenciesFromTranslations(t) {
             const container = document.getElementById('competenciesList');
             container.innerHTML = `
                 <div class="competency">
@@ -525,26 +270,22 @@
             `;
         }
 
-        // ==========================================
-        // FUNÇÃO: Carrega os dados iniciais
-        // ==========================================
         async function loadData() {
             try {
                 const response = await fetch('config.json');
                 const data = await response.json();
                 
-                updateCompetencies(translations[currentLang]);
+                renderCompetenciesFromTranslations(translations[currentLang]);
                 await renderCases(data.cases);
                 renderNav(data.cases);
+                
+                // Aplica o idioma atual
                 setLanguage(currentLang);
             } catch (error) {
                 console.error('Erro:', error);
             }
         }
 
-        // ==========================================
-        // FUNÇÃO: Renderiza o menu de navegação
-        // ==========================================
         function renderNav(cases) {
             const caseKeyMap = {
                 'coisamaislinda': 'caseCoisaMaisLinda',
@@ -560,9 +301,6 @@
             }).join('');
         }
 
-        // ==========================================
-        // FUNÇÃO: Renderiza os cards dos cases
-        // ==========================================
         async function renderCases(cases) {
             const container = document.getElementById('casesGrid');
             
@@ -597,7 +335,7 @@
                         }
                     }
                 } catch(e) {
-                    console.log('Erro ao carregar imagens do case', c.slug, e);
+                    console.log('Erro ao carregar imagens', c.slug, e);
                 }
                 
                 const caseKeyMap = {
@@ -614,12 +352,7 @@
                     'protocantins': 'catGovernment'
                 };
                 
-                return {
-                    ...c, 
-                    coverImage, 
-                    caseKey: caseKeyMap[c.slug] || 'caseCoisaMaisLinda',
-                    categoryKey: catKeyMap[c.slug] || 'catVisualIdentity'
-                };
+                return { ...c, coverImage, caseKey: caseKeyMap[c.slug], categoryKey: catKeyMap[c.slug] };
             }));
             
             container.innerHTML = casesWithImages.map(c => `
@@ -633,18 +366,10 @@
             `).join('');
         }
 
-        // ==========================================
-        // FUNÇÃO: Abre a página do case
-        // ==========================================
         function openCase(slug) {
             window.location.href = `case.html?slug=${slug}`;
         }
 
-        // ==========================================
-        // ACESSO AO PAINEL ADMIN (secreto)
-        // ==========================================
-        
-        // Atalho: Ctrl + Shift + A
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
                 e.preventDefault();
@@ -652,16 +377,12 @@
             }
         });
 
-        // Clique no ponto do footer
         document.addEventListener('click', (e) => {
             if (e.target.id === 'admin-trigger') {
                 window.location.href = 'admin.html';
             }
         });
 
-        // ==========================================
-        // EVENTOS DOS BOTÕES DE IDIOMA
-        // ==========================================
         document.querySelectorAll('.lang-switch a').forEach(a => {
             a.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -669,9 +390,6 @@
             });
         });
 
-        // ==========================================
-        // INICIALIZA O SITE QUANDO CARREGAR
-        // ==========================================
         document.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
