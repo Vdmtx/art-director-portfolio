@@ -19,7 +19,15 @@
       "title": "Coisa Mais Linda",
       "category": "Visual Identity & Retail Strategy",
       "folder": "img/coisamaislinda",
-      "imageOrder": []
+      "imageOrder": [],
+      "style": {
+        "bgColor": "#fafafa",
+        "textColor": "#1a1a1a",
+        "textLightColor": "#666666",
+        "borderColor": "#e5e5e5",
+        "imageLayout": "masonry"
+      },
+      "introText": ""
     },
     {
       "slug": "bombeirodeaco",
