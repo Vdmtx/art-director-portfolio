@@ -22,7 +22,7 @@
     },
     {
       "slug": "bombeirodeaco",
-      "title": "Bombeiro de AÃ§o",
+      "title": "Bombeiro de AÃÂ§o",
       "category": "Institutional Branding & Medal Design",
       "folder": "img/bombeirodeaco",
       "imageOrder": [
@@ -64,9 +64,20 @@
     },
     {
       "slug": "protocantins",
-      "title": "PrÃ³-Tocantins",
+      "title": "PrÃÂ³-Tocantins",
       "category": "Government Identity",
-      "folder": "img/protocantins"
+      "folder": "img/protocantins",
+      "imageOrder": [
+        "lamina1.jpg",
+        "lamina3.png",
+        "lamina4.png",
+        "lamina5.png",
+        "lamina6.jpg",
+        "lamina7.png",
+        "lamina8.jpg",
+        "lamina9.png",
+        "lamina10.png"
+      ]
     }
   ]
 }
