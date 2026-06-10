@@ -439,6 +439,7 @@
                 }
             });
             
+            // Atualiza competências com as traduções
             updateCompetencies(t);
             
             document.querySelectorAll('.lang-switch a').forEach(a => {
@@ -471,6 +472,7 @@
                 const response = await fetch('config.json');
                 const data = await response.json();
                 
+                // Renderiza competências usando as traduções (não o config.json)
                 updateCompetencies(translations[currentLang]);
                 await renderCases(data.cases);
                 renderNav(data.cases);
