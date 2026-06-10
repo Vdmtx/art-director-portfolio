@@ -1,284 +1,494 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin — VDMTX</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            padding: 40px 20px;
-        }
-        .container { max-width: 1000px; margin: 0 auto; }
-        h1 { color: #fff; margin-bottom: 30px; font-size: 28px; }
-        
-        .tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #333;
-        }
-        .tab {
-            padding: 12px 24px;
-            background: none;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            font-size: 14px;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -1px;
-        }
-        .tab.active {
-            color: #00d4ff;
-            border-bottom-color: #00d4ff;
-        }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        .section {
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        h2 { color: #fff; margin-bottom: 20px; font-size: 20px; }
-        
-        label { display: block; margin-bottom: 8px; color: #aaa; font-size: 14px; }
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 14px;
-            font-family: inherit;
-        }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #00d4ff;
-        }
-        textarea { resize: vertical; min-height: 100px; }
-        
-        button {
-            padding: 12px 24px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .btn-primary { background: #00d4ff; color: #000; }
-        .btn-primary:hover { background: #00b8e6; }
-        .btn-secondary { background: #333; color: #fff; }
-        .btn-secondary:hover { background: #444; }
-        .btn-danger { background: #ff4444; color: #fff; }
-        .btn-danger:hover { background: #ff3333; }
-        
-        .item {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 4px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .item-info h3 { color: #fff; font-size: 16px; margin-bottom: 5px; }
-        .item-info p { color: #888; font-size: 13px; }
-        .item-actions { display: flex; gap: 10px; }
-        
-        .alert {
-            padding: 12px 20px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .alert-success { background: #1a3a1a; color: #4ade80; border: 1px solid #2d5a2d; }
-        .alert-error { background: #3a1a1a; color: #f87171; border: 1px solid #5a2d2d; }
-        
-        .login-form { max-width: 500px; margin: 100px auto; }
-        .hidden { display: none; }
-        
-        .upload-area {
-            border: 2px dashed #333;
-            border-radius: 8px;
-            padding: 60px 40px;
-            text-align: center;
-            margin: 30px 0;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .upload-area:hover { border-color: #00d4ff; background: #1a1a2a; }
-        
-        .image-preview {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
-        }
-        .image-item {
-            position: relative;
-            aspect-ratio: 1;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .image-item img { width: 100%; height: 100%; object-fit: cover; }
-        .image-item button {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(255,0,0,0.8);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 0;
-        }
-        
-        /* Galeria com ordenação */
-        .gallery-item {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 12px;
-            position: relative;
-        }
-        .gallery-number {
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            background: #00d4ff;
-            color: #000;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 13px;
-            z-index: 2;
-        }
-        .gallery-info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Login -->
-    <div id="loginSection" class="container">
-        <div class="login-form">
-            <h1>Admin Login</h1>
-            <div id="loginAlert"></div>
-            <label>GitHub Username</label>
-            <input type="text" id="githubUsername" placeholder="vdmtx">
-            <label>GitHub Token</label>
-            <input type="password" id="githubToken" placeholder="ghp_...">
-            <button class="btn-primary" onclick="login()">Acessar Painel</button>
-            <p style="margin-top:20px;font-size:13px;color:#666;">
-                Crie um token em: <a href="https://github.com/settings/tokens" target="_blank" style="color:#00d4ff;">GitHub Settings</a>
-            </p>
-        </div>
-    </div>
+// admin.js - Versão Completa com Editor
+let config = { username: '', token: '', repo: 'art-director-portfolio', branch: 'main' };
+let currentData = { competencies: [], cases: [] };
+let selectedCase = null;
+let filesToUpload = [];
+let imageOrder = [];
+let allCaseImages = [];
 
-    <!-- Admin Panel -->
-    <div id="adminPanel" class="container hidden">
-        <h1>Painel Administrativo</h1>
-        
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('competencies', this)">Competências</button>
-            <button class="tab" onclick="switchTab('cases', this)">Cases</button>
-            <button class="tab" onclick="switchTab('images', this)">Imagens</button>
-        </div>
+async function login() {
+    const username = document.getElementById('githubUsername').value.trim();
+    const token = document.getElementById('githubToken').value.trim();
 
-        <!-- Tab Competências -->
-        <div id="competenciesTab" class="tab-content active">
-            <div class="section">
-                <h2>Gerenciar Competências</h2>
-                <div id="competenciesAlert"></div>
-                <label>Título</label>
-                <input type="text" id="compTitle" placeholder="Ex: Visual Identity Engineering">
-                <label>Descrição</label>
-                <textarea id="compDescription" placeholder="Descrição da competência..."></textarea>
-                <button class="btn-primary" onclick="addCompetency()">Adicionar Competência</button>
-                <div id="competenciesList" style="margin-top:30px;"></div>
-            </div>
-        </div>
+    if (!username || !token) {
+        showAlert('loginAlert', 'Preencha username e token', 'error');
+        return;
+    }
 
-        <!-- Tab Cases -->
-        <div id="casesTab" class="tab-content">
-            <div class="section">
-                <h2>Gerenciar Cases</h2>
-                <div id="casesAlert"></div>
-                <label>Título</label>
-                <input type="text" id="caseTitle" placeholder="Ex: Coisa Mais Linda">
-                <label>Categoria</label>
-                <input type="text" id="caseCategory" placeholder="Ex: Visual Identity & Retail Strategy">
-                <label>Slug (URL amigável)</label>
-                <input type="text" id="caseSlug" placeholder="Ex: coisamaislinda">
-                <button class="btn-primary" onclick="addCase()">Adicionar Case</button>
-                <div id="casesList" style="margin-top:30px;"></div>
-            </div>
-        </div>
+    config.username = username;
+    config.token = token;
 
-        <!-- Tab Imagens -->
-        <div id="imagesTab" class="tab-content">
-            <div class="section">
-                <h2>Gerenciar Imagens</h2>
-                <div id="imagesAlert"></div>
-                
-                <label>Selecionar Case</label>
-                <select id="caseSelect">
-                    <option value="">Selecione um case...</option>
-                </select>
-                
-                <!-- Upload -->
-                <div class="upload-area" id="uploadArea">
-                    <p style="color:#888;font-size:14px;">Clique ou arraste imagens aqui</p>
-                    <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
-                </div>
-                
-                <div class="image-preview" id="imagePreview"></div>
-                <button class="btn-primary" id="uploadBtn" style="display:none;" onclick="uploadImages()">Enviar Imagens</button>
-                
-                <!-- Galeria de imagens existentes com ordem -->
-                <div id="currentImages" style="margin-top:40px;">
-                    <h3 style="color:#fff;margin-bottom:15px;">Imagens do Case</h3>
-                    <p style="color:#666;font-size:13px;margin-bottom:20px;">Use os botões ↑ ↓ para reordenar. Clique "Salvar Ordem" quando terminar.</p>
-                    <div id="galleryGrid" class="gallery-grid"></div>
-                    <button class="btn-primary" id="saveOrderBtn" style="display:none;margin-top:20px;" onclick="saveImageOrder()">Salvar Ordem</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    try {
+        const testRes = await fetch('https://api.github.com/user', {
+            headers: { 'Authorization': 'token ' + config.token, 'Accept': 'application/vnd.github.v3+json' }
+        });
 
-    <script src="admin.js"></script>
-    <script>
-        // Sistema de Tabs
-        function switchTab(tabName, btn) {
-            document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
-            document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
-            btn.classList.add('active');
-            document.getElementById(tabName + 'Tab').classList.add('active');
+        if (!testRes.ok) throw new Error('Token inválido (' + testRes.status + ')');
+
+        const user = await testRes.json();
+        console.log('Token válido para:', user.login);
+
+        await loadOrCreateConfig();
+
+        document.getElementById('loginSection').classList.add('hidden');
+        document.getElementById('adminPanel').classList.remove('hidden');
+
+        loadCompetencies();
+        loadCases();
+        updateCaseSelect();
+
+        showAlert('loginAlert', 'Login realizado com sucesso!', 'success');
+    } catch (error) {
+        console.error('Erro no login:', error);
+        let msg = 'Erro: ' + error.message;
+        if (error.message.includes('401')) msg = 'Token inválido. Verifique permissão "repo".';
+        else if (error.message.includes('403')) msg = 'Acesso negado. Token precisa de permissão "repo".';
+        else if (error.message.includes('404')) msg = 'Repositório não encontrado.';
+        showAlert('loginAlert', msg, 'error');
+    }
+}
+
+async function loadOrCreateConfig() {
+    const url = 'https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/config.json';
+
+    try {
+        const res = await fetch(url + '?ref=' + config.branch, {
+            headers: { 'Authorization': 'token ' + config.token, 'Accept': 'application/vnd.github.v3+json' }
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            currentData = JSON.parse(atob(data.content));
+            console.log('Config carregado:', currentData);
+            return;
         }
-    </script>
-</body>
-</html>
+    } catch (e) {
+        console.log('Config não existe, criando...');
+    }
+
+    currentData = {
+        competencies: [{ title: 'Visual Identity Engineering', description: 'Brand design focused on longevity.' }],
+        cases: []
+    };
+
+    await saveConfig();
+    console.log('Config inicial criado!');
+}
+
+async function saveConfig() {
+    const url = 'https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/config.json?ref=' + config.branch;
+    
+    let getRes = await fetch(url, {
+        headers: { 'Authorization': 'token ' + config.token, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    
+    if (!getRes.ok) throw new Error('Não foi possível obter o SHA atual');
+    
+    let getData = await getRes.json();
+    let currentSha = getData.sha;
+    
+    let body = {
+        message: 'Update config via admin - ' + new Date().toISOString(),
+        content: btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2)))),
+        branch: config.branch,
+        sha: currentSha
+    };
+
+    let putRes = await fetch('https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/config.json', {
+        method: 'PUT',
+        headers: { 'Authorization': 'token ' + config.token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+
+    if (!putRes.ok) {
+        let err = await putRes.json();
+        throw new Error(err.message || 'Falha ao salvar');
+    }
+    
+    console.log('Config salvo!');
+}
+
+function loadCompetencies() {
+    const list = document.getElementById('competenciesList');
+    if (currentData.competencies.length === 0) {
+        list.innerHTML = '<p style="color:#999;padding:20px;">Nenhuma competência</p>';
+        return;
+    }
+
+    list.innerHTML = currentData.competencies.map(function(comp, i) {
+        return '<div class="item"><div class="item-info"><h3>' + comp.title + '</h3><p>' + comp.description + '</p></div>' +
+            '<button class="btn-danger" onclick="deleteCompetency(' + i + ')">Remover</button></div>';
+    }).join('');
+}
+
+async function addCompetency() {
+    const title = document.getElementById('compTitle').value.trim();
+    const desc = document.getElementById('compDescription').value.trim();
+
+    if (!title || !desc) {
+        showAlert('competenciesAlert', 'Preencha título e descrição', 'error');
+        return;
+    }
+
+    currentData.competencies.push({ title: title, description: desc });
+
+    try {
+        await saveConfig();
+        document.getElementById('compTitle').value = '';
+        document.getElementById('compDescription').value = '';
+        loadCompetencies();
+        showAlert('competenciesAlert', 'Competência adicionada!', 'success');
+    } catch (error) {
+        showAlert('competenciesAlert', 'Erro: ' + error.message, 'error');
+    }
+}
+
+async function deleteCompetency(index) {
+    if (!confirm('Confirmar?')) return;
+    currentData.competencies.splice(index, 1);
+    try {
+        await saveConfig();
+        loadCompetencies();
+        showAlert('competenciesAlert', 'Removido!', 'success');
+    } catch (e) {
+        showAlert('competenciesAlert', 'Erro', 'error');
+    }
+}
+
+function loadCases() {
+    const list = document.getElementById('casesList');
+    if (currentData.cases.length === 0) {
+        list.innerHTML = '<p style="color:#999;padding:20px;">Nenhum case</p>';
+        return;
+    }
+
+    list.innerHTML = currentData.cases.map(function(c, i) {
+        return '<div class="item"><div class="item-info"><h3>' + c.title + '</h3><p>' + c.category + ' — ' + c.folder + '</p></div>' +
+            '<div>' +
+            '<button class="btn-secondary" onclick="openEditModal(' + i + ')">Editar</button>' +
+            '<button class="btn-secondary" onclick="viewCaseImages(' + i + ')">Imagens</button> ' +
+            '<button class="btn-danger" onclick="deleteCase(' + i + ')">Remover</button>' +
+            '</div></div>';
+    }).join('');
+}
+
+async function addCase() {
+    const title = document.getElementById('caseTitle').value.trim();
+    const category = document.getElementById('caseCategory').value.trim();
+    const slug = document.getElementById('caseSlug').value.trim().toLowerCase().replace(/\s+/g, '-');
+
+    if (!title || !slug) {
+        showAlert('casesAlert', 'Preencha título e slug', 'error');
+        return;
+    }
+
+    const folder = 'img/' + slug;
+    currentData.cases.push({ 
+        slug: slug, 
+        title: title, 
+        category: category || 'General', 
+        folder: folder,
+        style: {
+            bgColor: '#fafafa',
+            textColor: '#1a1a1a',
+            textLightColor: '#666666',
+            borderColor: '#e5e5e5',
+            imageLayout: 'full'
+        },
+        introText: ''
+    });
+
+    try {
+        const folderUrl = 'https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/' + folder + '/.gitkeep';
+        await fetch(folderUrl, {
+            method: 'PUT',
+            headers: { 'Authorization': 'token ' + config.token, 'Accept': 'application/vnd.github.v3+json' },
+            body: JSON.stringify({ message: 'Create ' + folder, content: '', branch: config.branch })
+        });
+
+        await saveConfig();
+        document.getElementById('caseTitle').value = '';
+        document.getElementById('caseCategory').value = '';
+        document.getElementById('caseSlug').value = '';
+        loadCases();
+        updateCaseSelect();
+        showAlert('casesAlert', 'Case adicionado!', 'success');
+    } catch (error) {
+        showAlert('casesAlert', 'Erro: ' + error.message, 'error');
+    }
+}
+
+async function deleteCase(index) {
+    if (!confirm('Confirmar?')) return;
+    currentData.cases.splice(index, 1);
+    try {
+        await saveConfig();
+        loadCases();
+        updateCaseSelect();
+        showAlert('casesAlert', 'Case removido!', 'success');
+    } catch (e) {
+        showAlert('casesAlert', 'Erro', 'error');
+    }
+}
+
+function updateCaseSelect() {
+    const select = document.getElementById('caseSelect');
+    select.innerHTML = '<option value="">Selecione...</option>' +
+        currentData.cases.map(function(c, i) { return '<option value="' + i + '">' + c.title + '</option>'; }).join('');
+
+    select.onchange = function(e) {
+        if (e.target.value) {
+            selectedCase = currentData.cases[e.target.value];
+            loadCaseImages();
+        }
+    };
+}
+
+async function loadCaseImages() {
+    if (!selectedCase) return;
+    
+    const grid = document.getElementById('galleryGrid');
+    const saveBtn = document.getElementById('saveOrderBtn');
+    grid.innerHTML = '<p style="color:#888;">Carregando...</p>';
+    saveBtn.style.display = 'none';
+
+    try {
+        const url = 'https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/' + selectedCase.folder;
+        const res = await fetch(url, {
+            headers: { 'Authorization': 'token ' + config.token, 'Accept': 'application/vnd.github.v3+json' }
+        });
+
+        if (!res.ok) {
+            grid.innerHTML = '<p style="color:#888;">Nenhuma imagem</p>';
+            return;
+        }
+
+        const files = await res.json();
+        let images = files.filter(function(f) { return f.name.match(/\.(jpg|jpeg|png|gif|webp)$/i); });
+
+        if (images.length === 0) {
+            grid.innerHTML = '<p style="color:#888;">Nenhuma imagem</p>';
+            return;
+        }
+
+        const savedOrder = getImageOrderFromConfig();
+        if (savedOrder.length > 0) {
+            images.sort(function(a, b) {
+                const orderA = savedOrder.indexOf(a.name);
+                const orderB = savedOrder.indexOf(b.name);
+                if (orderA === -1 && orderB === -1) return a.name.localeCompare(b.name);
+                if (orderA === -1) return 1;
+                if (orderB === -1) return -1;
+                return orderA - orderB;
+            });
+        }
+
+        imageOrder = images.map(function(img) { return img.name; });
+        allCaseImages = images;
+        renderGallery(images);
+    } catch (e) {
+        grid.innerHTML = '<p style="color:#888;">Erro</p>';
+    }
+}
+
+function getImageOrderFromConfig() {
+    if (!currentData.cases) return [];
+    const caseData = currentData.cases.find(function(c) { return c.slug === selectedCase.slug; });
+    if (caseData && caseData.imageOrder) return caseData.imageOrder;
+    return [];
+}
+
+function renderGallery(images) {
+    const grid = document.getElementById('galleryGrid');
+    const saveBtn = document.getElementById('saveOrderBtn');
+    
+    let html = '';
+    for (let i = 0; i < images.length; i++) {
+        const img = images[i];
+        const isFirst = (i === 0);
+        const isLast = (i === images.length - 1);
+        
+        html += '<div class="gallery-item" data-name="' + img.name + '">';
+        html += '<div class="gallery-number">' + (i + 1) + '</div>';
+        html += '<img src="' + img.download_url + '" style="width:100%;height:150px;object-fit:cover;border-radius:4px;">';
+        html += '<div class="gallery-info">';
+        html += '<p style="color:#fff;font-size:12px;margin:8px 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + img.name + '</p>';
+        html += '<div style="display:flex;gap:5px;flex-wrap:wrap;">';
+        
+        if (isFirst) {
+            html += '<button style="padding:6px 10px;background:#333;color:#666;border:none;border-radius:4px;cursor:not-allowed;" disabled>↑</button>';
+        } else {
+            html += '<button class="btn-secondary" style="padding:6px 10px;" onclick="moveImage(' + i + ',-1)">↑</button>';
+        }
+        
+        if (isLast) {
+            html += '<button style="padding:6px 10px;background:#333;color:#666;border:none;border-radius:4px;cursor:not-allowed;" disabled>↓</button>';
+        } else {
+            html += '<button class="btn-secondary" style="padding:6px 10px;" onclick="moveImage(' + i + ',1)">↓</button>';
+        }
+        
+        html += '<button class="btn-danger" style="padding:6px 12px;font-size:11px;" onclick="deleteImage(\'' + img.path + '\',\'' + img.sha + '\')">Remover</button>';
+        html += '</div></div></div>';
+    }
+    
+    grid.innerHTML = html;
+    saveBtn.style.display = 'block';
+}
+
+function moveImage(fromIndex, direction) {
+    const toIndex = fromIndex + direction;
+    if (toIndex < 0 || toIndex >= imageOrder.length) return;
+    
+    const temp = imageOrder[fromIndex];
+    imageOrder[fromIndex] = imageOrder[toIndex];
+    imageOrder[toIndex] = temp;
+    
+    const reordered = [];
+    for (let i = 0; i < imageOrder.length; i++) {
+        for (let j = 0; j < allCaseImages.length; j++) {
+            if (allCaseImages[j].name === imageOrder[i]) {
+                reordered.push(allCaseImages[j]);
+                break;
+            }
+        }
+    }
+    
+    allCaseImages = reordered;
+    renderGallery(reordered);
+}
+
+async function saveImageOrder() {
+    try {
+        const caseIndex = currentData.cases.findIndex(function(c) { return c.slug === selectedCase.slug; });
+        if (caseIndex === -1) {
+            showAlert('imagesAlert', 'Case não encontrado', 'error');
+            return;
+        }
+        
+        currentData.cases[caseIndex].imageOrder = imageOrder;
+        await saveConfig();
+        showAlert('imagesAlert', '✅ Ordem salva!', 'success');
+    } catch (error) {
+        showAlert('imagesAlert', '❌ Erro: ' + error.message, 'error');
+    }
+}
+
+async function deleteImage(path, sha) {
+    if (!confirm('Remover?')) return;
+    const url = 'https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/' + path;
+
+    const res = await fetch(url, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'token ' + config.token, 'Accept': 'application/vnd.github.v3+json' },
+        body: JSON.stringify({ message: 'Delete ' + path, sha: sha, branch: config.branch })
+    });
+
+    if (res.ok) {
+        loadCaseImages();
+        showAlert('imagesAlert', 'Imagem removida!', 'success');
+    } else {
+        showAlert('imagesAlert', 'Erro', 'error');
+    }
+}
+
+// Upload
+document.getElementById('uploadArea').addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+});
+
+document.getElementById('uploadArea').addEventListener('dragover', function(e) {
+    e.preventDefault();
+    this.style.borderColor = '#00d4ff';
+});
+
+document.getElementById('uploadArea').addEventListener('dragleave', function() {
+    this.style.borderColor = '#333';
+});
+
+document.getElementById('uploadArea').addEventListener('drop', function(e) {
+    e.preventDefault();
+    this.style.borderColor = '#333';
+    handleFiles(e.dataTransfer.files);
+});
+
+document.getElementById('fileInput').onchange = function(e) {
+    handleFiles(e.target.files);
+};
+
+function handleFiles(files) {
+    filesToUpload = Array.from(files).filter(function(f) { return f.type.startsWith('image/'); });
+
+    const preview = document.getElementById('imagePreview');
+    preview.innerHTML = filesToUpload.map(function(f, i) {
+        return '<div class="image-item"><img src="' + URL.createObjectURL(f) + '"><button onclick="removeFile(' + i + ')">×</button></div>';
+    }).join('');
+
+    document.getElementById('uploadBtn').style.display = filesToUpload.length > 0 ? 'inline-block' : 'none';
+}
+
+function removeFile(index) {
+    filesToUpload.splice(index, 1);
+    const preview = document.getElementById('imagePreview');
+    preview.innerHTML = filesToUpload.map(function(f, i) {
+        return '<div class="image-item"><img src="' + URL.createObjectURL(f) + '"><button onclick="removeFile(' + i + ')">×</button></div>';
+    }).join('');
+    document.getElementById('uploadBtn').style.display = filesToUpload.length > 0 ? 'inline-block' : 'none';
+}
+
+async function uploadImages() {
+    if (!selectedCase) {
+        showAlert('imagesAlert', 'Selecione um case', 'error');
+        return;
+    }
+    if (filesToUpload.length === 0) {
+        showAlert('imagesAlert', 'Selecione arquivos', 'error');
+        return;
+    }
+
+    showAlert('imagesAlert', 'Enviando...', 'success');
+
+    for (let i = 0; i < filesToUpload.length; i++) {
+        const file = filesToUpload[i];
+        const path = selectedCase.folder + '/' + file.name;
+
+        const base64 = await new Promise(function(resolve) {
+            const reader = new FileReader();
+            reader.onload = function() { resolve(reader.result.split(',')[1]); };
+            reader.readAsDataURL(file);
+        });
+
+        const url = 'https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/' + path;
+        await fetch(url, {
+            method: 'PUT',
+            headers: { 'Authorization': 'token ' + config.token, 'Accept': 'application/vnd.github.v3+json' },
+            body: JSON.stringify({ message: 'Upload ' + file.name, content: base64, branch: config.branch })
+        });
+    }
+
+    filesToUpload = [];
+    document.getElementById('imagePreview').innerHTML = '';
+    document.getElementById('uploadBtn').style.display = 'none';
+    loadCaseImages();
+    showAlert('imagesAlert', 'Upload concluído!', 'success');
+}
+
+function showAlert(containerId, message, type) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '<div class="alert alert-' + type + '">' + message + '</div>';
+    setTimeout(function() { container.innerHTML = ''; }, 5000);
+}
+
+function viewCaseImages(index) {
+    document.getElementById('caseSelect').value = index;
+    selectedCase = currentData.cases[index];
+    loadCaseImages();
+    document.getElementById('caseSelect').scrollIntoView({ behavior: 'smooth' });
+    switchTab('images', document.querySelectorAll('.tab')[2]);
+}
+
+function switchTab(tabName, btn) {
+    document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById(tabName + 'Tab').classList.add('active');
+}
