@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- ============================================ -->
+    <!-- CONFIGURAÇÕES BÁSICAS (NÃO ALTERAR)          -->
+    <!-- ============================================ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin — VDMTX</title>
+    
+    <!-- ============================================ -->
+    <!-- ESTILOS VISUAIS DO PAINEL ADMIN              -->
+    <!-- ============================================ -->
     <style>
+        /* Reset - NÃO ALTERAR */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Corpo do admin - SEGURO ALTERAR cores */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #0a0a0a;
@@ -15,69 +25,40 @@
         .container { max-width: 1200px; margin: 0 auto; }
         h1 { color: #fff; margin-bottom: 30px; font-size: 28px; }
         
-        .tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #333;
-        }
+        /* Abas - SEGURO ALTERAR cores */
+        .tabs { display: flex; gap: 0; margin-bottom: 30px; border-bottom: 1px solid #333; }
         .tab {
-            padding: 12px 24px;
-            background: none;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            font-size: 14px;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -1px;
+            padding: 12px 24px; background: none; border: none;
+            color: #888; cursor: pointer; font-size: 14px;
+            border-bottom: 2px solid transparent; margin-bottom: -1px;
         }
-        .tab.active {
-            color: #00d4ff;
-            border-bottom-color: #00d4ff;
-        }
+        .tab.active { color: #00d4ff; border-bottom-color: #00d4ff; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
+        /* Seções - SEGURO ALTERAR cores de fundo/borda */
         .section {
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 30px;
+            background: #111; border: 1px solid #222;
+            border-radius: 8px; padding: 30px; margin-bottom: 30px;
         }
         h2 { color: #fff; margin-bottom: 20px; font-size: 20px; }
         
+        /* Formulários - SEGURO ALTERAR cores */
         label { display: block; margin-bottom: 8px; color: #aaa; font-size: 14px; }
         input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 14px;
-            font-family: inherit;
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            background: #1a1a1a; border: 1px solid #333;
+            border-radius: 4px; color: #fff; font-size: 14px; font-family: inherit;
         }
-        input[type="color"] {
-            height: 50px;
-            cursor: pointer;
-        }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #00d4ff;
-        }
+        input[type="color"] { height: 50px; cursor: pointer; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #00d4ff; }
         textarea { resize: vertical; min-height: 100px; }
         
+        /* Botões - SEGURO ALTERAR cores */
         button {
-            padding: 12px 24px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-right: 10px;
-            margin-bottom: 10px;
+            padding: 12px 24px; font-size: 14px; border: none;
+            border-radius: 4px; cursor: pointer; font-weight: 600;
+            margin-right: 10px; margin-bottom: 10px;
         }
         .btn-primary { background: #00d4ff; color: #000; }
         .btn-primary:hover { background: #00b8e6; }
@@ -88,166 +69,94 @@
         .btn-success { background: #4ade80; color: #000; }
         .btn-success:hover { background: #22c55e; }
         
+        /* Itens da lista - SEGURO ALTERAR cores */
         .item {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 4px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: #1a1a1a; border: 1px solid #333;
+            border-radius: 4px; padding: 20px; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
         }
         .item-info h3 { color: #fff; font-size: 16px; margin-bottom: 5px; }
         .item-info p { color: #888; font-size: 13px; }
         .item-actions { display: flex; gap: 10px; }
         
-        .alert {
-            padding: 12px 20px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
+        /* Alertas - SEGURO ALTERAR cores */
+        .alert { padding: 12px 20px; border-radius: 4px; margin-bottom: 20px; font-size: 14px; }
         .alert-success { background: #1a3a1a; color: #4ade80; border: 1px solid #2d5a2d; }
         .alert-error { background: #3a1a1a; color: #f87171; border: 1px solid #5a2d2d; }
         
         .login-form { max-width: 500px; margin: 100px auto; }
         .hidden { display: none; }
         
+        /* Área de upload - SEGURO ALTERAR cores */
         .upload-area {
-            border: 2px dashed #333;
-            border-radius: 8px;
-            padding: 60px 40px;
-            text-align: center;
-            margin: 30px 0;
-            cursor: pointer;
-            transition: all 0.3s;
+            border: 2px dashed #333; border-radius: 8px;
+            padding: 60px 40px; text-align: center;
+            margin: 30px 0; cursor: pointer; transition: all 0.3s;
         }
         .upload-area:hover { border-color: #00d4ff; background: #1a1a2a; }
         
+        /* Preview de imagens - SEGURO ALTERAR tamanho do grid */
         .image-preview {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px; margin: 30px 0;
         }
-        .image-item {
-            position: relative;
-            aspect-ratio: 1;
-            border-radius: 4px;
-            overflow: hidden;
-        }
+        .image-item { position: relative; aspect-ratio: 1; border-radius: 4px; overflow: hidden; }
         .image-item img { width: 100%; height: 100%; object-fit: cover; }
         .image-item button {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(255,0,0,0.8);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 0;
+            position: absolute; top: 8px; right: 8px;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: rgba(255,0,0,0.8); color: #fff;
+            border: none; cursor: pointer; font-size: 16px; padding: 0;
         }
         
+        /* Galeria de imagens ordenadas - SEGURO ALTERAR cores */
         .gallery-item {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 12px;
-            position: relative;
+            background: #1a1a1a; border: 1px solid #333;
+            border-radius: 8px; padding: 12px; position: relative;
         }
         .gallery-number {
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            background: #00d4ff;
-            color: #000;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 13px;
-            z-index: 2;
+            position: absolute; top: -8px; left: -8px;
+            background: #00d4ff; color: #000;
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 13px; z-index: 2;
         }
-        .gallery-info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+        .gallery-info { display: flex; flex-direction: column; align-items: flex-start; }
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px; margin-top: 20px;
         }
         
-        /* Modal de Edição */
+        /* Modal de edição - NÃO ALTERAR estrutura */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 40px 20px;
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8); z-index: 1000;
+            overflow-y: auto; padding: 40px 20px;
         }
         .modal.active { display: block; }
         .modal-content {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 8px;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px;
+            background: #111; border: 1px solid #333;
+            border-radius: 8px; max-width: 800px; margin: 0 auto; padding: 40px;
         }
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #333;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #333;
         }
         .modal-header h2 { margin: 0; }
         .close-modal {
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 28px;
-            cursor: pointer;
-            padding: 0;
-            width: 40px;
-            height: 40px;
+            background: none; border: none; color: #888;
+            font-size: 28px; cursor: pointer; padding: 0; width: 40px; height: 40px;
         }
         .close-modal:hover { color: #fff; background: none; }
         
         .form-group { margin-bottom: 25px; }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        .preview-box {
-            background: #fff;
-            padding: 40px;
-            border-radius: 4px;
-            margin-top: 20px;
-            min-height: 200px;
-        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     </style>
 </head>
 <body>
+    <!-- ============================================ -->
+    <!-- TELA DE LOGIN                                -->
+    <!-- ============================================ -->
     <div id="loginSection" class="container">
         <div class="login-form">
             <h1>Admin Login</h1>
@@ -263,16 +172,20 @@
         </div>
     </div>
 
+    <!-- ============================================ -->
+    <!-- PAINEL ADMINISTRATIVO                        -->
+    <!-- ============================================ -->
     <div id="adminPanel" class="container hidden">
         <h1>Painel Administrativo</h1>
         
+        <!-- Abas de navegação -->
         <div class="tabs">
             <button class="tab active" onclick="switchTab('competencies', this)">Competências</button>
             <button class="tab" onclick="switchTab('cases', this)">Cases</button>
             <button class="tab" onclick="switchTab('images', this)">Imagens</button>
         </div>
 
-        <!-- Tab Competências -->
+        <!-- ABA 1: COMPETÊNCIAS -->
         <div id="competenciesTab" class="tab-content active">
             <div class="section">
                 <h2>Gerenciar Competências</h2>
@@ -286,7 +199,7 @@
             </div>
         </div>
 
-        <!-- Tab Cases -->
+        <!-- ABA 2: CASES -->
         <div id="casesTab" class="tab-content">
             <div class="section">
                 <h2>Gerenciar Cases</h2>
@@ -302,7 +215,7 @@
             </div>
         </div>
 
-        <!-- Tab Imagens -->
+        <!-- ABA 3: IMAGENS -->
         <div id="imagesTab" class="tab-content">
             <div class="section">
                 <h2>Gerenciar Imagens</h2>
@@ -328,7 +241,9 @@
         </div>
     </div>
 
-    <!-- Modal de Edição de Case -->
+    <!-- ============================================ -->
+    <!-- MODAL DE EDIÇÃO DE CASE                      -->
+    <!-- ============================================ -->
     <div id="editCaseModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -337,19 +252,17 @@
             </div>
             
             <div id="editCaseAlert"></div>
-            
             <input type="hidden" id="editCaseIndex">
             
+            <!-- Dados básicos - SEGURO ALTERAR placeholders -->
             <div class="form-group">
                 <label>Título do Case</label>
                 <input type="text" id="editTitle" placeholder="Título">
             </div>
-            
             <div class="form-group">
                 <label>Categoria</label>
                 <input type="text" id="editCategory" placeholder="Categoria">
             </div>
-            
             <div class="form-group">
                 <label>Slug (não pode ser alterado)</label>
                 <input type="text" id="editSlug" disabled style="opacity:0.5;">
@@ -357,34 +270,29 @@
             
             <h3 style="color:#fff;margin:30px 0 20px;">Estilo da Página</h3>
             
+            <!-- Cores - SEGURO ALTERAR valores padrão (value="#...") -->
             <div class="form-row">
                 <div class="form-group">
                     <label>Cor de Fundo da Página</label>
                     <input type="color" id="editBgColor" value="#fafafa">
-                    <small style="color:#666;display:block;margin-top:5px;">Cor de fundo geral da página do case</small>
                 </div>
-                
                 <div class="form-group">
                     <label>Cor do Texto Principal</label>
                     <input type="color" id="editTextColor" value="#1a1a1a">
-                    <small style="color:#666;display:block;margin-top:5px;">Cor dos títulos e textos</small>
                 </div>
             </div>
-            
             <div class="form-row">
                 <div class="form-group">
                     <label>Cor do Texto Secundário</label>
                     <input type="color" id="editTextLightColor" value="#666666">
-                    <small style="color:#666;display:block;margin-top:5px;">Cor de descrições e subtítulos</small>
                 </div>
-                
                 <div class="form-group">
                     <label>Cor da Borda</label>
                     <input type="color" id="editBorderColor" value="#e5e5e5">
-                    <small style="color:#666;display:block;margin-top:5px;">Cor das linhas divisórias</small>
                 </div>
             </div>
             
+            <!-- Layout - NÃO ALTERAR opções -->
             <div class="form-group">
                 <label>Layout das Imagens</label>
                 <select id="editImageLayout">
@@ -392,9 +300,37 @@
                     <option value="grid">Grid alternado (grande/pequeno)</option>
                     <option value="masonry">Masonry (layout irregular)</option>
                 </select>
-                <small style="color:#666;display:block;margin-top:5px;">Define como as imagens serão dispostas na página</small>
             </div>
             
+            <!-- NOVO: Tamanho das imagens - NÃO ALTERAR valores -->
+            <div class="form-group">
+                <label>Tamanho das Imagens</label>
+                <select id="editImageSize">
+                    <option value="full">Largura total (100%)</option>
+                    <option value="large">Grande (1440px)</option>
+                    <option value="medium">Médio (1200px)</option>
+                    <option value="small">Pequeno (900px)</option>
+                    <option value="contained">Contido (1400px centralizado)</option>
+                </select>
+            </div>
+            
+            <!-- NOVO: Espaçamento e alinhamento -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Espaçamento entre imagens (px)</label>
+                    <input type="number" id="editImageSpacing" value="1" min="0" max="100">
+                </div>
+                <div class="form-group">
+                    <label>Alinhamento</label>
+                    <select id="editImageAlign">
+                        <option value="center">Centro</option>
+                        <option value="left">Esquerda</option>
+                        <option value="right">Direita</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Texto introdutório - SEGURO ALTERAR placeholder -->
             <div class="form-group">
                 <label>Texto de Introdução (opcional)</label>
                 <textarea id="editIntroText" placeholder="Texto introdutório sobre o case..." rows="4"></textarea>
@@ -407,71 +343,76 @@
         </div>
     </div>
 
+    <!-- ============================================ -->
+    <!-- SCRIPTS                                      -->
+    <!-- ============================================ -->
     <script src="admin.js"></script>
     <script>
+        // Troca de abas - NÃO ALTERAR
         function switchTab(tabName, btn) {
-            document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
-            document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById(tabName + 'Tab').classList.add('active');
         }
         
-        // Funções do Modal de Edição
+        // Abre modal de edição - NÃO ALTERAR
         function openEditModal(index) {
             document.getElementById('editCaseIndex').value = index;
+            const c = currentData.cases[index];
+            document.getElementById('editTitle').value = c.title || '';
+            document.getElementById('editCategory').value = c.category || '';
+            document.getElementById('editSlug').value = c.slug || '';
             
-            const caseData = currentData.cases[index];
-            document.getElementById('editTitle').value = caseData.title || '';
-            document.getElementById('editCategory').value = caseData.category || '';
-            document.getElementById('editSlug').value = caseData.slug || '';
-            
-            // Cores e estilo
-            document.getElementById('editBgColor').value = caseData.style?.bgColor || '#fafafa';
-            document.getElementById('editTextColor').value = caseData.style?.textColor || '#1a1a1a';
-            document.getElementById('editTextLightColor').value = caseData.style?.textLightColor || '#666666';
-            document.getElementById('editBorderColor').value = caseData.style?.borderColor || '#e5e5e5';
-            document.getElementById('editImageLayout').value = caseData.style?.imageLayout || 'full';
-            document.getElementById('editIntroText').value = caseData.introText || '';
+            if (!c.style) c.style = {};
+            document.getElementById('editBgColor').value = c.style.bgColor || '#fafafa';
+            document.getElementById('editTextColor').value = c.style.textColor || '#1a1a1a';
+            document.getElementById('editTextLightColor').value = c.style.textLightColor || '#666666';
+            document.getElementById('editBorderColor').value = c.style.borderColor || '#e5e5e5';
+            document.getElementById('editImageLayout').value = c.style.imageLayout || 'full';
+            document.getElementById('editIntroText').value = c.introText || '';
+            document.getElementById('editImageSize').value = c.style.imageSize || 'large';
+            document.getElementById('editImageSpacing').value = c.style.imageSpacing || 1;
+            document.getElementById('editImageAlign').value = c.style.imageAlign || 'center';
             
             document.getElementById('editCaseModal').classList.add('active');
         }
         
+        // Fecha modal - NÃO ALTERAR
         function closeEditModal() {
             document.getElementById('editCaseModal').classList.remove('active');
         }
         
+        // Salva edição - NÃO ALTERAR
         async function saveCaseEdit() {
-            const index = parseInt(document.getElementById('editCaseIndex').value);
-            const caseData = currentData.cases[index];
-            
-            caseData.title = document.getElementById('editTitle').value;
-            caseData.category = document.getElementById('editCategory').value;
-            
-            // Salvar estilo
-            if (!caseData.style) caseData.style = {};
-            caseData.style.bgColor = document.getElementById('editBgColor').value;
-            caseData.style.textColor = document.getElementById('editTextColor').value;
-            caseData.style.textLightColor = document.getElementById('editTextLightColor').value;
-            caseData.style.borderColor = document.getElementById('editBorderColor').value;
-            caseData.style.imageLayout = document.getElementById('editImageLayout').value;
-            
-            caseData.introText = document.getElementById('editIntroText').value;
+            const i = parseInt(document.getElementById('editCaseIndex').value);
+            const c = currentData.cases[i];
+            c.title = document.getElementById('editTitle').value;
+            c.category = document.getElementById('editCategory').value;
+            if (!c.style) c.style = {};
+            c.style.bgColor = document.getElementById('editBgColor').value;
+            c.style.textColor = document.getElementById('editTextColor').value;
+            c.style.textLightColor = document.getElementById('editTextLightColor').value;
+            c.style.borderColor = document.getElementById('editBorderColor').value;
+            c.style.imageLayout = document.getElementById('editImageLayout').value;
+            c.style.imageSize = document.getElementById('editImageSize').value;
+            c.style.imageSpacing = parseInt(document.getElementById('editImageSpacing').value) || 1;
+            c.style.imageAlign = document.getElementById('editImageAlign').value;
+            c.introText = document.getElementById('editIntroText').value;
             
             try {
                 await saveConfig();
                 loadCases();
-                showAlert('casesAlert', 'Case atualizado com sucesso!', 'success');
+                showAlert('casesAlert', 'Case atualizado!', 'success');
                 closeEditModal();
-            } catch (error) {
-                showAlert('editCaseAlert', 'Erro ao salvar: ' + error.message, 'error');
+            } catch (e) {
+                showAlert('editCaseAlert', 'Erro: ' + e.message, 'error');
             }
         }
         
-        // Fechar modal ao clicar fora
+        // Fecha modal ao clicar fora - NÃO ALTERAR
         document.getElementById('editCaseModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeEditModal();
-            }
+            if (e.target === this) closeEditModal();
         });
     </script>
 </body>
