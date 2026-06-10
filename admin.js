@@ -1,4 +1,7 @@
-// admin.js - Versão Completa com Editor
+// ============================================
+// CONFIGURAÇÃO GLOBAL
+// ============================================
+// NÃO ALTERAR: variáveis de controle do sistema
 let config = { username: '', token: '', repo: 'art-director-portfolio', branch: 'main' };
 let currentData = { competencies: [], cases: [] };
 let selectedCase = null;
@@ -6,6 +9,9 @@ let filesToUpload = [];
 let imageOrder = [];
 let allCaseImages = [];
 
+// ============================================
+// LOGIN - NÃO ALTERAR
+// ============================================
 async function login() {
     const username = document.getElementById('githubUsername').value.trim();
     const token = document.getElementById('githubToken').value.trim();
@@ -48,6 +54,9 @@ async function login() {
     }
 }
 
+// ============================================
+// CARREGAR/CREAR CONFIG.JSON - NÃO ALTERAR
+// ============================================
 async function loadOrCreateConfig() {
     const url = 'https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/config.json';
 
@@ -75,6 +84,9 @@ async function loadOrCreateConfig() {
     console.log('Config inicial criado!');
 }
 
+// ============================================
+// SALVAR CONFIG.JSON - NÃO ALTERAR
+// ============================================
 async function saveConfig() {
     const url = 'https://api.github.com/repos/' + config.username + '/' + config.repo + '/contents/config.json?ref=' + config.branch;
     
@@ -108,6 +120,9 @@ async function saveConfig() {
     console.log('Config salvo!');
 }
 
+// ============================================
+// COMPETÊNCIAS - SEGURO ALTERAR textos de alerta
+// ============================================
 function loadCompetencies() {
     const list = document.getElementById('competenciesList');
     if (currentData.competencies.length === 0) {
@@ -155,6 +170,9 @@ async function deleteCompetency(index) {
     }
 }
 
+// ============================================
+// CASES - SEGURO ALTERAR textos de alerta
+// ============================================
 function loadCases() {
     const list = document.getElementById('casesList');
     if (currentData.cases.length === 0) {
@@ -193,7 +211,10 @@ async function addCase() {
             textColor: '#1a1a1a',
             textLightColor: '#666666',
             borderColor: '#e5e5e5',
-            imageLayout: 'full'
+            imageLayout: 'full',
+            imageSize: 'large',
+            imageSpacing: 1,
+            imageAlign: 'center'
         },
         introText: ''
     });
@@ -244,6 +265,9 @@ function updateCaseSelect() {
     };
 }
 
+// ============================================
+// IMAGENS - NÃO ALTERAR lógica
+// ============================================
 async function loadCaseImages() {
     if (!selectedCase) return;
     
@@ -369,7 +393,7 @@ async function saveImageOrder() {
         await saveConfig();
         showAlert('imagesAlert', '✅ Ordem salva!', 'success');
     } catch (error) {
-        showAlert('imagesAlert', '❌ Erro: ' + error.message, 'error');
+        showAlert('imagesAlert', ' Erro: ' + error.message, 'error');
     }
 }
 
@@ -391,7 +415,9 @@ async function deleteImage(path, sha) {
     }
 }
 
-// Upload
+// ============================================
+// UPLOAD - NÃO ALTERAR
+// ============================================
 document.getElementById('uploadArea').addEventListener('click', function() {
     document.getElementById('fileInput').click();
 });
@@ -472,6 +498,9 @@ async function uploadImages() {
     showAlert('imagesAlert', 'Upload concluído!', 'success');
 }
 
+// ============================================
+// UTILITÁRIOS - NÃO ALTERAR
+// ============================================
 function showAlert(containerId, message, type) {
     const container = document.getElementById(containerId);
     container.innerHTML = '<div class="alert alert-' + type + '">' + message + '</div>';
