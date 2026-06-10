@@ -204,19 +204,18 @@
         
         .case-card:hover { transform: translateY(-10px); }
         
-        /* Ajuste de margens para ordem: Título → Imagem → Categoria */
         .case-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 26px;
             font-weight: 400;
-            margin-bottom: 25px; /* Espaço entre título e imagem */
+            margin-bottom: 25px;
         }
         
         .case-image {
             width: 100%;
             aspect-ratio: 4/3;
             background: var(--color-border);
-            margin-bottom: 20px; /* Espaço entre imagem e categoria */
+            margin-bottom: 20px;
             overflow: hidden;
         }
         
@@ -278,8 +277,8 @@
         </div>
         
         <div class="cta-buttons">
-            <a href="mailto:contact@vdmtx.com" class="btn btn-primary" data-i18n="consultBtn">Solicitar Consultoria</a>
-            <a href="#" class="btn btn-secondary" data-i18n="linkedinBtn">Perfil Linkedin</a>
+            <a href="https://api.whatsapp.com/send?phone=5563981034401&text=%0AI+would+like+a+quote+%28gostaria+de+um+or%C3%A7amento%29" class="btn btn-primary" data-i18n="consultBtn" target="_blank">Solicitar Consultoria</a>
+            <a href="https://www.linkedin.com/in/victor-silva-3264713b9" class="btn btn-secondary" data-i18n="linkedinBtn" target="_blank">Perfil Linkedin</a>
         </div>
         
         <nav id="navCases"></nav>
@@ -544,7 +543,6 @@
                 };
             }));
             
-            // ORDEM: TÍTULO → IMAGEM → CATEGORIA
             container.innerHTML = casesWithImages.map(c => `
                 <div class="case-card" onclick="openCase('${c.slug}')">
                     <div class="case-title" data-case="${c.caseKey}">${translations[currentLang][c.caseKey] || c.title}</div>
