@@ -31,7 +31,7 @@
     },
     {
       "slug": "bombeirodeaco",
-      "title": "Bombeiro de Aço",
+      "title": "Bombeiro de AÃ§o",
       "category": "Institutional Branding & Medal Design",
       "folder": "img/bombeirodeaco",
       "imageOrder": [],
@@ -52,7 +52,21 @@
       "title": "Corrida do Fogo",
       "category": "Event Branding & Tactical Wayfinding",
       "folder": "img/corridadofogo",
-      "imageOrder": []
+      "imageOrder": [
+        "lamina1.jpg",
+        "lamina1-5.jpg",
+        "lamina3.jpg",
+        "lamina4.jpg",
+        "lamina5.jpg",
+        "lamina6.jpg",
+        "lamina7.jpg",
+        "lamina8.jpg",
+        "lamina9.jpg",
+        "lamina10.jpg",
+        "lamina11.jpg",
+        "lamina12.jpg",
+        "lamina13.jpg"
+      ]
     },
     {
       "slug": "protocantins",
