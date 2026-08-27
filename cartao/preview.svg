@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#03070d"/>
+      <stop offset="0.55" stop-color="#071827"/>
+      <stop offset="1" stop-color="#02060b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="75%" cy="20%" r="55%">
+      <stop offset="0" stop-color="#18e7ff" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#18e7ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g opacity="0.14">
+    <path d="M0 90H1200M0 180H1200M0 270H1200M0 360H1200M0 450H1200M0 540H1200" stroke="#18e7ff"/>
+    <path d="M120 0V630M240 0V630M360 0V630M480 0V630M600 0V630M720 0V630M840 0V630M960 0V630M1080 0V630" stroke="#18e7ff"/>
+  </g>
+  <g transform="translate(82 92)">
+    <text x="0" y="0" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="900" letter-spacing="9">VDMTX</text>
+    <text x="3" y="48" fill="#18e7ff" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="7">DESIGN GRÁFICO E ARTE FINAL</text>
+  </g>
+  <g transform="translate(82 245)">
+    <text x="0" y="0" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="900">Arte pronta para</text>
+    <text x="0" y="82" fill="#18e7ff" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="900">divulgar e imprimir</text>
+    <text x="0" y="148" fill="#c6d7e6" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="500">Lonas, painéis, logomarcas, identidade visual e CDR + PDF.</text>
+  </g>
+  <g transform="translate(82 505)" filter="url(#softGlow)">
+    <rect width="328" height="62" rx="31" fill="#18e7ff"/>
+    <text x="164" y="40" text-anchor="middle" fill="#00131d" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="900">Chamar no WhatsApp</text>
+  </g>
+</svg>
