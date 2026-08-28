@@ -11,7 +11,7 @@
     <!-- Fontes do Google (NÃO ALTERAR) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     
     <!-- ============================================ -->
     <!-- ESTILOS VISUAIS (CSS)                        -->
@@ -175,29 +175,95 @@
             .case-meta { flex-direction: column; gap: 30px; }
         }
     </style>
+    <style id="vdmtx-case-theme">
+        :root {
+            --site-ink: #090b0d;
+            --site-ink-soft: #111519;
+            --site-paper: #f2efe8;
+            --site-white: #ffffff;
+            --site-muted: #a8afb4;
+            --site-steel: #607d8b;
+            --site-signal: #ff5a1f;
+            --site-line: rgba(255,255,255,.16);
+        }
+        html { scroll-behavior: smooth; background: var(--site-ink); }
+        body { background: var(--site-paper); color: var(--site-ink); font-family: 'DM Sans', sans-serif; font-weight: 400; }
+        .scroll-progress { position: fixed; z-index: 300; top: 0; left: 0; width: 0; height: 3px; background: var(--site-signal); pointer-events: none; }
+        .case-nav { position: absolute; z-index: 120; top: 0; left: 50%; width: min(calc(100% - 120px), 1480px); min-height: 104px; transform: translateX(-50%); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--site-line); }
+        .case-brand { width: clamp(180px, 16vw, 240px); display: inline-flex; }
+        .case-brand img { width: 100%; filter: brightness(0) invert(1); }
+        .back-link { position: static; display: inline-flex; align-items: center; gap: 16px; color: rgba(255,255,255,.74); font: 600 12px/1 'Barlow Condensed', sans-serif; letter-spacing: .12em; text-transform: uppercase; transition: color .2s ease; }
+        .back-link::before { content: '←'; color: var(--site-signal); font-size: 18px; }
+        .back-link:hover { color: var(--site-white); }
+        .case-header { position: relative; overflow: hidden; min-height: 650px; padding: 176px max(60px, calc((100vw - 1480px)/2)) 82px; border: 0; background: var(--site-ink); color: var(--site-white); display: flex; align-items: flex-end; }
+        .case-header::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 82% 22%, rgba(96,125,139,.16), transparent 30%), linear-gradient(90deg, transparent 49.9%, rgba(255,255,255,.04) 50%, transparent 50.1%); }
+        .case-header-inner { position: relative; width: 100%; display: grid; grid-template-columns: minmax(0,1.25fr) minmax(340px,.75fr); gap: clamp(70px,10vw,160px); align-items: end; }
+        .case-heading { min-width: 0; }
+        .case-category { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; color: var(--site-muted); font: 600 12px/1.3 'Barlow Condensed', sans-serif; letter-spacing: .18em; }
+        .case-category::before { content: ''; width: 32px; height: 2px; background: var(--site-signal); flex: none; }
+        .case-title { max-width: 900px; margin: 0; color: var(--site-white); font: 700 clamp(72px,9vw,140px)/.82 'Barlow Condensed', sans-serif; letter-spacing: -.035em; text-transform: uppercase; }
+        .case-intro { max-width: 700px; margin: 34px 0 0; color: #c9ced1; font: 400 16px/1.7 'DM Sans', sans-serif; }
+        .case-context { padding-left: 34px; border-left: 1px solid var(--site-line); }
+        .case-context-label { margin-bottom: 34px; color: var(--site-signal); font: 600 11px/1 'Barlow Condensed', sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+        .case-meta { display: grid; grid-template-columns: 1fr; gap: 24px; margin: 0; }
+        .meta-item { padding-bottom: 20px; border-bottom: 1px solid var(--site-line); color: var(--site-white); font: 400 14px/1.5 'DM Sans', sans-serif; }
+        .meta-item strong { margin-bottom: 7px; color: var(--site-muted); font: 600 11px/1 'Barlow Condensed', sans-serif; letter-spacing: .14em; }
+        .gallery { width: 100%; padding: 0; background: var(--color-bg); }
+        .gallery-grid { background: var(--color-bg); }
+        .loading { min-height: 420px; padding: 120px 30px; color: var(--color-text-light); font: 500 15px/1.4 'DM Sans', sans-serif; font-style: normal; }
+        .case-end { background: var(--site-ink-soft); color: var(--site-white); padding: 92px max(60px, calc((100vw - 1480px)/2)); }
+        .case-end-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; }
+        .case-end-label { color: var(--site-muted); font: 600 11px/1 'Barlow Condensed', sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+        .next-case { display: inline-block; margin-top: 18px; color: var(--site-white); font: 700 clamp(42px,5vw,76px)/.9 'Barlow Condensed', sans-serif; letter-spacing: -.02em; text-transform: uppercase; text-decoration: none; }
+        .next-case::after { content: ' →'; color: var(--site-signal); }
+        .case-end-back { justify-self: end; display: inline-flex; gap: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--site-signal); color: var(--site-white); font: 600 12px/1 'Barlow Condensed', sans-serif; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+        @media (max-width: 900px) {
+            .case-nav { width: calc(100% - 60px); min-height: 88px; }
+            .case-brand { width: 170px; }
+            .case-header { min-height: 0; padding: 142px 30px 64px; }
+            .case-header-inner { grid-template-columns: 1fr; gap: 54px; }
+            .case-context { padding: 0; border-left: 0; }
+            .case-title { font-size: clamp(60px,16vw,100px); }
+            .case-meta { grid-template-columns: repeat(3,1fr); }
+            .case-end { padding: 72px 30px; }
+        }
+        @media (max-width: 600px) {
+            .case-nav { width: calc(100% - 32px); }
+            .case-brand { width: 145px; }
+            .back-link { font-size: 10px; }
+            .case-header { padding: 126px 16px 52px; }
+            .case-category { font-size: 10px; }
+            .case-meta { grid-template-columns: 1fr; gap: 18px; }
+            .case-title { font-size: clamp(54px,18vw,82px); }
+            .case-end { padding: 64px 16px; }
+            .case-end-inner { grid-template-columns: 1fr; }
+            .case-end-back { justify-self: start; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    </style>
 </head>
 <body>
-    <!-- Botão voltar - SEGURO ALTERAR texto -->
-    <a href="index.html" class="back-link">← Voltar ao portfólio</a>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <nav class="case-nav" aria-label="Navegação do projeto">
+        <a class="case-brand" href="index.html" aria-label="VDMTX — início"><img src="https://raw.githubusercontent.com/Vdmtx/seu-mundo-neste-momento/main/logo%20vdmtx.png" alt="VDMTX"></a>
+        <a href="index.html#work" class="back-link" id="backLabel">Voltar aos trabalhos</a>
+    </nav>
     
     <!-- Cabeçalho do case -->
     <header class="case-header">
-        <div class="case-category" id="caseCategory">Loading...</div>
-        <h1 class="case-title" id="caseTitle">Loading...</h1>
-        <div class="case-intro" id="caseIntro" style="display:none;"></div>
-        
-        <div class="case-meta">
-            <div class="meta-item">
-                <strong>Cliente</strong>
-                <span id="caseClient">—</span>
+        <div class="case-header-inner">
+            <div class="case-heading">
+                <div class="case-category" id="caseCategory">Loading...</div>
+                <h1 class="case-title" id="caseTitle">Loading...</h1>
+                <div class="case-intro" id="caseIntro" style="display:none;"></div>
             </div>
-            <div class="meta-item">
-                <strong>Ano</strong>
-                <span id="caseYear">—</span>
-            </div>
-            <div class="meta-item">
-                <strong>Serviços</strong>
-                <span id="caseServices">—</span>
+            <div class="case-context">
+                <div class="case-context-label">VDMTX · CASE STUDY</div>
+                <div class="case-meta">
+                    <div class="meta-item"><strong id="clientLabel">Cliente</strong><span id="caseClient">—</span></div>
+                    <div class="meta-item"><strong id="yearLabel">Ano</strong><span id="caseYear">—</span></div>
+                    <div class="meta-item"><strong id="servicesLabel">Serviços</strong><span id="caseServices">—</span></div>
+                </div>
             </div>
         </div>
     </header>
@@ -208,6 +274,12 @@
             <div class="loading">Carregando imagens...</div>
         </div>
     </main>
+    <footer class="case-end">
+        <div class="case-end-inner">
+            <div><div class="case-end-label" id="nextLabel">Próximo case</div><a class="next-case" id="nextCase" href="index.html#work">Trabalhos selecionados</a></div>
+            <a class="case-end-back" href="index.html#work" id="endBackLabel">Ver todos os trabalhos</a>
+        </div>
+    </footer>
     
     <!-- ============================================ -->
     <!-- LÓGICA (JavaScript)                          -->
@@ -216,13 +288,22 @@
         // Pega o slug da URL (ex: ?slug=coisamaislinda)
         const urlParams = new URLSearchParams(window.location.search);
         const slug = urlParams.get('slug');
+        const currentLang = localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('pt') ? 'pt' : 'en');
+        const caseUi = {
+            pt: { back: 'Voltar aos trabalhos', client: 'Cliente', year: 'Ano', services: 'Serviços', next: 'Próximo case', all: 'Ver todos os trabalhos', categories: { coisamaislinda: 'Identidade Visual & Estratégia de Varejo', bombeirodeaco: 'Branding Institucional & Design de Medalhas', corridadofogo: 'Branding de Eventos & Wayfinding', protocantins: 'Identidade Governamental' } },
+            en: { back: 'Back to selected work', client: 'Client', year: 'Year', services: 'Services', next: 'Next case study', all: 'View all selected work', categories: { coisamaislinda: 'Visual Identity & Retail Strategy', bombeirodeaco: 'Institutional Branding & Medal Design', corridadofogo: 'Event Branding & Wayfinding', protocantins: 'Government Identity' } },
+            jp: { back: '作品一覧へ戻る', client: 'クライアント', year: '年', services: 'サービス', next: '次のケース', all: 'すべての作品を見る', categories: { coisamaislinda: 'ビジュアルアイデンティティ＆小売戦略', bombeirodeaco: '組織ブランディング＆メダルデザイン', corridadofogo: 'イベントブランディング＆サイン計画', protocantins: '政府機関アイデンティティ' } },
+            zh: { back: '返回作品', client: '客户', year: '年份', services: '服务', next: '下一个案例', all: '查看全部作品', categories: { coisamaislinda: '视觉识别与零售策略', bombeirodeaco: '机构品牌与奖章设计', corridadofogo: '活动品牌与导视', protocantins: '政府机构识别' } }
+        };
+        const ui = caseUi[currentLang] || caseUi.en;
+        document.documentElement.lang = currentLang === 'pt' ? 'pt-BR' : currentLang === 'jp' ? 'ja' : currentLang === 'zh' ? 'zh-CN' : 'en';
         
         // Dados dos cases - SEGURO ALTERAR textos
         const caseDetails = {
-            'coisamaislinda': { client: 'Coisa Mais Linda', year: '2024', services: 'Visual Identity, Retail Strategy, Packaging' },
-            'bombeirodeaco': { client: 'Corpo de Bombeiros TO', year: '2023', services: 'Institutional Branding, Medal Design, Event Materials' },
-            'corridadofogo': { client: 'Prefeitura de Palmas', year: '2024', services: 'Event Branding, Tactical Wayfinding, Signage' },
-            'protocantins': { client: 'Governo do Tocantins', year: '2023', services: 'Government Identity, Communication System' }
+            'coisamaislinda': { client: 'Coisa Mais Linda', year: '2024', services: { pt: 'Identidade Visual, Estratégia de Varejo, Embalagens', en: 'Visual Identity, Retail Strategy, Packaging' } },
+            'bombeirodeaco': { client: 'Corpo de Bombeiros TO', year: '2023', services: { pt: 'Branding Institucional, Medalha, Materiais de Evento', en: 'Institutional Branding, Medal Design, Event Materials' } },
+            'corridadofogo': { client: 'Prefeitura de Palmas', year: '2024', services: { pt: 'Branding de Evento, Wayfinding, Sinalização', en: 'Event Branding, Tactical Wayfinding, Signage' } },
+            'protocantins': { client: 'Governo do Tocantins', year: '2023', services: { pt: 'Identidade Governamental, Sistema de Comunicação', en: 'Government Identity, Communication System' } }
         };
         
         // Função principal - NÃO ALTERAR estrutura
@@ -243,7 +324,13 @@
                     document.documentElement.style.setProperty('--color-border', caseData.style.borderColor || '#e5e5e5');
                 }
                 
-                document.getElementById('caseCategory').textContent = caseData.category;
+                document.getElementById('backLabel').textContent = ui.back;
+                document.getElementById('clientLabel').textContent = ui.client;
+                document.getElementById('yearLabel').textContent = ui.year;
+                document.getElementById('servicesLabel').textContent = ui.services;
+                document.getElementById('nextLabel').textContent = ui.next;
+                document.getElementById('endBackLabel').textContent = ui.all;
+                document.getElementById('caseCategory').textContent = ui.categories[slug] || caseData.category;
                 document.getElementById('caseTitle').textContent = caseData.title;
                 
                 // Texto introdutório (opcional)
@@ -256,7 +343,14 @@
                 const details = caseDetails[slug] || {};
                 document.getElementById('caseClient').textContent = details.client || '—';
                 document.getElementById('caseYear').textContent = details.year || '—';
-                document.getElementById('caseServices').textContent = details.services || '—';
+                document.getElementById('caseServices').textContent = details.services?.[currentLang] || details.services?.en || '—';
+                const caseIndex = config.cases.findIndex(c => c.slug === slug);
+                const nextCase = config.cases[(caseIndex + 1) % config.cases.length];
+                if (nextCase) {
+                    const nextLink = document.getElementById('nextCase');
+                    nextLink.href = 'case.html?slug=' + encodeURIComponent(nextCase.slug);
+                    nextLink.textContent = nextCase.title;
+                }
                 
                 await loadImages(caseData);
                 document.title = caseData.title + ' — VDMTX';
@@ -314,7 +408,7 @@
         // Tela de erro - SEGURO ALTERAR textos
         function showError() {
             document.querySelector('.case-header').innerHTML = '<div class="error" style="padding:100px 60px;">' +
-                '<h1 style="font-family:Cormorant Garamond,serif;font-size:48px;margin-bottom:20px;">Case não encontrado</h1>' +
+                '<h1 style="font-family:Barlow Condensed,sans-serif;font-size:64px;line-height:.9;text-transform:uppercase;margin-bottom:20px;">Case não encontrado</h1>' +
                 '<p style="color:var(--color-text-light);margin-bottom:40px;">O case solicitado não existe ou foi removido.</p>' +
                 '<a href="index.html" style="display:inline-block;padding:14px 28px;background:var(--color-text);color:var(--color-bg);text-decoration:none;font-size:11px;letter-spacing:0.1em;">Voltar ao portfólio</a>' +
                 '</div>';
@@ -323,6 +417,10 @@
         
         // Inicia ao carregar a página - NÃO ALTERAR
         document.addEventListener('DOMContentLoaded', loadCase);
+        window.addEventListener('scroll', () => {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            document.getElementById('scrollProgress').style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+        }, { passive: true });
     </script>
 </body>
 </html>
