@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>J.3D — Protótipo de pedidos</title>
+<style>
+:root{--bg:#08090d;--panel:#101218;--panel2:#151822;--line:#272b38;--txt:#f5f5f7;--muted:#9ca3af;--purple:#b400ff;--purple2:#7a00ff;--green:#00d68f;--red:#ff4d67;--shadow:0 20px 60px rgba(0,0,0,.35)}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 75% 0%,rgba(180,0,255,.14),transparent 32%),linear-gradient(180deg,#07080b,#0a0b10);color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif;min-height:100vh}button,input,textarea{font:inherit}.shell{max-width:1180px;margin:auto;padding:24px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:rgba(13,15,21,.88);backdrop-filter:blur(10px);position:sticky;top:10px;z-index:5;box-shadow:var(--shadow)}.brand{display:flex;align-items:center;gap:12px}.logo{font-weight:900;font-size:28px;letter-spacing:-2px}.logo span{color:var(--purple)}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:#11141b;color:#d8dbe4;border-radius:12px;padding:10px 14px;cursor:pointer}.tab.active{background:linear-gradient(135deg,var(--purple2),var(--purple));border-color:transparent;color:white}.hero{display:grid;grid-template-columns:1.6fr .9fr;gap:18px;margin-top:22px}.card{background:linear-gradient(180deg,rgba(22,24,33,.96),rgba(14,16,23,.96));border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.main{padding:26px}.eyebrow{color:#d88cff;text-transform:uppercase;font-weight:800;font-size:12px;letter-spacing:1.4px}.title{font-size:34px;margin:8px 0 8px}.sub{color:var(--muted);margin:0}.ordergrid{display:grid;grid-template-columns:118px 1fr 260px;gap:18px;margin-top:24px}.product{height:118px;border-radius:18px;background:radial-gradient(circle at 50% 35%,#575d69,#222733 62%,#141820);display:grid;place-items:center;border:1px solid #333846;position:relative;overflow:hidden}.figurine{width:58px;height:72px;border-radius:14px 14px 22px 22px;background:linear-gradient(#777f8d,#3d4452);position:relative;box-shadow:inset 0 -8px 0 rgba(0,0,0,.2)}.figurine:before{content:"";position:absolute;width:42px;height:34px;left:8px;top:-14px;border-radius:8px;background:#666f7d}.figurine:after{content:"J3D";position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:10px;font-weight:900}.summary h2{margin:0 0 10px}.row{display:flex;gap:9px;margin:8px 0;color:#d9dce4}.row b{font-weight:700}.ok{color:var(--green)}.statusbox{border:1px solid rgba(180,0,255,.45);background:linear-gradient(135deg,rgba(86,0,123,.3),rgba(25,15,38,.8));border-radius:16px;padding:18px}.statusbox .big{font-size:24px;font-weight:900;color:#e38cff;margin-top:6px}.statusbox p{color:#c9cbd2;font-size:13px;line-height:1.5}.timeline{display:grid;grid-template-columns:repeat(7,1fr);gap:0;margin-top:30px;position:relative}.timeline:before{content:"";position:absolute;top:20px;left:7%;right:7%;height:2px;background:#343847;z-index:0}.step{text-align:center;position:relative;z-index:1}.dot{width:42px;height:42px;margin:auto;border-radius:50%;display:grid;place-items:center;background:#161923;border:2px solid #4a4f60;color:#7e8596;font-weight:900}.step.done .dot{background:#073d31;border-color:var(--green);color:white;box-shadow:0 0 18px rgba(0,214,143,.25)}.step.current .dot{background:#37104f;border-color:#d54cff;color:white;box-shadow:0 0 22px rgba(180,0,255,.55)}.step .label{font-size:11px;color:#9097a7;margin:9px auto 0;max-width:110px;line-height:1.25}.step.done .label,.step.current .label{color:#f1f2f4}.history{margin-top:24px;border-top:1px solid var(--line);padding-top:18px}.history h3{margin:0 0 12px}.event{display:grid;grid-template-columns:70px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid #20232d}.event time{color:#d99bff;font-weight:800}.event div{color:#c4c8d2}.aside{padding:22px}.aside h3{margin-top:0}.info{padding:14px 0;border-bottom:1px solid var(--line)}.info small{display:block;color:var(--muted);margin-bottom:4px}.whatsapp{display:block;text-align:center;text-decoration:none;background:#08c985;color:#041b13;font-weight:900;padding:13px;border-radius:12px;margin-top:18px}.admin{display:none;margin-top:22px;padding:24px}.admin.active,.client.active{display:block}.client{display:none}.adminhead{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:20px}.adminhead h2{margin:0}.badge{background:#083d30;color:#6af0bc;border:1px solid #14664f;padding:7px 10px;border-radius:999px;font-size:12px}.adminGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.adminPanel{border:1px solid var(--line);border-radius:16px;padding:18px;background:#0e1117}.statusList{display:grid;gap:9px}.statusBtn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:12px;border-radius:12px;border:1px solid #2d3240;background:#151923;color:#d9dde6;cursor:pointer}.statusBtn:hover{border-color:#9340be}.statusBtn.selected{border-color:#d24cff;background:#311044}.num{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#202532;font-size:12px}.admin textarea{width:100%;min-height:120px;background:#0b0d12;color:white;border:1px solid #303544;border-radius:12px;padding:12px;resize:vertical}.primary{width:100%;border:0;border-radius:12px;padding:13px 16px;background:linear-gradient(135deg,var(--purple2),var(--purple));color:white;font-weight:900;cursor:pointer;margin-top:10px}.secondary{width:100%;border:1px solid #3a3f4d;border-radius:12px;padding:12px 16px;background:#151923;color:white;font-weight:700;cursor:pointer;margin-top:8px}.notice{margin-top:14px;padding:12px;border-radius:12px;background:#111826;border:1px solid #253149;color:#aeb7ca;font-size:13px}.demo{margin-top:22px;padding:16px 18px;border:1px dashed #4d3b61;border-radius:14px;color:#b9b2c1;font-size:13px}.footer{color:#777f90;text-align:center;padding:30px 10px 8px;font-size:12px}@media(max-width:900px){.hero{grid-template-columns:1fr}.ordergrid{grid-template-columns:90px 1fr}.statusbox{grid-column:1/-1}.timeline{grid-template-columns:1fr;gap:9px;margin-left:4px}.timeline:before{display:none}.step{display:grid;grid-template-columns:46px 1fr;text-align:left;align-items:center}.dot{margin:0;width:38px;height:38px}.step .label{margin:0;max-width:none}.adminGrid{grid-template-columns:1fr}.tabs{justify-content:flex-end}.topbar{align-items:flex-start}.brand small{display:none}}@media(max-width:560px){.shell{padding:12px}.topbar{position:static}.logo{font-size:24px}.tab{padding:8px 10px;font-size:12px}.main,.aside,.admin{padding:17px}.title{font-size:28px}.ordergrid{grid-template-columns:1fr}.product{height:140px}.adminhead{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand"><div class="logo">J.<span>3D</span></div><div><strong>Modelagem & Impressão 3D</strong><small>PALMAS • TO</small></div></div>
+    <div class="tabs"><button class="tab active" data-view="client">Visão do cliente</button><button class="tab" data-view="admin">Painel do filho</button></div>
+  </header>
+
+  <section id="clientView" class="client active">
+    <div class="hero">
+      <main class="card main">
+        <div class="eyebrow">Acompanhamento de produção</div>
+        <h1 class="title">Acompanhe seu pedido</h1>
+        <p class="sub">Do recebimento à entrega, você acompanha cada etapa da sua peça.</p>
+        <div class="ordergrid">
+          <div class="product"><div class="figurine"></div></div>
+          <div class="summary">
+            <h2>Pedido J3D-0027</h2>
+            <div class="row">Cliente: <b>João</b></div>
+            <div class="row">Produto: <b>Chaveiro personalizado</b></div>
+            <div class="row">Quantidade: <b>20</b></div>
+            <div class="row">Pagamento: <b class="ok">Entrada confirmada ✓</b></div>
+            <div class="row">Prazo estimado: <b>5 a 7 dias úteis</b></div>
+          </div>
+          <div class="statusbox">
+            <small>Status atual</small>
+            <div class="big" id="clientStatus">Início da produção</div>
+            <p id="clientNote">A peça entrou na fila de impressão.</p>
+            <small id="clientUpdated">Última atualização: agora</small>
+          </div>
+        </div>
+        <div class="timeline" id="timeline"></div>
+        <div class="history">
+          <h3>Histórico de atualizações</h3>
+          <div id="history"></div>
+        </div>
+      </main>
+      <aside class="card aside">
+        <h3>Resumo do pedido</h3>
+        <div class="info"><small>Código</small><strong>J3D-0027</strong></div>
+        <div class="info"><small>Forma de pagamento</small><strong>Pix • entrada confirmada</strong></div>
+        <div class="info"><small>Entrega</small><strong>Retirada / entrega local</strong></div>
+        <div class="info"><small>Produção</small><strong>Sob encomenda</strong></div>
+        <a class="whatsapp" href="https://wa.me/5563993382662" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        <div class="demo">Protótipo: nesta demonstração, o status é atualizado pelo painel administrativo e refletido imediatamente na visão do cliente.</div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="adminView" class="card admin">
+    <div class="adminhead"><div><div class="eyebrow">Área administrativa</div><h2>Painel J.3D — Produção</h2></div><span class="badge">Entrada confirmada</span></div>
+    <div class="adminGrid">
+      <div class="adminPanel">
+        <h3>Atualizar status</h3>
+        <p class="sub" style="margin-bottom:14px">Pedido J3D-0027 • João • Chaveiro personalizado</p>
+        <div id="statusList" class="statusList"></div>
+      </div>
+      <div class="adminPanel">
+        <h3>Observação da etapa</h3>
+        <textarea id="noteInput" placeholder="Ex.: Peça entrou na impressora. Previsão de conclusão em 8 horas."></textarea>
+        <button id="updateBtn" class="primary">Atualizar status</button>
+        <button id="resetBtn" class="secondary">Restaurar demonstração</button>
+        <div class="notice">Em uma versão real, essa atualização iria para um banco de dados e o cliente poderia acompanhar em outro celular ou computador. Aqui usamos o navegador apenas para demonstrar o fluxo.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">J.3D • Protótipo funcional de acompanhamento de pedidos • Do digital para o real.</footer>
+</div>
+<script>
+const stages=[
+  'Pedido recebido',
+  'Análise do material e referências',
+  'Início da modelagem',
+  'Início da produção',
+  'Acabamento',
+  'Preparando para entrega',
+  'Entregue'
+];
+const defaultState={stage:3,note:'A peça entrou na fila de impressão.',updated:'agora',history:[
+  {time:'09:42',text:'Início da produção — peça entrou na impressora.'},
+  {time:'08:10',text:'Modelagem concluída e preparada para impressão.'},
+  {time:'Ontem, 16:25',text:'Material e referências aprovados.'},
+  {time:'Ontem, 14:03',text:'Pedido recebido.'}
+]};
+let selected=3;
+function getState(){try{return JSON.parse(localStorage.getItem('j3d-demo'))||structuredClone(defaultState)}catch(e){return JSON.parse(JSON.stringify(defaultState))}}
+function saveState(s){localStorage.setItem('j3d-demo',JSON.stringify(s))}
+function render(){const s=getState();selected=s.stage;document.getElementById('clientStatus').textContent=stages[s.stage];document.getElementById('clientNote').textContent=s.note||'Status atualizado pela equipe J.3D.';document.getElementById('clientUpdated').textContent='Última atualização: '+s.updated;
+ const tl=document.getElementById('timeline');tl.innerHTML='';stages.forEach((name,i)=>{const el=document.createElement('div');el.className='step '+(i<s.stage?'done':i===s.stage?'current':'');el.innerHTML='<div class="dot">'+(i<s.stage?'✓':i===s.stage?'●':(i+1))+'</div><div class="label">'+name+'</div>';tl.appendChild(el)});
+ const hist=document.getElementById('history');hist.innerHTML='';s.history.slice(0,5).forEach(ev=>{const e=document.createElement('div');e.className='event';e.innerHTML='<time>'+ev.time+'</time><div>'+ev.text+'</div>';hist.appendChild(e)});
+ const list=document.getElementById('statusList');list.innerHTML='';stages.forEach((name,i)=>{const b=document.createElement('button');b.className='statusBtn '+(i===selected?'selected':'');b.innerHTML='<span class="num">'+(i+1)+'</span><span>'+name+'</span>';b.onclick=()=>{selected=i;renderAdminSelection()};list.appendChild(b)});document.getElementById('noteInput').value=s.note||''}
+function renderAdminSelection(){document.querySelectorAll('.statusBtn').forEach((b,i)=>b.classList.toggle('selected',i===selected))}
+document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const v=btn.dataset.view;document.getElementById('clientView').classList.toggle('active',v==='client');document.getElementById('adminView').classList.toggle('active',v==='admin');render()});
+document.getElementById('updateBtn').onclick=()=>{const s=getState();s.stage=selected;s.note=document.getElementById('noteInput').value.trim()||'Status atualizado pela equipe J.3D.';const now=new Date();s.updated=now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});s.history.unshift({time:s.updated,text:stages[selected]+' — '+s.note});saveState(s);render();alert('Status atualizado. Abra “Visão do cliente” para conferir.')};
+document.getElementById('resetBtn').onclick=()=>{localStorage.removeItem('j3d-demo');selected=3;render()};
+render();
+</script>
+</body>
+</html>
