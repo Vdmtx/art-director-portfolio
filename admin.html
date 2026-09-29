@@ -1,419 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <!-- ============================================ -->
-    <!-- CONFIGURAÇÕES BÁSICAS (NÃO ALTERAR)          -->
-    <!-- ============================================ -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin — VDMTX</title>
-    
-    <!-- ============================================ -->
-    <!-- ESTILOS VISUAIS DO PAINEL ADMIN              -->
-    <!-- ============================================ -->
-    <style>
-        /* Reset - NÃO ALTERAR */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        /* Corpo do admin - SEGURO ALTERAR cores */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            padding: 40px 20px;
-        }
-        .container { max-width: 1200px; margin: 0 auto; }
-        h1 { color: #fff; margin-bottom: 30px; font-size: 28px; }
-        
-        /* Abas - SEGURO ALTERAR cores */
-        .tabs { display: flex; gap: 0; margin-bottom: 30px; border-bottom: 1px solid #333; }
-        .tab {
-            padding: 12px 24px; background: none; border: none;
-            color: #888; cursor: pointer; font-size: 14px;
-            border-bottom: 2px solid transparent; margin-bottom: -1px;
-        }
-        .tab.active { color: #00d4ff; border-bottom-color: #00d4ff; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        /* Seções - SEGURO ALTERAR cores de fundo/borda */
-        .section {
-            background: #111; border: 1px solid #222;
-            border-radius: 8px; padding: 30px; margin-bottom: 30px;
-        }
-        h2 { color: #fff; margin-bottom: 20px; font-size: 20px; }
-        
-        /* Formulários - SEGURO ALTERAR cores */
-        label { display: block; margin-bottom: 8px; color: #aaa; font-size: 14px; }
-        input, textarea, select {
-            width: 100%; padding: 12px; margin-bottom: 15px;
-            background: #1a1a1a; border: 1px solid #333;
-            border-radius: 4px; color: #fff; font-size: 14px; font-family: inherit;
-        }
-        input[type="color"] { height: 50px; cursor: pointer; }
-        input:focus, textarea:focus, select:focus { outline: none; border-color: #00d4ff; }
-        textarea { resize: vertical; min-height: 100px; }
-        
-        /* Botões - SEGURO ALTERAR cores */
-        button {
-            padding: 12px 24px; font-size: 14px; border: none;
-            border-radius: 4px; cursor: pointer; font-weight: 600;
-            margin-right: 10px; margin-bottom: 10px;
-        }
-        .btn-primary { background: #00d4ff; color: #000; }
-        .btn-primary:hover { background: #00b8e6; }
-        .btn-secondary { background: #333; color: #fff; }
-        .btn-secondary:hover { background: #444; }
-        .btn-danger { background: #ff4444; color: #fff; }
-        .btn-danger:hover { background: #ff3333; }
-        .btn-success { background: #4ade80; color: #000; }
-        .btn-success:hover { background: #22c55e; }
-        
-        /* Itens da lista - SEGURO ALTERAR cores */
-        .item {
-            background: #1a1a1a; border: 1px solid #333;
-            border-radius: 4px; padding: 20px; margin-bottom: 15px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .item-info h3 { color: #fff; font-size: 16px; margin-bottom: 5px; }
-        .item-info p { color: #888; font-size: 13px; }
-        .item-actions { display: flex; gap: 10px; }
-        
-        /* Alertas - SEGURO ALTERAR cores */
-        .alert { padding: 12px 20px; border-radius: 4px; margin-bottom: 20px; font-size: 14px; }
-        .alert-success { background: #1a3a1a; color: #4ade80; border: 1px solid #2d5a2d; }
-        .alert-error { background: #3a1a1a; color: #f87171; border: 1px solid #5a2d2d; }
-        
-        .login-form { max-width: 500px; margin: 100px auto; }
-        .hidden { display: none; }
-        
-        /* Área de upload - SEGURO ALTERAR cores */
-        .upload-area {
-            border: 2px dashed #333; border-radius: 8px;
-            padding: 60px 40px; text-align: center;
-            margin: 30px 0; cursor: pointer; transition: all 0.3s;
-        }
-        .upload-area:hover { border-color: #00d4ff; background: #1a1a2a; }
-        
-        /* Preview de imagens - SEGURO ALTERAR tamanho do grid */
-        .image-preview {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px; margin: 30px 0;
-        }
-        .image-item { position: relative; aspect-ratio: 1; border-radius: 4px; overflow: hidden; }
-        .image-item img { width: 100%; height: 100%; object-fit: cover; }
-        .image-item button {
-            position: absolute; top: 8px; right: 8px;
-            width: 28px; height: 28px; border-radius: 50%;
-            background: rgba(255,0,0,0.8); color: #fff;
-            border: none; cursor: pointer; font-size: 16px; padding: 0;
-        }
-        
-        /* Galeria de imagens ordenadas - SEGURO ALTERAR cores */
-        .gallery-item {
-            background: #1a1a1a; border: 1px solid #333;
-            border-radius: 8px; padding: 12px; position: relative;
-        }
-        .gallery-number {
-            position: absolute; top: -8px; left: -8px;
-            background: #00d4ff; color: #000;
-            width: 28px; height: 28px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 13px; z-index: 2;
-        }
-        .gallery-info { display: flex; flex-direction: column; align-items: flex-start; }
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px; margin-top: 20px;
-        }
-        
-        /* Modal de edição - NÃO ALTERAR estrutura */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8); z-index: 1000;
-            overflow-y: auto; padding: 40px 20px;
-        }
-        .modal.active { display: block; }
-        .modal-content {
-            background: #111; border: 1px solid #333;
-            border-radius: 8px; max-width: 800px; margin: 0 auto; padding: 40px;
-        }
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #333;
-        }
-        .modal-header h2 { margin: 0; }
-        .close-modal {
-            background: none; border: none; color: #888;
-            font-size: 28px; cursor: pointer; padding: 0; width: 40px; height: 40px;
-        }
-        .close-modal:hover { color: #fff; background: none; }
-        
-        .form-group { margin-bottom: 25px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Painel editorial — VDMTX</title>
+  <style>
+    :root{--bg:#0b0c0e;--panel:#141619;--panel2:#1b1e22;--line:#2b2f35;--text:#f5f5f2;--muted:#9ba0a8;--signal:#ff4f24;--ok:#48c78e;--warn:#f2b84b;--danger:#ef6461;--r:12px}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+    .login{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(480px,100%);background:var(--panel);border:1px solid var(--line);padding:32px;border-radius:var(--r)}.brand{font-weight:900;letter-spacing:.08em;font-size:20px}.eyebrow{color:var(--signal);font-size:12px;text-transform:uppercase;letter-spacing:.12em}.login h1{font-size:32px;line-height:1.05;margin:18px 0 8px}.muted{color:var(--muted)}
+    label{display:block;color:#d8dadd;font-size:13px;font-weight:700;margin:16px 0 7px}input,textarea,select{width:100%;border:1px solid var(--line);background:#0e1012;color:var(--text);border-radius:8px;padding:12px 13px;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--signal)}textarea{min-height:110px;resize:vertical}input[type=color]{height:46px;padding:5px}.help{font-size:12px;color:var(--muted);margin-top:6px}
+    .btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 14px;border-radius:8px;font-weight:700}.btn:hover{border-color:#60656e}.btn-primary{background:var(--signal);border-color:var(--signal);color:#fff}.btn-ok{background:var(--ok);border-color:var(--ok);color:#07130e}.btn-danger{background:transparent;border-color:#653739;color:#ff9b99}.btn-small{padding:7px 10px;font-size:12px}.btn:disabled{opacity:.45;cursor:not-allowed}
+    .app{min-height:100vh}.topbar{position:sticky;top:0;z-index:10;background:rgba(11,12,14,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:14px 24px}.topbar .brand{margin-right:auto}.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}.dot{width:9px;height:9px;border-radius:50%;background:var(--warn)}.dot.published{background:var(--ok)}
+    .layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 66px)}.sidebar{border-right:1px solid var(--line);padding:24px 14px}.nav-btn{width:100%;text-align:left;border:0;background:transparent;color:var(--muted);padding:12px;border-radius:8px;margin-bottom:4px}.nav-btn.active,.nav-btn:hover{background:var(--panel2);color:#fff}.content{padding:34px;max-width:1320px;width:100%;margin:0 auto}.view{display:none}.view.active{display:block}.view-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:24px}.view h1{font-size:34px;line-height:1;margin:0}.view h2{font-size:22px;margin:0 0 14px}.actions{display:flex;gap:9px;flex-wrap:wrap}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-bottom:18px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.check{display:flex;align-items:center;gap:9px;margin-top:16px}.check input{width:auto}.check label{margin:0}.alert{padding:12px 14px;border-radius:8px;margin:12px 0;background:#24282d}.alert.error{border-left:3px solid var(--danger)}.alert.success{border-left:3px solid var(--ok)}.alert.warning{border-left:3px solid var(--warn)}
+    .case-list{display:grid;gap:10px}.case-item{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:14px;border:1px solid var(--line);background:var(--panel);padding:13px;border-radius:10px}.case-item.dragging{opacity:.45}.handle{color:var(--muted);font-size:20px;text-align:center;cursor:grab}.case-item h3{margin:0;font-size:17px}.case-item p{margin:3px 0 0;color:var(--muted);font-size:12px}.badge{display:inline-flex;padding:3px 7px;border-radius:999px;background:#2a2e33;color:#c9ccd0;font-size:11px;margin-left:7px}.badge.off{color:#ffc2bf;background:#3c2526}
+    .empty{border:1px dashed var(--line);padding:32px;text-align:center;color:var(--muted);border-radius:10px}.upload{border:1px dashed #555b64;border-radius:10px;padding:28px;text-align:center;background:#101214}.upload.drag{border-color:var(--signal);background:#181412}.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:18px}.image-card{background:var(--panel);border:1px solid var(--line);border-radius:9px;overflow:hidden}.image-card.cover{border-color:var(--signal)}.image-card img{width:100%;height:140px;object-fit:cover;display:block;background:#090a0b}.image-info{padding:10px}.image-name{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.image-actions{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap}.upload-queue{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:14px}.upload-queue img{width:100%;height:80px;object-fit:cover;border-radius:6px}.progress{height:7px;background:#25292e;border-radius:999px;overflow:hidden;margin-top:12px}.progress span{display:block;height:100%;width:0;background:var(--signal);transition:width .2s}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:30;display:none;align-items:flex-start;justify-content:center;padding:30px;overflow:auto}.modal.open{display:flex}.modal-box{width:min(900px,100%);background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:24px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.modal-head h2{margin:0}.validation-list{margin:8px 0 0;padding-left:20px;color:#ffb0ae}.version{display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid var(--line);padding:13px 0}.version:last-child{border-bottom:0}.version small{display:block;color:var(--muted)}
+    @media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line);padding:10px}.nav-btn{white-space:nowrap;width:auto;margin:0}.content{padding:22px 16px}.grid2,.grid3{grid-template-columns:1fr}.topbar{padding:12px 16px;flex-wrap:wrap}.topbar .brand{width:100%}.case-item{grid-template-columns:30px 1fr}.case-item .actions{grid-column:2}.view-head{align-items:flex-start;flex-direction:column}}
+  </style>
 </head>
 <body>
-    <!-- ============================================ -->
-    <!-- TELA DE LOGIN                                -->
-    <!-- ============================================ -->
-    <div id="loginSection" class="container">
-        <div class="login-form">
-            <h1>Admin Login</h1>
-            <div id="loginAlert"></div>
-            <label>GitHub Username</label>
-            <input type="text" id="githubUsername" placeholder="vdmtx">
-            <label>GitHub Token</label>
-            <input type="password" id="githubToken" placeholder="ghp_...">
-            <button class="btn-primary" onclick="login()">Acessar Painel</button>
-            <p style="margin-top:20px;font-size:13px;color:#666;">
-                Crie um token em: <a href="https://github.com/settings/tokens" target="_blank" style="color:#00d4ff;">GitHub Settings</a>
-            </p>
-        </div>
+  <section class="login" id="loginSection">
+    <div class="login-card">
+      <div class="brand">VDMTX</div><div class="eyebrow">Painel editorial</div>
+      <h1>Controle do portfólio</h1>
+      <p class="muted">O token não é gravado no site nem no navegador. Ele permanece somente nesta sessão.</p>
+      <div id="loginAlert"></div>
+      <label for="githubUsername">Usuário do GitHub</label><input id="githubUsername" value="Vdmtx" autocomplete="username">
+      <label for="githubToken">Token de acesso</label><input id="githubToken" type="password" autocomplete="current-password" placeholder="github_pat_...">
+      <p class="help">Use um token de acesso refinado, limitado a este repositório, com permissão de leitura e escrita em Contents.</p>
+      <button class="btn btn-primary" style="width:100%;margin-top:18px" id="loginBtn">Entrar</button>
     </div>
+  </section>
 
-    <!-- ============================================ -->
-    <!-- PAINEL ADMINISTRATIVO                        -->
-    <!-- ============================================ -->
-    <div id="adminPanel" class="container hidden">
-        <h1>Painel Administrativo</h1>
-        
-        <!-- Abas de navegação -->
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('competencies', this)">Competências</button>
-            <button class="tab" onclick="switchTab('cases', this)">Cases</button>
-            <button class="tab" onclick="switchTab('images', this)">Imagens</button>
-        </div>
+  <section class="app hidden" id="adminPanel">
+    <header class="topbar">
+      <div class="brand">VDMTX · CMS</div>
+      <div class="status"><span class="dot published" id="publishDot"></span><span id="draftStatus">Publicado</span></div>
+      <button class="btn" id="previewCurrentBtn">Pré-visualizar</button>
+      <button class="btn btn-ok" id="publishBtn">Verificar e publicar</button>
+    </header>
+    <div class="layout">
+      <aside class="sidebar">
+        <button class="nav-btn active" data-view="dashboard">Visão geral</button>
+        <button class="nav-btn" data-view="cases">Cases</button>
+        <button class="nav-btn" data-view="images">Imagens</button>
+        <button class="nav-btn" data-view="site">Textos do site</button>
+        <button class="nav-btn" data-view="versions">Versões</button>
+      </aside>
+      <main class="content">
+        <section class="view active" id="dashboardView">
+          <div class="view-head"><div><div class="eyebrow">Estado do portfólio</div><h1>Visão geral</h1></div></div>
+          <div id="dashboardAlert"></div>
+          <div class="grid3" id="stats"></div>
+          <div class="card"><h2>Fluxo seguro</h2><p class="muted">Todas as alterações ficam como rascunho neste navegador. Use a prévia para conferir. O site público só muda quando você clicar em “Verificar e publicar”.</p></div>
+        </section>
 
-        <!-- ABA 1: COMPETÊNCIAS -->
-        <div id="competenciesTab" class="tab-content active">
-            <div class="section">
-                <h2>Gerenciar Competências</h2>
-                <div id="competenciesAlert"></div>
-                <label>Título</label>
-                <input type="text" id="compTitle" placeholder="Ex: Visual Identity Engineering">
-                <label>Descrição</label>
-                <textarea id="compDescription" placeholder="Descrição da competência..."></textarea>
-                <button class="btn-primary" onclick="addCompetency()">Adicionar Competência</button>
-                <div id="competenciesList" style="margin-top:30px;"></div>
-            </div>
-        </div>
+        <section class="view" id="casesView">
+          <div class="view-head"><div><div class="eyebrow">Conteúdo editorial</div><h1>Cases</h1></div><button class="btn btn-primary" id="newCaseBtn">Novo case</button></div>
+          <div id="casesAlert"></div><div class="case-list" id="casesList"></div>
+        </section>
 
-        <!-- ABA 2: CASES -->
-        <div id="casesTab" class="tab-content">
-            <div class="section">
-                <h2>Gerenciar Cases</h2>
-                <div id="casesAlert"></div>
-                <label>Título</label>
-                <input type="text" id="caseTitle" placeholder="Ex: Coisa Mais Linda">
-                <label>Categoria</label>
-                <input type="text" id="caseCategory" placeholder="Ex: Visual Identity & Retail Strategy">
-                <label>Slug (URL amigável)</label>
-                <input type="text" id="caseSlug" placeholder="Ex: coisamaislinda">
-                <button class="btn-primary" onclick="addCase()">Adicionar Case</button>
-                <div id="casesList" style="margin-top:30px;"></div>
-            </div>
-        </div>
+        <section class="view" id="imagesView">
+          <div class="view-head"><div><div class="eyebrow">Galerias</div><h1>Imagens</h1></div></div>
+          <div class="card">
+            <label for="caseSelect">Case</label><select id="caseSelect"><option value="">Selecione um case</option></select>
+            <div class="upload" id="uploadArea"><strong>Arraste imagens ou clique para selecionar</strong><p class="help">JPG, PNG, GIF ou WebP. Arquivos com o mesmo nome serão substituídos somente após confirmação.</p><input id="fileInput" type="file" multiple accept="image/*" hidden></div>
+            <div class="upload-queue" id="uploadQueue"></div><div class="progress hidden" id="uploadProgress"><span></span></div>
+            <button class="btn btn-primary hidden" id="uploadBtn" style="margin-top:12px">Enviar imagens</button>
+          </div>
+          <div id="imagesAlert"></div><div class="gallery" id="galleryGrid"></div>
+        </section>
 
-        <!-- ABA 3: IMAGENS -->
-        <div id="imagesTab" class="tab-content">
-            <div class="section">
-                <h2>Gerenciar Imagens</h2>
-                <div id="imagesAlert"></div>
-                <label>Selecionar Case</label>
-                <select id="caseSelect"><option value="">Selecione um case...</option></select>
-                
-                <div class="upload-area" id="uploadArea">
-                    <p style="color:#888;font-size:14px;">Clique ou arraste imagens aqui</p>
-                    <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
-                </div>
-                
-                <div class="image-preview" id="imagePreview"></div>
-                <button class="btn-primary" id="uploadBtn" style="display:none;" onclick="uploadImages()">Enviar Imagens</button>
-                
-                <div id="currentImages" style="margin-top:40px;">
-                    <h3 style="color:#fff;margin-bottom:15px;">Imagens do Case</h3>
-                    <p style="color:#666;font-size:13px;margin-bottom:20px;">Use os botões ↑ ↓ para reordenar.</p>
-                    <div id="galleryGrid" class="gallery-grid"></div>
-                    <button class="btn-primary" id="saveOrderBtn" style="display:none;margin-top:20px;" onclick="saveImageOrder()">Salvar Ordem</button>
-                </div>
-            </div>
-        </div>
+        <section class="view" id="siteView">
+          <div class="view-head"><div><div class="eyebrow">Homepage</div><h1>Textos do site</h1></div><button class="btn btn-primary" id="saveSiteBtn">Salvar no rascunho</button></div>
+          <div id="siteAlert"></div>
+          <div class="card"><h2>Português</h2><div id="siteFieldsPt"></div></div>
+          <div class="card"><h2>English</h2><div id="siteFieldsEn"></div></div>
+          <div class="card"><h2>Competências</h2><p class="muted">Edite as versões em português e inglês. Os demais idiomas usam o inglês como alternativa.</p><div id="competenciesEditor"></div><button class="btn" id="addCompetencyBtn">Adicionar competência</button></div>
+        </section>
+
+        <section class="view" id="versionsView">
+          <div class="view-head"><div><div class="eyebrow">Recuperação</div><h1>Versões publicadas</h1></div><button class="btn" id="refreshVersionsBtn">Atualizar lista</button></div>
+          <div class="card"><p class="muted">Restaurar carrega uma versão anterior como rascunho. O site não muda até você conferir e publicar.</p><div id="versionsList"></div></div>
+        </section>
+      </main>
     </div>
+  </section>
 
-    <!-- ============================================ -->
-    <!-- MODAL DE EDIÇÃO DE CASE                      -->
-    <!-- ============================================ -->
-    <div id="editCaseModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Editar Case</h2>
-                <button class="close-modal" onclick="closeEditModal()">&times;</button>
-            </div>
-            
-            <div id="editCaseAlert"></div>
-            <input type="hidden" id="editCaseIndex">
-            
-            <!-- Dados básicos - SEGURO ALTERAR placeholders -->
-            <div class="form-group">
-                <label>Título do Case</label>
-                <input type="text" id="editTitle" placeholder="Título">
-            </div>
-            <div class="form-group">
-                <label>Categoria</label>
-                <input type="text" id="editCategory" placeholder="Categoria">
-            </div>
-            <div class="form-group">
-                <label>Slug (não pode ser alterado)</label>
-                <input type="text" id="editSlug" disabled style="opacity:0.5;">
-            </div>
-            
-            <h3 style="color:#fff;margin:30px 0 20px;">Estilo da Página</h3>
-            
-            <!-- Cores - SEGURO ALTERAR valores padrão (value="#...") -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Cor de Fundo da Página</label>
-                    <input type="color" id="editBgColor" value="#fafafa">
-                </div>
-                <div class="form-group">
-                    <label>Cor do Texto Principal</label>
-                    <input type="color" id="editTextColor" value="#1a1a1a">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Cor do Texto Secundário</label>
-                    <input type="color" id="editTextLightColor" value="#666666">
-                </div>
-                <div class="form-group">
-                    <label>Cor da Borda</label>
-                    <input type="color" id="editBorderColor" value="#e5e5e5">
-                </div>
-            </div>
-            
-            <!-- Layout - NÃO ALTERAR opções -->
-            <div class="form-group">
-                <label>Layout das Imagens</label>
-                <select id="editImageLayout">
-                    <option value="full">Imagens em largura total (uma abaixo da outra)</option>
-                    <option value="grid">Grid alternado (grande/pequeno)</option>
-                    <option value="masonry">Masonry (layout irregular)</option>
-                </select>
-            </div>
-            
-            <!-- NOVO: Tamanho das imagens - NÃO ALTERAR valores -->
-            <div class="form-group">
-                <label>Tamanho das Imagens</label>
-                <select id="editImageSize">
-                    <option value="full">Largura total (100%)</option>
-                    <option value="large">Grande (1440px)</option>
-                    <option value="medium">Médio (1200px)</option>
-                    <option value="small">Pequeno (900px)</option>
-                    <option value="contained">Contido (1400px centralizado)</option>
-                </select>
-            </div>
-            
-            <!-- NOVO: Espaçamento e alinhamento -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Espaçamento entre imagens (px)</label>
-                    <input type="number" id="editImageSpacing" value="1" min="0" max="100">
-                </div>
-                <div class="form-group">
-                    <label>Alinhamento</label>
-                    <select id="editImageAlign">
-                        <option value="center">Centro</option>
-                        <option value="left">Esquerda</option>
-                        <option value="right">Direita</option>
-                    </select>
-                </div>
-            </div>
-            
-            <!-- Texto introdutório - SEGURO ALTERAR placeholder -->
-            <div class="form-group">
-                <label>Texto de Introdução (opcional)</label>
-                <textarea id="editIntroText" placeholder="Texto introdutório sobre o case..." rows="4"></textarea>
-            </div>
-            
-            <div style="margin-top:30px;display:flex;gap:10px;">
-                <button class="btn-success" onclick="saveCaseEdit()">Salvar Alterações</button>
-                <button class="btn-secondary" onclick="closeEditModal()">Cancelar</button>
-            </div>
-        </div>
+  <div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="caseModalTitle">
+    <div class="modal-box"><div class="modal-head"><h2 id="caseModalTitle">Editar case</h2><button class="btn" id="closeCaseModal">Fechar</button></div>
+      <div id="caseModalAlert"></div><input type="hidden" id="editCaseIndex">
+      <div class="grid2"><div><label>Título</label><input id="editTitle"></div><div><label>Slug</label><input id="editSlug"><p class="help">Depois de criado, não altere o slug.</p></div></div>
+      <div class="grid2"><div><label>Categoria em português</label><input id="editCategoryPt"></div><div><label>Category in English</label><input id="editCategoryEn"></div></div>
+      <div class="grid2"><div><label>Cliente</label><input id="editClient"></div><div><label>Ano</label><input id="editYear" inputmode="numeric"></div></div>
+      <div class="grid2"><div><label>Serviços em português</label><textarea id="editServicesPt"></textarea></div><div><label>Services in English</label><textarea id="editServicesEn"></textarea></div></div>
+      <div class="grid2"><div><label>Introdução em português</label><textarea id="editIntroPt"></textarea></div><div><label>Introduction in English</label><textarea id="editIntroEn"></textarea></div></div>
+      <div class="grid2"><div><label>Pasta das imagens</label><input id="editFolder"></div><div><label>Imagem de capa</label><input id="editCover" readonly placeholder="Defina na aba Imagens"></div></div>
+      <h2 style="margin-top:28px">Aparência da página</h2>
+      <div class="grid3"><div><label>Fundo</label><input type="color" id="editBgColor"></div><div><label>Texto</label><input type="color" id="editTextColor"></div><div><label>Texto secundário</label><input type="color" id="editTextLightColor"></div></div>
+      <div class="grid3"><div><label>Layout</label><select id="editImageLayout"><option value="full">Largura contínua</option><option value="grid">Grid alternado</option><option value="masonry">Masonry</option></select></div><div><label>Largura</label><select id="editImageSize"><option value="full">Total</option><option value="large">Grande</option><option value="medium">Média</option><option value="small">Pequena</option><option value="contained">Contida</option></select></div><div><label>Espaçamento em px</label><input type="number" id="editImageSpacing" min="0" max="100"></div></div>
+      <div class="grid2"><div class="check"><input type="checkbox" id="editPublished"><label for="editPublished">Visível no site</label></div><div class="check"><input type="checkbox" id="editFeatured"><label for="editFeatured">Destacar na colagem inicial</label></div></div>
+      <div class="actions" style="margin-top:26px"><button class="btn btn-primary" id="saveCaseBtn">Salvar no rascunho</button><button class="btn" id="previewCaseBtn">Pré-visualizar case</button><button class="btn btn-danger" id="removeCaseBtn">Remover case</button></div>
     </div>
+  </div>
 
-    <!-- ============================================ -->
-    <!-- SCRIPTS                                      -->
-    <!-- ============================================ -->
-    <script src="admin.js"></script>
-    <script>
-        // Troca de abas - NÃO ALTERAR
-        function switchTab(tabName, btn) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById(tabName + 'Tab').classList.add('active');
-        }
-        
-        // Abre modal de edição - NÃO ALTERAR
-        function openEditModal(index) {
-            document.getElementById('editCaseIndex').value = index;
-            const c = currentData.cases[index];
-            document.getElementById('editTitle').value = c.title || '';
-            document.getElementById('editCategory').value = c.category || '';
-            document.getElementById('editSlug').value = c.slug || '';
-            
-            if (!c.style) c.style = {};
-            document.getElementById('editBgColor').value = c.style.bgColor || '#fafafa';
-            document.getElementById('editTextColor').value = c.style.textColor || '#1a1a1a';
-            document.getElementById('editTextLightColor').value = c.style.textLightColor || '#666666';
-            document.getElementById('editBorderColor').value = c.style.borderColor || '#e5e5e5';
-            document.getElementById('editImageLayout').value = c.style.imageLayout || 'full';
-            document.getElementById('editIntroText').value = c.introText || '';
-            document.getElementById('editImageSize').value = c.style.imageSize || 'large';
-            document.getElementById('editImageSpacing').value = c.style.imageSpacing || 1;
-            document.getElementById('editImageAlign').value = c.style.imageAlign || 'center';
-            
-            document.getElementById('editCaseModal').classList.add('active');
-        }
-        
-        // Fecha modal - NÃO ALTERAR
-        function closeEditModal() {
-            document.getElementById('editCaseModal').classList.remove('active');
-        }
-        
-        // Salva edição - NÃO ALTERAR
-        async function saveCaseEdit() {
-            const i = parseInt(document.getElementById('editCaseIndex').value);
-            const c = currentData.cases[i];
-            c.title = document.getElementById('editTitle').value;
-            c.category = document.getElementById('editCategory').value;
-            if (!c.style) c.style = {};
-            c.style.bgColor = document.getElementById('editBgColor').value;
-            c.style.textColor = document.getElementById('editTextColor').value;
-            c.style.textLightColor = document.getElementById('editTextLightColor').value;
-            c.style.borderColor = document.getElementById('editBorderColor').value;
-            c.style.imageLayout = document.getElementById('editImageLayout').value;
-            c.style.imageSize = document.getElementById('editImageSize').value;
-            c.style.imageSpacing = parseInt(document.getElementById('editImageSpacing').value) || 1;
-            c.style.imageAlign = document.getElementById('editImageAlign').value;
-            c.introText = document.getElementById('editIntroText').value;
-            
-            try {
-                await saveConfig();
-                loadCases();
-                showAlert('casesAlert', 'Case atualizado!', 'success');
-                closeEditModal();
-            } catch (e) {
-                showAlert('editCaseAlert', 'Erro: ' + e.message, 'error');
-            }
-        }
-        
-        // Fecha modal ao clicar fora - NÃO ALTERAR
-        document.getElementById('editCaseModal').addEventListener('click', function(e) {
-            if (e.target === this) closeEditModal();
-        });
-    </script>
+  <div class="modal" id="publishModal" role="dialog" aria-modal="true"><div class="modal-box" style="max-width:650px"><div class="modal-head"><h2>Verificação antes de publicar</h2><button class="btn" id="closePublishModal">Fechar</button></div><div id="validationResult"></div><div class="actions" style="margin-top:18px"><button class="btn btn-ok" id="confirmPublishBtn">Publicar agora</button></div></div></div>
+  <script src="admin.js"></script>
 </body>
 </html>
