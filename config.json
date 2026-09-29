@@ -15,6 +15,45 @@
   ],
   "cases": [
     {
+      "slug": "marigils",
+      "title": "Marigil’s Healthy Picks",
+      "category": "Retail Masterbrand & Packaging System",
+      "folder": "marigils",
+      "imageOrder": [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg",
+        "11.jpg",
+        "12.jpg",
+        "13.jpg",
+        "14.jpg",
+        "15.jpg",
+        "16.jpg",
+        "17.jpg",
+        "18.jpg",
+        "19.jpg",
+        "20.jpg"
+      ],
+      "style": {
+        "bgColor": "#f3e4cf",
+        "textColor": "#173f24",
+        "textLightColor": "#66705f",
+        "borderColor": "#d8c6aa",
+        "imageLayout": "full",
+        "imageSize": "large",
+        "imageSpacing": 1,
+        "imageAlign": "center"
+      },
+      "introText": ""
+    },
+    {
       "slug": "coisamaislinda",
       "title": "Coisa Mais Linda",
       "category": "Visual Identity & Retail Strategy",
