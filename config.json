@@ -1,16 +1,37 @@
 {
+  "schemaVersion": 2,
+  "site": {
+    "translations": {
+      "pt": {
+        "heroTitle": "Direção de arte que funciona no mundo real.",
+        "heroText": "Há 27 anos, conecto estratégia, sistemas visuais e produção — da identidade institucional aos ambientes de grande formato.",
+        "aboutLead": "Transformo estratégia visual em peças que podem ser produzidas, instaladas e utilizadas no mundo real.",
+        "aboutText": "Diretor de Arte Sênior especializado em branding institucional, comunicação visual, grandes formatos, sinalização, arte-finalização e integração responsável de IA generativa. Atuação remota para agências, estúdios e empresas.",
+        "contactTitle": "Vamos construir algo que permaneça.",
+        "contactText": "Projetos pontuais ou recorrentes para agências, estúdios, instituições e empresas que precisam de experiência sênior sem ampliar a equipe fixa."
+      },
+      "en": {
+        "heroTitle": "Art direction built for the real world.",
+        "heroText": "For 27 years, I have connected strategy, visual systems, and production — from institutional identity to large-format environments.",
+        "aboutLead": "I turn visual strategy into work that can be produced, installed, and used in the real world.",
+        "aboutText": "Senior Art Director specializing in institutional branding, visual communication, large formats, signage, production artwork, and responsible integration of generative AI. Available remotely for agencies, studios, and companies.",
+        "contactTitle": "Let’s build something that lasts.",
+        "contactText": "Project-based or ongoing collaboration for agencies, studios, institutions, and companies that need senior experience without expanding their permanent team."
+      }
+    }
+  },
   "competencies": [
     {
-      "title": "Visual Identity Engineering",
-      "description": "Brand design focused on longevity, scalability, and technical rigor. Building perennial visual assets for institutions that demand authority."
+      "title": {"pt": "Engenharia de Identidade Visual", "en": "Visual Identity Engineering"},
+      "description": {"pt": "Marcas concebidas para longevidade, escalabilidade e aplicação consistente em diferentes meios.", "en": "Brand design focused on longevity, scalability, and consistent application across different media."}
     },
     {
-      "title": "Institutional Design Systems",
-      "description": "Visual identity management for government agencies and large corporations. Creation of manuals, guidelines, and design systems for multi-platform application."
+      "title": {"pt": "Sistemas de Design Institucional", "en": "Institutional Design Systems"},
+      "description": {"pt": "Diretrizes e sistemas visuais para instituições que exigem autoridade, clareza e controle técnico.", "en": "Guidelines and visual systems for institutions that require authority, clarity, and technical control."}
     },
     {
-      "title": "Architectural Signage & Wayfinding",
-      "description": "Facade projections (ACM), high-fidelity physical signage, fleet branding, and environmental design. Integration of graphic design into architectural space."
+      "title": {"pt": "Sinalização & Grandes Formatos", "en": "Architectural Signage & Wayfinding"},
+      "description": {"pt": "Fachadas, ambientes, frotas, sinalização e comunicação física integradas à arquitetura e à produção.", "en": "Facades, environments, fleets, signage, and physical communication integrated with architecture and production."}
     }
   ],
   "cases": [
@@ -18,136 +39,86 @@
       "slug": "marigils",
       "title": "Marigil’s Healthy Picks",
       "category": "Retail Masterbrand & Packaging System",
+      "translations": {"pt": {"category": "Masterbrand de Varejo & Sistema de Embalagens"}, "en": {"category": "Retail Masterbrand & Packaging System"}},
+      "client": "Marigil · Mandaue City, Cebu",
+      "year": "2026",
+      "services": {"pt": "Estratégia de Marca, Identidade Visual, Sistema de Embalagens, Comunicação de Varejo", "en": "Brand Strategy, Visual Identity, Packaging System, Retail Communication"},
+      "intro": {"pt": "", "en": ""},
       "folder": "marigils",
-      "imageOrder": [
-        "1.jpg",
-        "2.jpg",
-        "3.jpg",
-        "4.jpg",
-        "5.jpg",
-        "6.jpg",
-        "7.jpg",
-        "8.jpg",
-        "9.jpg",
-        "10.jpg",
-        "11.jpg",
-        "12.jpg",
-        "13.jpg",
-        "14.jpg",
-        "15.jpg",
-        "16.jpg",
-        "17.jpg",
-        "18.jpg",
-        "19.jpg",
-        "20.jpg"
-      ],
-      "style": {
-        "bgColor": "#f3e4cf",
-        "textColor": "#173f24",
-        "textLightColor": "#66705f",
-        "borderColor": "#d8c6aa",
-        "imageLayout": "full",
-        "imageSize": "large",
-        "imageSpacing": 1,
-        "imageAlign": "center"
-      },
-      "introText": ""
+      "cover": "1.jpg",
+      "published": true,
+      "featured": true,
+      "imageOrder": ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.jpg", "15.jpg", "16.jpg", "17.jpg", "18.jpg", "19.jpg", "20.jpg"],
+      "hiddenImages": [],
+      "style": {"bgColor": "#f3e4cf", "textColor": "#173f24", "textLightColor": "#66705f", "borderColor": "#d8c6aa", "imageLayout": "full", "imageSize": "large", "imageSpacing": 1, "imageAlign": "center"}
     },
     {
       "slug": "coisamaislinda",
       "title": "Coisa Mais Linda",
       "category": "Visual Identity & Retail Strategy",
+      "translations": {"pt": {"category": "Identidade Visual & Estratégia de Varejo"}, "en": {"category": "Visual Identity & Retail Strategy"}},
+      "client": "Coisa Mais Linda",
+      "year": "2024",
+      "services": {"pt": "Identidade Visual, Estratégia de Varejo, Embalagens", "en": "Visual Identity, Retail Strategy, Packaging"},
+      "intro": {"pt": "", "en": ""},
       "folder": "img/coisamaislinda",
+      "cover": "",
+      "published": true,
+      "featured": true,
       "imageOrder": [],
-      "style": {
-        "bgColor": "#fafafa",
-        "textColor": "#1a1a1a",
-        "textLightColor": "#666666",
-        "borderColor": "#e5e5e5",
-        "imageLayout": "masonry"
-      },
-      "introText": ""
+      "hiddenImages": [],
+      "style": {"bgColor": "#fafafa", "textColor": "#1a1a1a", "textLightColor": "#666666", "borderColor": "#e5e5e5", "imageLayout": "masonry", "imageSize": "large", "imageSpacing": 1, "imageAlign": "center"}
     },
     {
       "slug": "bombeirodeaco",
       "title": "Bombeiro de Aço",
       "category": "Institutional Branding & Medal Design",
+      "translations": {"pt": {"category": "Branding Institucional & Design de Medalhas"}, "en": {"category": "Institutional Branding & Medal Design"}},
+      "client": "Corpo de Bombeiros TO",
+      "year": "2023",
+      "services": {"pt": "Branding Institucional, Medalha, Materiais de Evento", "en": "Institutional Branding, Medal Design, Event Materials"},
+      "intro": {"pt": "", "en": ""},
       "folder": "img/bombeirodeaco",
-      "imageOrder": [
-        "1.jpg",
-        "2.jpg",
-        "3.jpg",
-        "4.jpg",
-        "5.jpg",
-        "6.jpg",
-        "7.jpg",
-        "8.jpg",
-        "9.png",
-        "10.jpg",
-        "11.jpg",
-        "12.jpg",
-        "13.jpg"
-      ],
-      "style": {
-        "bgColor": "#fafafa",
-        "textColor": "#1a1a1a",
-        "textLightColor": "#666666",
-        "borderColor": "#e5e5e5",
-        "imageLayout": "full",
-        "imageSize": "large",
-        "imageSpacing": 1,
-        "imageAlign": "center"
-      },
-      "introText": ""
+      "cover": "1.jpg",
+      "published": true,
+      "featured": true,
+      "imageOrder": ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.png", "10.jpg", "11.jpg", "12.jpg", "13.jpg"],
+      "hiddenImages": [],
+      "style": {"bgColor": "#fafafa", "textColor": "#1a1a1a", "textLightColor": "#666666", "borderColor": "#e5e5e5", "imageLayout": "full", "imageSize": "large", "imageSpacing": 1, "imageAlign": "center"}
     },
     {
       "slug": "corridadofogo",
       "title": "Corrida do Fogo",
       "category": "Event Branding & Tactical Wayfinding",
+      "translations": {"pt": {"category": "Branding de Eventos & Wayfinding"}, "en": {"category": "Event Branding & Tactical Wayfinding"}},
+      "client": "Prefeitura de Palmas",
+      "year": "2024",
+      "services": {"pt": "Branding de Evento, Wayfinding, Sinalização", "en": "Event Branding, Tactical Wayfinding, Signage"},
+      "intro": {"pt": "", "en": ""},
       "folder": "img/corridadofogo",
-      "imageOrder": [
-        "lamina1.jpg",
-        "lamina1-5.jpg",
-        "lamina3.jpg",
-        "lamina4.jpg",
-        "lamina5.jpg",
-        "lamina6.jpg",
-        "lamina7.jpg",
-        "lamina8.jpg",
-        "lamina9.jpg",
-        "lamina10.jpg",
-        "lamina11.jpg",
-        "lamina12.jpg",
-        "lamina13.jpg"
-      ]
+      "cover": "lamina1.jpg",
+      "published": true,
+      "featured": false,
+      "imageOrder": ["lamina1.jpg", "lamina1-5.jpg", "lamina3.jpg", "lamina4.jpg", "lamina5.jpg", "lamina6.jpg", "lamina7.jpg", "lamina8.jpg", "lamina9.jpg", "lamina10.jpg", "lamina11.jpg", "lamina12.jpg", "lamina13.jpg"],
+      "hiddenImages": [],
+      "style": {"bgColor": "#fafafa", "textColor": "#1a1a1a", "textLightColor": "#666666", "borderColor": "#e5e5e5", "imageLayout": "full", "imageSize": "large", "imageSpacing": 1, "imageAlign": "center"}
     },
     {
       "slug": "protocantins",
       "title": "Fundacao Pro - Tocantins",
       "category": "Government Identity",
+      "translations": {"pt": {"category": "Identidade Governamental"}, "en": {"category": "Government Identity"}},
+      "client": "Governo do Tocantins",
+      "year": "2023",
+      "services": {"pt": "Identidade Governamental, Sistema de Comunicação", "en": "Government Identity, Communication System"},
+      "intro": {"pt": "", "en": ""},
       "folder": "img/protocantins",
-      "imageOrder": [
-        "lamina1.jpg",
-        "lamina3.png",
-        "lamina4.png",
-        "lamina5.png",
-        "lamina6.jpg",
-        "lamina7.png",
-        "lamina8.jpg",
-        "lamina9.png",
-        "lamina10.png"
-      ],
-      "style": {
-        "bgColor": "#fafafa",
-        "textColor": "#1a1a1a",
-        "textLightColor": "#666666",
-        "borderColor": "#e5e5e5",
-        "imageLayout": "grid",
-        "imageSize": "large",
-        "imageSpacing": 1,
-        "imageAlign": "center"
-      },
-      "introText": ""
+      "cover": "lamina1.jpg",
+      "published": true,
+      "featured": false,
+      "imageOrder": ["lamina1.jpg", "lamina3.png", "lamina4.png", "lamina5.png", "lamina6.jpg", "lamina7.png", "lamina8.jpg", "lamina9.png", "lamina10.png"],
+      "hiddenImages": [],
+      "style": {"bgColor": "#fafafa", "textColor": "#1a1a1a", "textLightColor": "#666666", "borderColor": "#e5e5e5", "imageLayout": "grid", "imageSize": "large", "imageSpacing": 1, "imageAlign": "center"}
     }
   ]
 }
