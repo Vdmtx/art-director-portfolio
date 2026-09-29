@@ -290,16 +290,17 @@
         const slug = urlParams.get('slug');
         const currentLang = localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('pt') ? 'pt' : 'en');
         const caseUi = {
-            pt: { back: 'Voltar aos trabalhos', client: 'Cliente', year: 'Ano', services: 'Serviços', next: 'Próximo case', all: 'Ver todos os trabalhos', categories: { coisamaislinda: 'Identidade Visual & Estratégia de Varejo', bombeirodeaco: 'Branding Institucional & Design de Medalhas', corridadofogo: 'Branding de Eventos & Wayfinding', protocantins: 'Identidade Governamental' } },
-            en: { back: 'Back to selected work', client: 'Client', year: 'Year', services: 'Services', next: 'Next case study', all: 'View all selected work', categories: { coisamaislinda: 'Visual Identity & Retail Strategy', bombeirodeaco: 'Institutional Branding & Medal Design', corridadofogo: 'Event Branding & Wayfinding', protocantins: 'Government Identity' } },
-            jp: { back: '作品一覧へ戻る', client: 'クライアント', year: '年', services: 'サービス', next: '次のケース', all: 'すべての作品を見る', categories: { coisamaislinda: 'ビジュアルアイデンティティ＆小売戦略', bombeirodeaco: '組織ブランディング＆メダルデザイン', corridadofogo: 'イベントブランディング＆サイン計画', protocantins: '政府機関アイデンティティ' } },
-            zh: { back: '返回作品', client: '客户', year: '年份', services: '服务', next: '下一个案例', all: '查看全部作品', categories: { coisamaislinda: '视觉识别与零售策略', bombeirodeaco: '机构品牌与奖章设计', corridadofogo: '活动品牌与导视', protocantins: '政府机构识别' } }
+            pt: { back: 'Voltar aos trabalhos', client: 'Cliente', year: 'Ano', services: 'Serviços', next: 'Próximo case', all: 'Ver todos os trabalhos', categories: { marigils: 'Masterbrand de Varejo & Sistema de Embalagens', coisamaislinda: 'Identidade Visual & Estratégia de Varejo', bombeirodeaco: 'Branding Institucional & Design de Medalhas', corridadofogo: 'Branding de Eventos & Wayfinding', protocantins: 'Identidade Governamental' } },
+            en: { back: 'Back to selected work', client: 'Client', year: 'Year', services: 'Services', next: 'Next case study', all: 'View all selected work', categories: { marigils: 'Retail Masterbrand & Packaging System', coisamaislinda: 'Visual Identity & Retail Strategy', bombeirodeaco: 'Institutional Branding & Medal Design', corridadofogo: 'Event Branding & Wayfinding', protocantins: 'Government Identity' } },
+            jp: { back: '作品一覧へ戻る', client: 'クライアント', year: '年', services: 'サービス', next: '次のケース', all: 'すべての作品を見る', categories: { marigils: 'リテール・マスターブランド＆パッケージシステム', coisamaislinda: 'ビジュアルアイデンティティ＆小売戦略', bombeirodeaco: '組織ブランディング＆メダルデザイン', corridadofogo: 'イベントブランディング＆サイン計画', protocantins: '政府機関アイデンティティ' } },
+            zh: { back: '返回作品', client: '客户', year: '年份', services: '服务', next: '下一个案例', all: '查看全部作品', categories: { marigils: '零售主品牌与包装系统', coisamaislinda: '视觉识别与零售策略', bombeirodeaco: '机构品牌与奖章设计', corridadofogo: '活动品牌与导视', protocantins: '政府机构识别' } }
         };
         const ui = caseUi[currentLang] || caseUi.en;
         document.documentElement.lang = currentLang === 'pt' ? 'pt-BR' : currentLang === 'jp' ? 'ja' : currentLang === 'zh' ? 'zh-CN' : 'en';
         
         // Dados dos cases - SEGURO ALTERAR textos
         const caseDetails = {
+            'marigils': { client: 'Marigil · Mandaue City, Cebu', year: '2026', services: { pt: 'Estratégia de Marca, Identidade Visual, Sistema de Embalagens, Comunicação de Varejo', en: 'Brand Strategy, Visual Identity, Packaging System, Retail Communication' } },
             'coisamaislinda': { client: 'Coisa Mais Linda', year: '2024', services: { pt: 'Identidade Visual, Estratégia de Varejo, Embalagens', en: 'Visual Identity, Retail Strategy, Packaging' } },
             'bombeirodeaco': { client: 'Corpo de Bombeiros TO', year: '2023', services: { pt: 'Branding Institucional, Medalha, Materiais de Evento', en: 'Institutional Branding, Medal Design, Event Materials' } },
             'corridadofogo': { client: 'Prefeitura de Palmas', year: '2024', services: { pt: 'Branding de Evento, Wayfinding, Sinalização', en: 'Event Branding, Tactical Wayfinding, Signage' } },
