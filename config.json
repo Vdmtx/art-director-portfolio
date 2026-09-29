@@ -62,10 +62,10 @@
       "services": {"pt": "Identidade Visual, Estratégia de Varejo, Embalagens", "en": "Visual Identity, Retail Strategy, Packaging"},
       "intro": {"pt": "", "en": ""},
       "folder": "img/coisamaislinda",
-      "cover": "",
+      "cover": "lamina1.jpg",
       "published": true,
       "featured": true,
-      "imageOrder": [],
+      "imageOrder": ["lamina1.jpg", "lamina2.jpg", "lamina3.jpg", "lamina4.jpg", "lamina5.jpg", "lamina6.jpg", "lamina7.jpg", "lamina8.jpg"],
       "hiddenImages": [],
       "style": {"bgColor": "#fafafa", "textColor": "#1a1a1a", "textLightColor": "#666666", "borderColor": "#e5e5e5", "imageLayout": "masonry", "imageSize": "large", "imageSpacing": 1, "imageAlign": "center"}
     },
