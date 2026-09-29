@@ -192,7 +192,7 @@ async function uploadImages(){
   $('uploadBtn').disabled=true;$('uploadProgress').classList.remove('hidden');const bar=$('uploadProgress').firstElementChild;let done=0,failed=[];
   for(const file of selectedFiles){
     try{const path=c.folder+'/'+file.name;let sha;try{sha=(await request(api('/contents/'+path+'?ref='+BRANCH))).sha}catch(e){}
-      if(sha&&!confirm(`${file.name} já existe. Deseja substituir?`)){done++;bar.style.width=(done/selectedFiles.length*100)+'%';continue}
+      if(sha){failed.push(`${file.name}: já existe; renomeie o novo arquivo para evitar substituir uma imagem pública`);done++;bar.style.width=(done/selectedFiles.length*100)+'%';continue}
       const content=await fileToBase64(file);const body={message:`CMS: enviar ${file.name}`,content,branch:BRANCH};if(sha)body.sha=sha;
       await request(api('/contents/'+path),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
     }catch(e){failed.push(file.name+': '+e.message)}done++;bar.style.width=(done/selectedFiles.length*100)+'%';
@@ -208,7 +208,19 @@ function validate(){
   draftData.cases.forEach((c,i)=>{const n=i+1;if(!c.title)errors.push(`Case ${n}: título ausente.`);if(!c.slug)errors.push(`Case ${n}: slug ausente.`);if(slugs.has(c.slug))errors.push(`Slug duplicado: ${c.slug}.`);slugs.add(c.slug);if(!/^[a-z0-9-]+$/.test(c.slug))errors.push(`${c.title}: slug contém caracteres inválidos.`);if(!c.folder)errors.push(`${c.title}: pasta ausente.`);if(c.published!==false&&!c.imageOrder.length)errors.push(`${c.title}: nenhuma imagem ordenada.`);if(c.cover&&!c.imageOrder.includes(c.cover))errors.push(`${c.title}: a capa não está na galeria.`);if(!c.client)warnings.push(`${c.title}: cliente não informado.`);if(!c.year)warnings.push(`${c.title}: ano não informado.`);if(!localText(c.services,'pt')&&!localText(c.services,'en'))warnings.push(`${c.title}: serviços não informados.`)});
   return {errors,warnings};
 }
-function preparePublish(){readCompetencies();const result=validate();$('validationResult').innerHTML=(result.errors.length?`<div class="alert error"><strong>Publicação bloqueada</strong><ul class="validation-list">${result.errors.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:`<div class="alert success"><strong>Estrutura aprovada.</strong> Nenhum erro que possa quebrar o site foi encontrado.</div>`)+(result.warnings.length?`<div class="alert warning"><strong>Avisos editoriais</strong><ul>${result.warnings.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:'');$('confirmPublishBtn').disabled=!!result.errors.length;openModal('publishModal')}
+async function validateRemote(result){
+  for(const c of draftData.cases.filter(x=>x.published!==false)){
+    try{const files=await request(api('/contents/'+c.folder+'?ref='+BRANCH));const names=new Set((Array.isArray(files)?files:[]).filter(f=>/\.(jpe?g|png|gif|webp)$/i.test(f.name)).map(f=>f.name));
+      if(!names.size)result.errors.push(`${c.title}: a pasta não contém imagens.`);
+      const missing=(c.imageOrder||[]).filter(name=>!names.has(name));if(missing.length)result.errors.push(`${c.title}: arquivos ausentes — ${missing.join(', ')}.`);
+      if(c.cover&&!names.has(c.cover))result.errors.push(`${c.title}: o arquivo de capa não existe.`);
+      const unlisted=[...names].filter(name=>!c.imageOrder.includes(name)&&!(c.hiddenImages||[]).includes(name));if(unlisted.length)result.warnings.push(`${c.title}: ${unlisted.length} imagem(ns) enviada(s) ainda não está(ão) na ordem publicada.`);
+    }catch(e){result.errors.push(`${c.title}: não foi possível acessar a pasta “${c.folder}”.`)}
+  }
+  return result;
+}
+function renderValidation(result){$('validationResult').innerHTML=(result.errors.length?`<div class="alert error"><strong>Publicação bloqueada</strong><ul class="validation-list">${result.errors.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:`<div class="alert success"><strong>Estrutura e arquivos aprovados.</strong> Nenhum erro que possa quebrar o site foi encontrado.</div>`)+(result.warnings.length?`<div class="alert warning"><strong>Avisos editoriais</strong><ul>${result.warnings.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:'');$('confirmPublishBtn').disabled=!!result.errors.length}
+async function preparePublish(){readCompetencies();openModal('publishModal');$('confirmPublishBtn').disabled=true;$('validationResult').innerHTML='<div class="alert warning">Verificando estrutura, pastas, capas e imagens...</div>';let result=validate();if(!result.errors.length)result=await validateRemote(result);renderValidation(result)}
 async function publish(){
   const result=validate();if(result.errors.length)return;$('confirmPublishBtn').disabled=true;$('confirmPublishBtn').textContent='Publicando...';
   try{const latest=await request(api('/contents/config.json?ref='+BRANCH));if(latest.sha!==configSha)throw new Error('O arquivo público mudou desde que o painel foi aberto. Recarregue a página para evitar sobrescrever alterações recentes.');
