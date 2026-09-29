@@ -285,143 +285,93 @@
     <!-- LÓGICA (JavaScript)                          -->
     <!-- ============================================ -->
     <script>
-        // Pega o slug da URL (ex: ?slug=coisamaislinda)
-        const urlParams = new URLSearchParams(window.location.search);
-        const slug = urlParams.get('slug');
+        const params = new URLSearchParams(location.search);
+        const slug = params.get('slug');
+        const previewMode = params.get('preview') === '1';
         const currentLang = localStorage.getItem('lang') || (navigator.language.toLowerCase().startsWith('pt') ? 'pt' : 'en');
-        const caseUi = {
-            pt: { back: 'Voltar aos trabalhos', client: 'Cliente', year: 'Ano', services: 'Serviços', next: 'Próximo case', all: 'Ver todos os trabalhos', categories: { marigils: 'Masterbrand de Varejo & Sistema de Embalagens', coisamaislinda: 'Identidade Visual & Estratégia de Varejo', bombeirodeaco: 'Branding Institucional & Design de Medalhas', corridadofogo: 'Branding de Eventos & Wayfinding', protocantins: 'Identidade Governamental' } },
-            en: { back: 'Back to selected work', client: 'Client', year: 'Year', services: 'Services', next: 'Next case study', all: 'View all selected work', categories: { marigils: 'Retail Masterbrand & Packaging System', coisamaislinda: 'Visual Identity & Retail Strategy', bombeirodeaco: 'Institutional Branding & Medal Design', corridadofogo: 'Event Branding & Wayfinding', protocantins: 'Government Identity' } },
-            jp: { back: '作品一覧へ戻る', client: 'クライアント', year: '年', services: 'サービス', next: '次のケース', all: 'すべての作品を見る', categories: { marigils: 'リテール・マスターブランド＆パッケージシステム', coisamaislinda: 'ビジュアルアイデンティティ＆小売戦略', bombeirodeaco: '組織ブランディング＆メダルデザイン', corridadofogo: 'イベントブランディング＆サイン計画', protocantins: '政府機関アイデンティティ' } },
-            zh: { back: '返回作品', client: '客户', year: '年份', services: '服务', next: '下一个案例', all: '查看全部作品', categories: { marigils: '零售主品牌与包装系统', coisamaislinda: '视觉识别与零售策略', bombeirodeaco: '机构品牌与奖章设计', corridadofogo: '活动品牌与导视', protocantins: '政府机构识别' } }
+        const uiByLang = {
+            pt:{back:'Voltar aos trabalhos',client:'Cliente',year:'Ano',services:'Serviços',next:'Próximo case',all:'Ver todos os trabalhos',notFound:'Case não encontrado',notFoundText:'O case solicitado não existe ou foi removido.',noImages:'Nenhuma imagem encontrada',preview:'PRÉ-VISUALIZAÇÃO · O SITE PÚBLICO NÃO FOI ALTERADO'},
+            en:{back:'Back to selected work',client:'Client',year:'Year',services:'Services',next:'Next case study',all:'View all selected work',notFound:'Case not found',notFoundText:'This case does not exist or has been removed.',noImages:'No images found',preview:'PREVIEW · THE PUBLIC SITE HAS NOT BEEN CHANGED'},
+            jp:{back:'作品一覧へ戻る',client:'クライアント',year:'年',services:'サービス',next:'次のケース',all:'すべての作品を見る',notFound:'作品が見つかりません',notFoundText:'この作品は存在しないか、削除されました。',noImages:'画像がありません',preview:'プレビュー · 公開サイトは変更されていません'},
+            zh:{back:'返回作品',client:'客户',year:'年份',services:'服务',next:'下一个案例',all:'查看全部作品',notFound:'未找到案例',notFoundText:'该案例不存在或已被删除。',noImages:'没有找到图片',preview:'预览 · 公开网站尚未更改'}
         };
-        const ui = caseUi[currentLang] || caseUi.en;
-        document.documentElement.lang = currentLang === 'pt' ? 'pt-BR' : currentLang === 'jp' ? 'ja' : currentLang === 'zh' ? 'zh-CN' : 'en';
-        
-        // Dados dos cases - SEGURO ALTERAR textos
-        const caseDetails = {
-            'marigils': { client: 'Marigil · Mandaue City, Cebu', year: '2026', services: { pt: 'Estratégia de Marca, Identidade Visual, Sistema de Embalagens, Comunicação de Varejo', en: 'Brand Strategy, Visual Identity, Packaging System, Retail Communication' } },
-            'coisamaislinda': { client: 'Coisa Mais Linda', year: '2024', services: { pt: 'Identidade Visual, Estratégia de Varejo, Embalagens', en: 'Visual Identity, Retail Strategy, Packaging' } },
-            'bombeirodeaco': { client: 'Corpo de Bombeiros TO', year: '2023', services: { pt: 'Branding Institucional, Medalha, Materiais de Evento', en: 'Institutional Branding, Medal Design, Event Materials' } },
-            'corridadofogo': { client: 'Prefeitura de Palmas', year: '2024', services: { pt: 'Branding de Evento, Wayfinding, Sinalização', en: 'Event Branding, Tactical Wayfinding, Signage' } },
-            'protocantins': { client: 'Governo do Tocantins', year: '2023', services: { pt: 'Identidade Governamental, Sistema de Comunicação', en: 'Government Identity, Communication System' } }
-        };
-        
-        // Função principal - NÃO ALTERAR estrutura
-        async function loadCase() {
-            try {
-                const configRes = await fetch('config.json');
-                const config = await configRes.json();
-                
-                const caseData = config.cases.find(c => c.slug === slug);
-                
-                if (!caseData) { showError(); return; }
-                
-                // Aplica cores personalizadas do admin
-                if (caseData.style) {
-                    document.documentElement.style.setProperty('--color-bg', caseData.style.bgColor || '#fafafa');
-                    document.documentElement.style.setProperty('--color-text', caseData.style.textColor || '#1a1a1a');
-                    document.documentElement.style.setProperty('--color-text-light', caseData.style.textLightColor || '#666666');
-                    document.documentElement.style.setProperty('--color-border', caseData.style.borderColor || '#e5e5e5');
-                }
-                
-                document.getElementById('backLabel').textContent = ui.back;
-                document.getElementById('clientLabel').textContent = ui.client;
-                document.getElementById('yearLabel').textContent = ui.year;
-                document.getElementById('servicesLabel').textContent = ui.services;
-                document.getElementById('nextLabel').textContent = ui.next;
-                document.getElementById('endBackLabel').textContent = ui.all;
-                document.getElementById('caseCategory').textContent = ui.categories[slug] || caseData.category;
-                document.getElementById('caseTitle').textContent = caseData.title;
-                
-                // Texto introdutório (opcional)
-                if (caseData.introText) {
-                    const introEl = document.getElementById('caseIntro');
-                    introEl.textContent = caseData.introText;
-                    introEl.style.display = 'block';
-                }
-                
-                const details = caseDetails[slug] || {};
-                document.getElementById('caseClient').textContent = details.client || '—';
-                document.getElementById('caseYear').textContent = details.year || '—';
-                document.getElementById('caseServices').textContent = details.services?.[currentLang] || details.services?.en || '—';
-                const caseIndex = config.cases.findIndex(c => c.slug === slug);
-                const nextCase = config.cases[(caseIndex + 1) % config.cases.length];
-                if (nextCase) {
-                    const nextLink = document.getElementById('nextCase');
-                    nextLink.href = 'case.html?slug=' + encodeURIComponent(nextCase.slug);
-                    nextLink.textContent = nextCase.title;
-                }
-                
+        const ui=uiByLang[currentLang]||uiByLang.en;
+        const localized=value=>value&&typeof value==='object'?(value[currentLang]||value.en||value.pt||Object.values(value)[0]||''):(value||'');
+        const caseField=(data,field)=>field==='category'?localized(data.translations?.[currentLang]?.category||data.translations?.en?.category||data.category):localized(data.translations?.[currentLang]?.[field]||data[field]);
+        document.documentElement.lang=currentLang==='pt'?'pt-BR':currentLang==='jp'?'ja':currentLang==='zh'?'zh-CN':'en';
+
+        async function getData(){
+            if(previewMode){
+                try{const draft=JSON.parse(localStorage.getItem('vdmtx-portfolio-draft-v2'));if(draft?.cases)return draft}catch(e){}
+            }
+            const response=await fetch('config.json',{cache:'no-store'});
+            if(!response.ok)throw new Error('config');
+            return response.json();
+        }
+
+        async function loadCase(){
+            try{
+                const config=await getData();
+                const caseData=(config.cases||[]).find(c=>c.slug===slug&&(previewMode||c.published!==false));
+                if(!caseData){showError();return}
+                const style=caseData.style||{};
+                document.documentElement.style.setProperty('--color-bg',style.bgColor||'#fafafa');
+                document.documentElement.style.setProperty('--color-text',style.textColor||'#1a1a1a');
+                document.documentElement.style.setProperty('--color-text-light',style.textLightColor||'#666666');
+                document.documentElement.style.setProperty('--color-border',style.borderColor||'#e5e5e5');
+                document.getElementById('backLabel').textContent=ui.back;
+                document.getElementById('clientLabel').textContent=ui.client;
+                document.getElementById('yearLabel').textContent=ui.year;
+                document.getElementById('servicesLabel').textContent=ui.services;
+                document.getElementById('nextLabel').textContent=ui.next;
+                document.getElementById('endBackLabel').textContent=ui.all;
+                document.getElementById('caseCategory').textContent=caseField(caseData,'category');
+                document.getElementById('caseTitle').textContent=caseField(caseData,'title');
+                const intro=localized(caseData.intro)||caseData.introText||'';
+                if(intro){const el=document.getElementById('caseIntro');el.textContent=intro;el.style.display='block'}
+                document.getElementById('caseClient').textContent=caseData.client||'—';
+                document.getElementById('caseYear').textContent=caseData.year||'—';
+                document.getElementById('caseServices').textContent=localized(caseData.services)||'—';
+                const visible=(config.cases||[]).filter(c=>c.published!==false);
+                const caseIndex=visible.findIndex(c=>c.slug===slug),nextCase=visible[(caseIndex+1)%visible.length];
+                if(nextCase){const link=document.getElementById('nextCase');link.href='case.html?slug='+encodeURIComponent(nextCase.slug);link.textContent=caseField(nextCase,'title')}
+                if(previewMode)showPreviewBanner();
                 await loadImages(caseData);
-                document.title = caseData.title + ' — VDMTX';
-                
-            } catch (error) {
-                console.error('Erro:', error);
-                showError();
-            }
+                document.title=caseField(caseData,'title')+' — VDMTX';
+            }catch(error){console.error(error);showError()}
         }
-        
-        // Carrega e exibe as imagens - NÃO ALTERAR lógica
-        async function loadImages(caseData) {
-            const grid = document.getElementById('galleryGrid');
-            try {
-                const response = await fetch('https://api.github.com/repos/vdmtx/art-director-portfolio/contents/' + caseData.folder);
-                if (!response.ok) { grid.innerHTML = '<div class="error">Nenhuma imagem encontrada</div>'; return; }
-                
-                const files = await response.json();
-                let images = files.filter(f => f.name.match(/\.(jpg|jpeg|png|gif|webp)$/i));
-                if (images.length === 0) { grid.innerHTML = '<div class="error">Nenhuma imagem encontrada</div>'; return; }
-                
-                // Ordena conforme definido no admin
-                if (caseData.imageOrder && caseData.imageOrder.length > 0) {
-                    images.sort((a, b) => {
-                        const oA = caseData.imageOrder.indexOf(a.name), oB = caseData.imageOrder.indexOf(b.name);
-                        return (oA === -1 && oB === -1) ? a.name.localeCompare(b.name) : (oA === -1 ? 1 : oB === -1 ? -1 : oA - oB);
-                    });
-                } else { images.sort((a, b) => a.name.localeCompare(b.name)); }
-                
-                // Aplica configurações do admin (tamanho, espaçamento, alinhamento)
-                const style = caseData.style || {};
-                const size = style.imageSize || 'large';
-                const spacing = style.imageSpacing || 1;
-                const align = style.imageAlign || 'center';
-                
-                grid.className = 'gallery-grid size-' + size + ' align-' + align;
-                grid.style.setProperty('--image-max-width', 
-                    size === 'full' ? '100%' : 
-                    size === 'large' ? '1440px' : 
-                    size === 'medium' ? '1200px' : 
-                    size === 'small' ? '900px' : '1400px');
-                grid.style.setProperty('--image-spacing', spacing + 'px');
-                
-                // Renderiza as imagens
-                grid.innerHTML = images.map(img => 
-                    `<div class="gallery-item"><img src="${img.download_url}" alt="${img.name}" loading="lazy"></div>`
-                ).join('');
-                
-            } catch (e) {
-                console.error('Erro:', e);
-                grid.innerHTML = '<div class="error">Erro ao carregar imagens</div>';
-            }
+
+        async function loadImages(caseData){
+            const grid=document.getElementById('galleryGrid');
+            try{
+                const response=await fetch('https://api.github.com/repos/vdmtx/art-director-portfolio/contents/'+caseData.folder);
+                if(!response.ok)throw new Error('images');
+                const hidden=caseData.hiddenImages||[];
+                let images=(await response.json()).filter(f=>/\.(jpe?g|png|gif|webp)$/i.test(f.name)&&!hidden.includes(f.name));
+                if(caseData.imageOrder?.length){
+                    const byName=new Map(images.map(img=>[img.name,img]));
+                    images=caseData.imageOrder.map(name=>byName.get(name)).filter(Boolean);
+                }else images.sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}));
+                if(!images.length){grid.innerHTML='<div class="error">'+ui.noImages+'</div>';return}
+                const style=caseData.style||{},size=style.imageSize||'large',spacing=style.imageSpacing??1,align=style.imageAlign||'center';
+                grid.className='gallery-grid size-'+size+' align-'+align+' layout-'+(style.imageLayout||'full');
+                grid.style.setProperty('--image-max-width',size==='full'?'100%':size==='large'?'1440px':size==='medium'?'1200px':size==='small'?'900px':'1400px');
+                grid.style.setProperty('--image-spacing',spacing+'px');
+                grid.innerHTML=images.map(img=>`<div class="gallery-item"><img src="${img.download_url}" alt="${img.name}" loading="lazy"></div>`).join('');
+            }catch(e){grid.innerHTML='<div class="error">'+ui.noImages+'</div>'}
         }
-        
-        // Tela de erro - SEGURO ALTERAR textos
-        function showError() {
-            document.querySelector('.case-header').innerHTML = '<div class="error" style="padding:100px 60px;">' +
-                '<h1 style="font-family:Barlow Condensed,sans-serif;font-size:64px;line-height:.9;text-transform:uppercase;margin-bottom:20px;">Case não encontrado</h1>' +
-                '<p style="color:var(--color-text-light);margin-bottom:40px;">O case solicitado não existe ou foi removido.</p>' +
-                '<a href="index.html" style="display:inline-block;padding:14px 28px;background:var(--color-text);color:var(--color-bg);text-decoration:none;font-size:11px;letter-spacing:0.1em;">Voltar ao portfólio</a>' +
-                '</div>';
-            document.querySelector('.gallery').style.display = 'none';
+
+        function showPreviewBanner(){
+            const bar=document.createElement('div');bar.textContent=ui.preview;
+            Object.assign(bar.style,{position:'fixed',left:'0',right:'0',bottom:'0',zIndex:'9999',padding:'10px 16px',background:'#ff4f24',color:'#fff',font:'700 12px Arial,sans-serif',letterSpacing:'.08em',textAlign:'center'});
+            document.body.appendChild(bar);
         }
-        
-        // Inicia ao carregar a página - NÃO ALTERAR
-        document.addEventListener('DOMContentLoaded', loadCase);
-        window.addEventListener('scroll', () => {
-            const max = document.documentElement.scrollHeight - window.innerHeight;
-            document.getElementById('scrollProgress').style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
-        }, { passive: true });
+        function showError(){
+            document.querySelector('.case-header').innerHTML='<div class="error" style="padding:100px 60px;"><h1 style="font-family:Barlow Condensed,sans-serif;font-size:64px;line-height:.9;text-transform:uppercase;margin-bottom:20px;">'+ui.notFound+'</h1><p style="color:var(--color-text-light);margin-bottom:40px;">'+ui.notFoundText+'</p><a href="index.html" style="display:inline-block;padding:14px 28px;background:var(--color-text);color:var(--color-bg);text-decoration:none;font-size:11px;letter-spacing:.1em;">'+ui.all+'</a></div>';
+            document.querySelector('.gallery').style.display='none';
+        }
+        document.addEventListener('DOMContentLoaded',loadCase);
+        window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('scrollProgress').style.width=(max>0?(window.scrollY/max)*100:0)+'%'},{passive:true});
     </script>
 </body>
 </html>
